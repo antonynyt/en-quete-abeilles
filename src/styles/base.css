@@ -1,0 +1,70 @@
+@import '@csstools/normalize.css';
+
+/* Define CSS variables for colors */
+:root {
+    --color-background: #fffdf9;
+    --color-text: #12120d;
+    --color-beige: #f5e3c2;
+    --color-beige-light: #fdf6e7;
+    --color-brown: #633a1e;
+    --color-brown-dark: #361917;
+    --color-orange: #ffc107;
+    --color-orange-electric: #dc3545;
+    --color-green: #94de6d;
+    --color-sky: #c5eff9;
+}
+
+/* Define CSS variables for font size */
+:root {
+    --font-size-xs: 0.875rem;
+    --font-size-sm: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.375rem;
+    --font-size-xl: 1.625rem;
+    --font-size-xxl: 2rem;
+
+    --base-line-height: 1.6;
+    --header-line-height: 1.4;
+}
+
+/* Define CSS variables for spacing and radius */
+:root {
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 8rem;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+}
+
+html {
+    font-size: clamp(var(--font-size-xs), calc(1rem + 0.25vw), var(--font-size-md));
+    scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: normal;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--color-text);
+    background: var(--color-background);
+    line-height: var(--base-line-height);
+    font-family: sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.4s;
+}
