@@ -78,7 +78,9 @@ a {
     padding: var(--spacing-sm);
     border-color: var(--color-beige);
     border-radius: var(--radius-md);
-    box-shadow: 0 calc(var(--border-size)*2) 0 var(--color-beige);
+    box-shadow:
+        var(--shadow-offset-y) var(--color-beige),
+        var(--shadow-inset);
 }
 
 .locked {

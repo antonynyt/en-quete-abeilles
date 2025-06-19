@@ -4,8 +4,10 @@ import TheNavbar from '@/components/TheNavbar.vue';
 </script>
 
 <template>
-    <TheNavbar />
-    <main>
-        <h1>This is an profil page</h1>
-    </main>
+    <div>
+        <TheNavbar />
+        <main>
+            <h1>This is a profil page</h1>
+        </main>
+    </div>
 </template>

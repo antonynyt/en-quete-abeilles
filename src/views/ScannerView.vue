@@ -5,9 +5,11 @@ import TheNavbar from '@/components/TheNavbar.vue';
 </script>
 
 <template>
-    <TheNavbar />
-    <main>
-        <h1>This is an scanner page</h1>
-        <BaseButtonBack />
-    </main>
+    <div>
+        <TheNavbar />
+        <main>
+            <h1>This is a scanner page</h1>
+            <BaseButtonBack />
+        </main>
+    </div>
 </template>

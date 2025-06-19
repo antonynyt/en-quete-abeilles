@@ -19,6 +19,12 @@ const router = createRouter({
             name: 'profil',
             component: () => import('../views/ProfilView.vue'),
         },
+        {
+            path: '/clue',
+            name: 'clue',
+            component: () => import('../views/ClueView.vue'),
+            meta: { transition: 'slide-in' },
+        },
     ],
 })
 

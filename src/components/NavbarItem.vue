@@ -12,11 +12,17 @@ const props = defineProps({
     }
 });
 
+const vibrate = () => {
+    if ('vibrate' in navigator) {
+        navigator.vibrate(1);
+    }
+};
+
 
 </script>
 
 <template>
-    <RouterLink :to="href" active-class="active">
+    <RouterLink :to="href" active-class="active" @click="vibrate">
         <div class="icon">
             <slot></slot>
         </div>
@@ -32,7 +38,7 @@ a {
     justify-content: center;
     flex: 1 1 0px;
     font-size: var(--font-size-xs);
-    font-family: "Pally";
+    font-family: 'Pally', sans-serif;
     font-weight: 500;
     color: inherit;
     padding: var(--spacing-xs) var(--spacing-sm);

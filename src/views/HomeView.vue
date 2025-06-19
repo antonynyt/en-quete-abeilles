@@ -16,42 +16,44 @@ function test() {
 </script>
 
 <template>
-    <TheNavbar />
-    <main>
-        <h1>Bienvenue Gros titre</h1>
-        <BaseButton tag="button" type="button" @click="test" class="primary">Commencer l'aventure</BaseButton>
-        <BaseButton tag="a" @click="test" href="scanner">Commencer l'aventure</BaseButton>
+    <div>
+        <TheNavbar />
+        <main>
+            <header>
+                <h1>Tâches</h1>
+                <div>
+                    <BaseProgress :currentStep="1" :totalSteps="5" />
+                </div>
+            </header>
+            <BaseButton tag="button" type="button" @click="test" class="primary">Commencer l'aventure</BaseButton>
+            <BaseButton tag="a" @click="test" href="scanner">Commencer l'aventure</BaseButton>
 
-        <div>
-            <BackButton />
-            <BaseButton tag="button" type="button" @click="test">Voler l'abeille</BaseButton>
-        </div>
-        <BaseTask href="scanner" color="var(--color-green)" title="J'adore danser" :isCompleted=true />
-        <BaseTask color="var(--color-sky)" title="Pollen et nectar" />
-        <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
-        <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
-        <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
-        <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
-        <BaseTask title="Brûler l'abeille" />
-        <BaseTask color="var(--color-orange)" title="Trouver le miel" :isLocked=true />
-        <BaseTask color="var(--color-sky)" title="Éviter la reine" />
+            <div>
+                <BackButton />
+                <BaseButton tag="button" type="button" @click="test">Voler l'abeille</BaseButton>
+            </div>
+            <BaseTask href="clue" color="var(--color-green)" title="J'adore danser" :isCompleted=true />
+            <BaseTask color="var(--color-sky)" title="Pollen et nectar" />
+            <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
+            <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
+            <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
+            <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask color="var(--color-orange)" title="Ramener l'abeille" :isLocked=true />
 
-        <div>
-            <BaseProgress :currentStep="1" :totalSteps="5" />
-        </div>
-
-        <div>
+            <div>
+                <BaseIcon>
+                    <IconCommunity />
+                </BaseIcon>
+                <BaseIcon color="var(--color-brown)">
+                    <IconFlag fill="var(--color-orange)" />
+                </BaseIcon>
+            </div>
             <BaseIcon>
-                <IconCommunity />
+                <IconTooling />
             </BaseIcon>
-            <BaseIcon color="var(--color-brown)">
-                <IconFlag fill="var(--color-orange)" />
-            </BaseIcon>
-        </div>
-        <BaseIcon>
-            <IconTooling />
-        </BaseIcon>
-    </main>
+        </main>
+    </div>
 </template>
 
 <style scoped>
@@ -61,7 +63,7 @@ main {
     gap: var(--spacing-md);
 }
 
-div {
+main>div {
     display: flex;
     flex-direction: row;
     gap: var(--spacing-md);

@@ -43,6 +43,11 @@
     --border-size: 2px;
 }
 
+:root {
+    --shadow-offset-y: 0 calc(var(--border-size) * 2) 0;
+    --shadow-inset: inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
 html {
     font-size: clamp(var(--font-size-xs), calc(1rem + 0.25vw), var(--font-size-md));
     scroll-behavior: smooth;
