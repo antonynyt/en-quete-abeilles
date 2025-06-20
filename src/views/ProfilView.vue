@@ -4,7 +4,7 @@ import TheNavbar from '@/components/TheNavbar.vue';
 </script>
 
 <template>
-    <div>
+    <div class="with-navbar container-spacing">
         <TheNavbar />
         <main>
             <h1>This is a profil page</h1>

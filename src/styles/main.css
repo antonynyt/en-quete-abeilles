@@ -2,9 +2,17 @@
 
 #app {
     margin: 0 auto;
+}
+
+.container-spacing {
     padding: var(--spacing-md);
-    font-weight: normal;
-    margin-bottom: 100px; /* Adjusted for navbar spacing */
+    padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.with-navbar {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom)); /* Adjusted for navbar spacing */
 }
 
 h1,
@@ -21,6 +29,8 @@ h6 {
 
 h1 {
     font-size: var(--font-size-xxl);
+    margin-bottom: var(--spacing-md);
+    text-wrap-style: balance;
 }
 
 h2 {
@@ -61,4 +71,18 @@ h3 {
 
 .primary {
     background-color: var(--color-orange);
+}
+
+/* Image wrapper avoiding scroll overflow */
+
+.img-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
 }

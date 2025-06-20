@@ -5,7 +5,7 @@ import BaseButtonBack from '@/components/BaseButtonBack.vue';
 </script>
 
 <template>
-    <div>
+    <div class="container-spacing">
         <BaseButtonBack />
         <main>
             <h1>This is a clue page</h1>
@@ -36,3 +36,9 @@ import BaseButtonBack from '@/components/BaseButtonBack.vue';
         </main>
     </div>
 </template>
+
+<style scoped>
+div.container-spacing {
+    background-color: red;
+}
+</style>

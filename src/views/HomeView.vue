@@ -1,22 +1,14 @@
 <script setup>
-import BackButton from '@/components/BaseButtonBack.vue';
-import BaseButton from '@/components/BaseButton.vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import BaseTask from '@/components/BaseTask.vue';
 import BaseProgress from '@/components/BaseProgress.vue';
-import BaseIcon from '@/components/BaseIcon.vue';
-import IconCommunity from '@/components/icons/IconCommunity.vue';
-import IconFlag from '@/components/icons/IconFlag.vue';
-import IconTooling from '@/components/icons/IconTooling.vue';
-
-function test() {
-    console.log('Button clicked!');
-}
+import BaseButton from '@/components/BaseButton.vue';
+import BackButton from '@/components/BaseButtonBack.vue';
 
 </script>
 
 <template>
-    <div>
+    <div class="with-navbar container-spacing">
         <TheNavbar />
         <main>
             <header>
@@ -39,19 +31,14 @@ function test() {
             <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
             <BaseTask color="var(--color-sky)" title="La drogue de la vie" />
             <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
+            <BaseTask title="Brûler l'abeille" />
             <BaseTask color="var(--color-orange)" title="Ramener l'abeille" :isLocked=true />
-
-            <div>
-                <BaseIcon>
-                    <IconCommunity />
-                </BaseIcon>
-                <BaseIcon color="var(--color-brown)">
-                    <IconFlag fill="var(--color-orange)" />
-                </BaseIcon>
-            </div>
-            <BaseIcon>
-                <IconTooling />
-            </BaseIcon>
         </main>
     </div>
 </template>
