@@ -19,7 +19,7 @@ import BgGrass from '@/components/BgGrass.vue';
             </div>
         </header>
         <section>
-            <BaseButton tag="a" @click="test" href="onboarding">Commencer l'aventure</BaseButton>
+            <BaseButton tag="a" href="/onboarding">Commencer l'aventure</BaseButton>
             <BaseTask href="clue" color="var(--color-green)" title="J'adore danser" :isCompleted=true />
             <BaseTask color="var(--color-sky)" title="Pollen et nectar" />
             <BaseTask color="var(--color-sky)" title="La drogue de la vie" />

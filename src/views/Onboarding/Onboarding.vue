@@ -7,6 +7,8 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseButtonBack from '@/components/BaseButtonBack.vue'
 import Step2 from './Step2.vue'
 import Step3 from './Step3.vue'
+import Step4 from './Step4.vue'
+import Step5 from './Step5.vue'
 
 const router = useRouter()
 const currentStep = ref(1)
@@ -29,6 +31,15 @@ const stepComponents = {
         component: Step3,
         buttonText: "Adopter l'abeille"
     },
+    4: {
+        component: Step4,
+        buttonText: "Continuer"
+    },
+    5: {
+        component: Step5,
+        buttonText: "C'est compris!",
+        primary: true
+    }
 }
 
 const currentComponent = computed(() => stepComponents[currentStep.value]?.component)
@@ -57,28 +68,41 @@ function completeOnboarding() {
 </script>
 
 <template>
-    <div class="onboarding container-spacing">
-        <!-- Progress indicator -->
-        <BaseProgress :current-step="currentStep - 1" :total-steps="totalSteps - 1" />
+    <main class="onboarding">
+        <header>
+            <BaseProgress :current-step="currentStep - 1" :total-steps="totalSteps - 1" />
+        </header>
 
-        <!-- Step content with transition -->
-        <div class="content-wrapper">
-            <div class="content-step">
+        <section class="content-wrapper">
+            <div class="content">
                 <component :is="currentComponent" :key="currentStep" />
             </div>
-        </div>
+        </section>
 
-        <!-- Navigation buttons -->
-        <div class="actions">
+        <nav class="actions">
             <BaseButtonBack v-if="currentStep != 1" @click="goBack" />
             <BaseButton @click="goNext" :class="(stepComponents[currentStep]?.primary ? 'primary' : '')">
                 {{ buttonText }}
             </BaseButton>
-        </div>
-    </div>
+        </nav>
+    </main>
 </template>
 
 <style scoped>
+header,
+.actions,
+.description {
+    padding: var(--spacing-md);
+    max-width: 732px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+header,
+.description {
+    padding-bottom: 0;
+}
+
 .onboarding {
     display: grid;
     grid-template-columns: 100%;
@@ -95,12 +119,13 @@ function completeOnboarding() {
     overflow: visible;
 }
 
-.content-step {
+.content {
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-height: 100%;
+    overflow: hidden;
     overflow-y: auto;
-    padding-bottom: var(--spacing-md);
 }
 
 .actions {
@@ -111,7 +136,7 @@ function completeOnboarding() {
     margin-bottom: 0;
 }
 
-@media only screen and (min-device-height: 460px) and (min-height: 360px) {
+@media only screen and (min-device-height: 460px) and (min-height: 460px) {
     .actions {
         margin-bottom: var(--spacing-md);
     }

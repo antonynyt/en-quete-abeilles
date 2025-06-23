@@ -1,19 +1,18 @@
 <script setup>
-import BgGrass from '@/components/BgGrass.vue';
+import Step from './Step.vue'
 </script>
 
 <template>
-    <div class="step">
-        <div class="img-wrapper">
-            <img src="../../assets/onboarding/bee-profil.svg" alt="">
-        </div>
-        <header>
+    <Step>
+        <template #illustrations>
+            <img class="bee" src="../../assets/onboarding/bee-profil.svg" alt="">
+        </template>
+        <template #description>
             <h1>Une abeille semble perdue.</h1>
             <p>Une abeille est désorientée à cause des pesticides. Elle a perdu la notion de l’espace et son
                 intelligence est ralentie. Aidez-la !</p>
-        </header>
-        <!-- <BgGrass class="h-80" /> -->
-    </div>
+        </template>
+    </Step>
 </template>
 
 <style scoped>
@@ -21,13 +20,8 @@ import BgGrass from '@/components/BgGrass.vue';
     background-color: var(--color-sky);
 }
 
-.step {
-    margin-top: auto;
-}
-
-img {
+.bee {
     position: absolute;
-    bottom: 50vh;
     width: 100%;
     max-width: 30vh;
     min-width: 200px;
