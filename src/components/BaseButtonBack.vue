@@ -5,7 +5,7 @@ import IconBack from './icons/IconBack.vue';
 </script>
 
 <template>
-    <BaseButton tag="button" type="button" @click="$router.go(-1)" class="button">
+    <BaseButton tag="button" type="button" class="button">
         <span class="visually-hidden">Retour</span>
         <IconBack />
     </BaseButton>

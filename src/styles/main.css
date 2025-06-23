@@ -9,6 +9,8 @@
     padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
     min-height: 100vh;
     min-height: 100dvh;
+    position: relative;
+    z-index: 1;
 }
 
 .with-navbar {
@@ -39,6 +41,10 @@ h2 {
 
 h3 {
     font-size: var(--font-size-lg);
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
 }
 
 /* Button styles */
@@ -85,4 +91,7 @@ h3 {
     height: 100%;
     overflow: hidden;
     z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

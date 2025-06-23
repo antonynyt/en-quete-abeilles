@@ -29,7 +29,8 @@ const progress = computed(() => {
     align-items: center;
     justify-content: start;
     width: 100%;
-    height: 0.5rem;
+    min-width: 100px;
+    height: 0.8em;
     background-color: var(--color-beige);
     border-radius: var(--radius-sm);
     overflow: hidden;
@@ -40,5 +41,9 @@ const progress = computed(() => {
     background-color: var(--color-orange);
     width: 0;
     transition: width 0.3s ease;
+}
+
+.border {
+    border: var(--border-size) solid var(--color-brown);
 }
 </style>
