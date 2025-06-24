@@ -9,10 +9,14 @@ import Step2 from './Step2.vue'
 import Step3 from './Step3.vue'
 import Step4 from './Step4.vue'
 import Step5 from './Step5.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import IconFlag from '@/components/icons/IconFlag.vue'
+import BaseIcon from '@/components/BaseIcon.vue'
 
 const router = useRouter()
 const currentStep = ref(1)
 const totalSteps = 5
+const showModal = ref(false)
 
 // Track user progress (optional - prevents skipping ahead)
 const maxAllowedStep = ref(1)
@@ -51,7 +55,7 @@ function goNext() {
         currentStep.value++
         maxAllowedStep.value = Math.max(maxAllowedStep.value, currentStep.value)
     } else {
-        completeOnboarding()
+        showModal.value = true
     }
 }
 
@@ -69,7 +73,26 @@ function completeOnboarding() {
 
 <template>
     <main class="onboarding">
-        <header>
+        <BaseModal v-if="showModal" @close="showModal = false">
+            <header class="modal-header">
+                <BaseIcon>
+                    <IconFlag />
+                </BaseIcon>
+                <div>
+                    <h2>Quête</h2>
+                    <h3>Retrouver l'essaim</h3>
+                </div>
+            </header>
+            <ol>
+                <li>Lisez les indices</li>
+                <li>Déplacez-vous vers l'endroit </li>
+                <li>Scannez le code QR</li>
+                <li>Effectuez la tâche</li>
+            </ol>
+            <p>Une fois toutes les tâches terminées, ramenez l'abeille à la borne située dans le bâtiment.</p>
+            <BaseButton @click="completeOnboarding" class="primary">Accepter la quête</BaseButton>
+        </BaseModal>
+        <header class="progress-header">
             <BaseProgress :current-step="currentStep - 1" :total-steps="totalSteps - 1" />
         </header>
 
@@ -89,7 +112,13 @@ function completeOnboarding() {
 </template>
 
 <style scoped>
-header,
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.progress-header,
 .actions,
 .description {
     padding: var(--spacing-md);
@@ -98,7 +127,7 @@ header,
     width: 100%;
 }
 
-header,
+.progress-header,
 .description {
     padding-bottom: 0;
 }
