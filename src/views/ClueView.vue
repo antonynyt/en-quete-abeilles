@@ -38,7 +38,9 @@ import BaseButtonBack from '@/components/BaseButtonBack.vue';
 </template>
 
 <style scoped>
-div.container-spacing {
-    background-color: red;
+main {
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
 }
 </style>

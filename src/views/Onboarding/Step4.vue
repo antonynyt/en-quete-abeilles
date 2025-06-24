@@ -35,7 +35,7 @@ import Step from './Step.vue'
     height: 100%;
     box-sizing: border-box;
 
-    max-width: 732px;
+    max-width: var(--max-width);
     margin: 0 auto;
 
 }

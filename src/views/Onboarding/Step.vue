@@ -33,7 +33,7 @@ defineProps({
 
 .description>div,
 .illustrations {
-    max-width: 732px;
+    max-width: var(--max-width);
     margin: 0 auto;
 }
 

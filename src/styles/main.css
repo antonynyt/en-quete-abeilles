@@ -17,6 +17,17 @@
     padding-bottom: calc(110px + env(safe-area-inset-bottom)); /* Adjusted for navbar spacing */
 }
 
+@media screen and (min-width: 768px) {
+    .container-spacing {
+        padding: var(--spacing-md) var(--spacing-lg);
+        padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom));
+    }
+
+    .with-navbar {
+        margin-left: 100px;
+    }
+}
+
 h1,
 h2,
 h3,

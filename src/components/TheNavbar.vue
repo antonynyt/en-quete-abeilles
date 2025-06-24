@@ -7,34 +7,30 @@ import IconBee from './icons/IconBee.vue';
 
 <template>
     <header>
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-        <div class="wrapper">
-            <nav>
-                <NavbarItem href="/" title="Tâches">
-                    <IconTasklist />
-                </NavbarItem>
-                <NavbarItem href="/scanner" title="Scanner">
-                    <IconScanner />
-                </NavbarItem>
-                <NavbarItem href="/profil" title="Profil">
-                    <IconBee />
-                </NavbarItem>
-            </nav>
-        </div>
+        <nav>
+            <NavbarItem href="/tasks" title="Tâches">
+                <IconTasklist />
+            </NavbarItem>
+            <NavbarItem href="/scanner" title="Scanner">
+                <IconScanner />
+            </NavbarItem>
+            <NavbarItem href="/profil" title="Profil">
+                <IconBee />
+            </NavbarItem>
+        </nav>
     </header>
 </template>
 
 <style scoped>
-img.logo {
-    display: none;
-}
-
-.wrapper {
+header {
     width: 100%;
     box-sizing: border-box;
     position: fixed;
     bottom: 0;
     left: 0;
+    color: var(--color-brown);
+    background-color: var(--color-beige-light);
+    border-top: 1px solid var(--color-beige);
 }
 
 nav {
@@ -44,7 +40,33 @@ nav {
     gap: var(--spacing-sm);
     padding: var(--spacing-sm) var(--spacing-md);
     padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom));
-    background-color: var(--color-background);
-    color: var(--color-brown);
+    max-width: var(--max-width);
+    margin: auto;
+}
+
+@media screen and (min-width: 768px) {
+    header {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid var(--color-beige);
+        border-top: none;
+    }
+
+    nav {
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--spacing-lg);
+        padding: 0;
+        width: 80%;
+    }
+
 }
 </style>

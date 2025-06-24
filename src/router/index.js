@@ -14,8 +14,12 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            redirect: '/tasks',
+        },
+        {
+            path: '/tasks',
             name: 'tasks',
-            component: () => import('../views/HomeView.vue'),
+            component: () => import('../views/TasksView.vue'),
             beforeEnter: onboardingGuard,
         },
         {

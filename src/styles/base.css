@@ -41,6 +41,7 @@
     --radius-md: 16px;
 
     --border-size: 2px;
+    --max-width: 732px;
 }
 
 :root {

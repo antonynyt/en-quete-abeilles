@@ -11,8 +11,8 @@ import Step4 from './Step4.vue'
 import Step5 from './Step5.vue'
 
 import BaseModal from '@/components/BaseModal.vue'
-import IconFlag from '@/components/icons/IconFlag.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
+import IconCrown from '@/components/icons/IconCrown.vue'
 
 const router = useRouter()
 const currentStep = ref(1)
@@ -74,7 +74,7 @@ function completeOnboarding() {
         <BaseModal ref="modal">
             <header class="modal-header">
                 <BaseIcon color="var(--color-brown)">
-                    <IconFlag color="var(--color-orange)" />
+                    <IconCrown color="var(--color-orange)" />
                 </BaseIcon>
                 <div>
                     <h2>Quête</h2>
@@ -114,7 +114,7 @@ function completeOnboarding() {
 .actions,
 .description {
     padding: var(--spacing-md);
-    max-width: 732px;
+    max-width: var(--max-width);
     margin: 0 auto;
     width: 100%;
 }

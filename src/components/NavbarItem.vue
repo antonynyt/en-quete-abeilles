@@ -41,6 +41,7 @@ a {
     color: inherit;
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--radius-sm);
+    width: 100%;
 }
 
 .active {

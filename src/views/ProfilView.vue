@@ -11,3 +11,11 @@ import TheNavbar from '@/components/TheNavbar.vue';
         </main>
     </div>
 </template>
+
+<style scoped>
+main {
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
