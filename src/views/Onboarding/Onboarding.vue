@@ -1,14 +1,15 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import Step1 from './Step1.vue'
 import BaseProgress from '@/components/BaseProgress.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseButtonBack from '@/components/BaseButtonBack.vue'
+import Step1 from './Step1.vue'
 import Step2 from './Step2.vue'
 import Step3 from './Step3.vue'
 import Step4 from './Step4.vue'
 import Step5 from './Step5.vue'
+
 import BaseModal from '@/components/BaseModal.vue'
 import IconFlag from '@/components/icons/IconFlag.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
@@ -16,10 +17,8 @@ import BaseIcon from '@/components/BaseIcon.vue'
 const router = useRouter()
 const currentStep = ref(1)
 const totalSteps = 5
-const showModal = ref(false)
-
-// Track user progress (optional - prevents skipping ahead)
-const maxAllowedStep = ref(1)
+const modal = ref();
+const showModal = () => modal.value?.show();
 
 const stepComponents = {
     1: {
@@ -53,9 +52,8 @@ const buttonText = computed(() => stepComponents[currentStep.value]?.buttonText 
 function goNext() {
     if (currentStep.value < totalSteps) {
         currentStep.value++
-        maxAllowedStep.value = Math.max(maxAllowedStep.value, currentStep.value)
     } else {
-        showModal.value = true
+        showModal()
     }
 }
 
@@ -73,10 +71,10 @@ function completeOnboarding() {
 
 <template>
     <main class="onboarding">
-        <BaseModal v-if="showModal" @close="showModal = false">
+        <BaseModal ref="modal">
             <header class="modal-header">
-                <BaseIcon>
-                    <IconFlag />
+                <BaseIcon color="var(--color-brown)">
+                    <IconFlag color="var(--color-orange)" />
                 </BaseIcon>
                 <div>
                     <h2>Quête</h2>
@@ -112,12 +110,6 @@ function completeOnboarding() {
 </template>
 
 <style scoped>
-.modal-header {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-}
-
 .progress-header,
 .actions,
 .description {
@@ -169,5 +161,29 @@ function completeOnboarding() {
     .actions {
         margin-bottom: var(--spacing-md);
     }
+}
+
+/* modal */
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-header h2 {
+    font-size: var(--font-size-xl);
+    margin: 0;
+}
+
+.modal-header h3 {
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    margin: 0;
+}
+
+ol li::marker {
+    font-weight: 700;
 }
 </style>

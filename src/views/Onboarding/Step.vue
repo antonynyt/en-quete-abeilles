@@ -54,7 +54,7 @@ defineProps({
     }
 }
 
-
+/* Trick to expand the green behind the actions buttons */
 .green {
     position: absolute;
     left: 0;
@@ -86,7 +86,7 @@ defineProps({
 .illustrations::before {
     content: "";
     position: absolute;
-    width: 200vw;
+    width: 180vw;
     height: v-bind(hillHeight);
     bottom: 0;
     background-color: var(--color-green);

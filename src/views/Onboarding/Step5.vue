@@ -22,7 +22,7 @@ import Step from './Step.vue'
 .path {
     position: absolute;
     width: 95%;
-    max-width: 550px;
+    max-width: 55vh;
     right: 0;
     min-width: 200px;
     height: 100%;
