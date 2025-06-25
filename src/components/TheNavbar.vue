@@ -29,8 +29,9 @@ header {
     bottom: 0;
     left: 0;
     color: var(--color-brown);
-    background-color: var(--color-beige-light);
+    background-color: var(--color-background);
     border-top: 1px solid var(--color-beige);
+    z-index: 1000;
 }
 
 nav {

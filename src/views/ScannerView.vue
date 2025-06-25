@@ -1,23 +1,20 @@
-<script setup lang="ts">
-import BaseButtonBack from '@/components/BaseButtonBack.vue';
+<script setup>
 import TheNavbar from '@/components/TheNavbar.vue';
+import TheScanner from '@/components/TheScanner.vue';
 
 </script>
 
 <template>
-    <div class="with-navbar container-spacing">
+    <div class="with-navbar page-container">
         <TheNavbar />
         <main>
-            <BaseButtonBack />
-            <h1>This is a scanner page</h1>
+            <TheScanner />
         </main>
     </div>
 </template>
 
 <style scoped>
-main {
-    max-width: var(--max-width);
-    margin-left: auto;
-    margin-right: auto;
+.with-navbar {
+    position: relative;
 }
 </style>

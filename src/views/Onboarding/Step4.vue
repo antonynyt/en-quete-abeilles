@@ -53,7 +53,7 @@ import Step from './Step.vue'
     grid-template-rows: 1fr min-content;
     grid-template-columns: 100%;
     gap: var(--spacing-lg);
-
+    overflow: hidden;
 }
 
 .card-img {

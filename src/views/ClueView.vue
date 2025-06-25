@@ -5,7 +5,7 @@ import BaseButtonBack from '@/components/BaseButtonBack.vue';
 </script>
 
 <template>
-    <div class="container-spacing">
+    <div class="page-container">
         <BaseButtonBack />
         <main>
             <h1>This is a clue page</h1>

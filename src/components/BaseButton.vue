@@ -28,8 +28,7 @@ const processClick = () => {
 
 <!-- For Accessibility it is either a Button or an Anchor -->
 <template>
-    <component :is="tag" :href="href" :type="tag === 'button' ? type : null" class="button"
-        @click.prevent="processClick">
+    <component :is="tag" :href="href" :type="tag === 'button' ? type : null" class="button" @click="processClick">
         <slot />
     </component>
 </template>

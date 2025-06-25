@@ -5,21 +5,20 @@ import BaseProgress from '@/components/BaseProgress.vue';
 import BgGrass from '@/components/BgGrass.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import IconCrown from '@/components/icons/IconCrown.vue';
-
 </script>
 
 <template>
-    <div class="with-navbar container-spacing">
+    <div class="page-container with-navbar">
         <TheNavbar />
-        <main>
-            <header class="page-header">
+        <main class="full-width">
+            <header class="page-header centered">
                 <h1>Tâches</h1>
                 <div class="progress-wrapper">
                     <span>0/5</span>
                     <BaseProgress class="border" :currentStep="1" :totalSteps="5" />
                 </div>
             </header>
-            <section class="goal-header">
+            <section class="goal-header centered">
                 <div class="goal-header-title">
                     <BaseIcon color="var(--color-brown)">
                         <IconCrown color="var(--color-orange)" />
@@ -30,8 +29,8 @@ import IconCrown from '@/components/icons/IconCrown.vue';
                     </div>
                 </div>
             </section>
-            <section>
-                <BaseTask href="clue" color="var(--color-green)" title="J'adore danser" :isCompleted=true />
+            <section class="centered">
+                <BaseTask tag="a" href="clue" color="var(--color-green)" title="J'adore danser" :isCompleted=true />
                 <BaseTask color="var(--color-sky)" title="Pollen et nectar" />
                 <BaseTask color="var(--color-yellow)" title="Cultiver de bon légumes" />
                 <BaseTask color="#33ddee" title="Apprendre l'apiculture" />
@@ -49,7 +48,7 @@ main {
     margin-right: auto;
 }
 
-.container-spacing {
+.page-container {
     background-color: var(--color-sky);
     position: relative;
 }
@@ -65,7 +64,7 @@ section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-md);
+    margin: var(--spacing-md) 0;
 }
 
 .page-header h1 {
@@ -95,6 +94,7 @@ section {
 .goal-header-title h2 {
     margin: 0;
     font-size: var(--font-size-xl);
+    font-weight: 500;
 }
 
 .goal-header-title h3 {
