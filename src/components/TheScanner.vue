@@ -39,10 +39,10 @@ function resetValidationState() {
 
 async function onDetect([firstDetectedCode]) {
     result.value = firstDetectedCode.rawValue
-    isValid.value = result.value.startsWith('http')
+    isValid.value = result.value.startsWith('http://') || result.value.startsWith('https://')
     if (isValid.value) {
         if ('vibrate' in navigator) {
-            navigator.vibrate(500)
+            navigator.vibrate(250)
         }
         showModal()
         paused.value = true
@@ -58,7 +58,7 @@ async function onDetect([firstDetectedCode]) {
                     <IconFlag />
                 </BaseIcon>
                 <div>
-                    <h2>Tâche trouvée</h2>
+                    <h2>Tâche</h2>
                     <h3>{{ task.name }}</h3>
                 </div>
             </header>

@@ -8,7 +8,7 @@ import IconBee from './icons/IconBee.vue';
 <template>
     <header>
         <nav>
-            <NavbarItem href="/tasks" title="Tâches">
+            <NavbarItem href="/tasks" title="Tâches" class="icon-tasklist">
                 <IconTasklist />
             </NavbarItem>
             <NavbarItem href="/scanner" title="Scanner">
@@ -43,6 +43,17 @@ nav {
     padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom));
     max-width: var(--max-width);
     margin: auto;
+}
+
+:deep(.icon-tasklist .icon::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0.1rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: var(--color-orange-electric);
 }
 
 @media screen and (min-width: 768px) {

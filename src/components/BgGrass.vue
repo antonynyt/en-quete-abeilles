@@ -28,7 +28,7 @@
 .bg::after {
     content: '';
     position: absolute;
-    top: 10rem;
+    top: 12rem;
     width: 400vw;
     height: 100%;
     background-color: var(--color-green);

@@ -50,6 +50,10 @@ a {
     outline-offset: calc(-1 * var(--border-size));
 }
 
+.active .icon::before {
+    display: none;
+}
+
 .icon {
     display: flex;
     align-items: center;
@@ -58,5 +62,6 @@ a {
     height: var(--font-size-xxl);
     width: 2.2rem;
     height: 2.2rem;
+    position: relative;
 }
 </style>
