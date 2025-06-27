@@ -1,9 +1,17 @@
 <script setup>
+import BaseButton from '@/components/BaseButton.vue'
+import IconRefresh from '@/components/icons/IconRefresh.vue'
 import { useBeeStore } from '@/stores/beeStore'
 import { generateBeeName } from '@/utils/nameGenerator'
 
 const bee = useBeeStore()
-bee.name = generateBeeName() // initialize bee name in LocalStorage
+if (!bee.name) { // Check if bee name is not already set
+    bee.name = generateBeeName() // Generate a new name if not set
+}
+
+bee.resetBee = () => {
+    bee.name = generateBeeName()
+}
 
 </script>
 
@@ -12,6 +20,9 @@ bee.name = generateBeeName() // initialize bee name in LocalStorage
         <div class="card">
 
             <div class="card-img">
+                <BaseButton @click="bee.resetBee" class="reset-button" aria-label="Réinitialiser l'abeille">
+                    <IconRefresh />
+                </BaseButton>
                 <img src="../../assets/bee-face.svg" alt="Abeille de face">
             </div>
             <div class="card-text">
@@ -68,6 +79,14 @@ bee.name = generateBeeName() // initialize bee name in LocalStorage
     background-color: var(--color-sky);
     overflow: hidden;
     position: relative;
+}
+
+.reset-button {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: fit-content;
+    z-index: 2;
 }
 
 .card-img::before {
