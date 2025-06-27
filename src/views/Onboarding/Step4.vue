@@ -20,15 +20,17 @@ bee.resetBee = () => {
         <div class="card">
 
             <div class="card-img">
-                <BaseButton @click="bee.resetBee" class="reset-button" aria-label="Réinitialiser l'abeille">
-                    <IconRefresh />
-                </BaseButton>
                 <img src="../../assets/bee-face.svg" alt="Abeille de face">
             </div>
             <div class="card-text">
                 <div class="text-header">
-                    <h2>{{ bee.name }}</h2>
-                    <p>Niveau: {{ bee.level }}</p>
+                    <div>
+                        <h2>{{ bee.name }}</h2>
+                        <p>Niveau: {{ bee.level }}</p>
+                    </div>
+                    <BaseButton @click="bee.resetBee" class="reset-button" aria-label="Réinitialiser l'abeille">
+                        <IconRefresh />
+                    </BaseButton>
                 </div>
                 <p>
                     {{ bee.name }} est une jeune abeille inexperimentée. Parfois maladroite, elle rêve de devenir une
@@ -81,14 +83,6 @@ bee.resetBee = () => {
     position: relative;
 }
 
-.reset-button {
-    position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    width: fit-content;
-    z-index: 2;
-}
-
 .card-img::before {
     content: "";
     position: absolute;
@@ -110,10 +104,18 @@ bee.resetBee = () => {
 }
 
 .card-text h2 {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-xl);
 }
 
 .text-header {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: var(--spacing-md);
+}
+
+.reset-button {
+    z-index: 2;
+    height: 100%;
+    width: auto;
 }
 </style>
