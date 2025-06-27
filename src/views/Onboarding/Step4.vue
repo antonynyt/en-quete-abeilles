@@ -5,8 +5,8 @@ import { useBeeStore } from '@/stores/beeStore'
 import { generateBeeName } from '@/utils/nameGenerator'
 
 const bee = useBeeStore()
-if (!bee.name) { // Check if bee name is not already set
-    bee.name = generateBeeName() // Generate a new name if not set
+if (!localStorage.getItem('beeinfo')) {
+    bee.name = generateBeeName()
 }
 
 bee.resetBee = () => {
