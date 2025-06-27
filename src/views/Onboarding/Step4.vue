@@ -1,5 +1,10 @@
 <script setup>
-import Step from './Step.vue'
+import { useBeeStore } from '@/stores/beeStore'
+import { generateBeeName } from '@/utils/nameGenerator'
+
+const bee = useBeeStore()
+bee.name = generateBeeName() // initialize bee name in LocalStorage
+
 </script>
 
 <template>
@@ -11,11 +16,11 @@ import Step from './Step.vue'
             </div>
             <div class="card-text">
                 <div class="text-header">
-                    <h2>LavandeCurieuse</h2>
-                    <p>Niveau: Novice</p>
+                    <h2>{{ bee.name }}</h2>
+                    <p>Niveau: {{ bee.level }}</p>
                 </div>
                 <p>
-                    LavandeCurieuse est une jeune abeille inexperimentée. Parfois maladroite, elle rêve de devenir une
+                    {{ bee.name }} est une jeune abeille inexperimentée. Parfois maladroite, elle rêve de devenir une
                     butineuse indispensable.
                 </p>
             </div>

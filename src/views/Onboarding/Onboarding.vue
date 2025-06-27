@@ -13,6 +13,7 @@ import Step5 from './Step5.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import IconCrown from '@/components/icons/IconCrown.vue'
+import ObjectiveLi from '@/components/ObjectiveLi.vue'
 
 const router = useRouter()
 const currentStep = ref(1)
@@ -81,12 +82,13 @@ function completeOnboarding() {
                     <h3>Retrouver l'essaim</h3>
                 </div>
             </header>
-            <ol>
-                <li>Lisez les indices</li>
-                <li>Déplacez-vous vers l'endroit </li>
-                <li>Scannez le code QR</li>
-                <li>Effectuez la tâche</li>
-            </ol>
+            <h4>Objectifs</h4>
+            <ul>
+                <ObjectiveLi>Lire les indices</ObjectiveLi>
+                <ObjectiveLi>Se déplacer vers l'endroit indiqué</ObjectiveLi>
+                <ObjectiveLi>Scanner le code QR</ObjectiveLi>
+                <ObjectiveLi>Effectuer les tâches</ObjectiveLi>
+            </ul>
             <p>Une fois toutes les tâches terminées, ramenez l'abeille à la borne située dans le bâtiment.</p>
             <BaseButton @click="completeOnboarding" class="primary">Accepter la quête</BaseButton>
         </BaseModal>
@@ -181,9 +183,5 @@ function completeOnboarding() {
     font-size: var(--font-size-md);
     font-weight: 500;
     margin: 0;
-}
-
-ol li::marker {
-    font-weight: 700;
 }
 </style>

@@ -1,10 +1,35 @@
 <script setup>
+import { onMounted } from 'vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import BaseTask from '@/components/BaseTask.vue';
 import BaseProgress from '@/components/BaseProgress.vue';
 import BgGrass from '@/components/BgGrass.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import IconCrown from '@/components/icons/IconCrown.vue';
+import { useGameStore } from '@/stores/gameStore';
+
+const gameStore = useGameStore()
+
+// Mock tasks data - replace with your API call
+const mockTasks = [
+    { id: 1, title: "J'adore danser", color: "var(--color-green)" },
+    { id: 2, title: "Reconnaître l'apiculteur", color: "var(--color-sky)" },
+    { id: 3, title: "Repérer les plantes", color: "#1111" },
+    { id: 4, title: "Éviter les ennemis", color: "#ffee00" },
+    { id: 5, title: "Comprendre l'eau", color: "#11ddee" },
+    { id: 6, title: "Trouver le pollen", color: "#ddee22" },
+]
+
+const markTaskAsCompleted = (taskId) => {
+    if (!gameStore.isTaskCompleted(taskId)) {
+        gameStore.markTaskAsCompleted(taskId)
+    }
+}
+
+onMounted(() => {
+    gameStore.setTasks(mockTasks)
+})
+
 </script>
 
 <template>
@@ -14,8 +39,9 @@ import IconCrown from '@/components/icons/IconCrown.vue';
             <header class="page-header centered">
                 <h1>Tâches</h1>
                 <div class="progress-wrapper">
-                    <span>0/5</span>
-                    <BaseProgress class="border" :currentStep="1" :totalSteps="5" />
+                    <span>{{ gameStore.tasksDone }}/{{ gameStore.totalTasks }}</span>
+                    <BaseProgress class="border" :currentStep="gameStore.tasksDone"
+                        :totalSteps="gameStore.totalTasks" />
                 </div>
             </header>
             <section class="goal-header centered">
@@ -30,11 +56,11 @@ import IconCrown from '@/components/icons/IconCrown.vue';
                 </div>
             </section>
             <section class="centered">
-                <BaseTask tag="a" href="clue" color="var(--color-green)" title="J'adore danser" :isCompleted=true />
-                <BaseTask color="var(--color-sky)" title="Pollen et nectar" />
-                <BaseTask color="var(--color-yellow)" title="Cultiver de bon légumes" />
-                <BaseTask color="#33ddee" title="Apprendre l'apiculture" />
-                <BaseTask color="var(--color-orange)" title="Ramener l'abeille" :isLocked=true />
+                <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" tag="a" :href="task.href || 'clue'"
+                    :color="task.color" :title="task.title" :isCompleted="gameStore.isTaskCompleted(task.id)"
+                    @click.prevent="markTaskAsCompleted(task.id)" />
+                <BaseTask color="var(--color-orange)" title="Ramener l'abeille"
+                    :isLocked="!gameStore.isAllTasksCompleted" />
             </section>
         </main>
         <BgGrass />
@@ -64,11 +90,13 @@ section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: var(--spacing-md) 0;
+    margin: var(--spacing-md) auto;
+    margin-bottom: var(--spacing-lg);
 }
 
 .page-header h1 {
     margin: 0;
+    font-size: var(--font-size-xl);
 }
 
 .progress-wrapper {
