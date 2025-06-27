@@ -49,9 +49,9 @@ nav {
     content: '';
     position: absolute;
     top: 0;
-    right: 0.1rem;
-    width: 0.7rem;
-    height: 0.7rem;
+    right: 2.1px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background-color: var(--color-orange-electric);
 }
