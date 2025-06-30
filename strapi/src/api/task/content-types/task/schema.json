@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "singularName": "task",
+    "pluralName": "tasks",
+    "displayName": "Tâche"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "taskSlug": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "disable-regenerate": true,
+        "uuid-format": "^[a-f0-9]{8,12}$"
+      },
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "shortDescr": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "clue": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "non-repetable.indice",
+      "repeatable": false,
+      "required": true
+    },
+    "color": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    }
+  }
+}

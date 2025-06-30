@@ -7,18 +7,25 @@ import BgGrass from '@/components/BgGrass.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import IconCrown from '@/components/icons/IconCrown.vue';
 import { useGameStore } from '@/stores/gameStore';
+import { useStrapiApi } from '@/composables/useStrapiApi';
 
 const gameStore = useGameStore()
+const { getTasks, loading, error } = useStrapiApi()
 
-// Mock tasks data - replace with your API call
-const mockTasks = [
-    { id: 1, title: "J'adore danser", color: "var(--color-green)" },
-    { id: 2, title: "Reconnaître l'apiculteur", color: "var(--color-sky)" },
-    { id: 3, title: "Repérer les plantes", color: "#1111" },
-    { id: 4, title: "Éviter les ennemis", color: "#ffee00" },
-    { id: 5, title: "Comprendre l'eau", color: "#11ddee" },
-    { id: 6, title: "Trouver le pollen", color: "#ddee22" },
-]
+const loadTasks = async () => {
+    try {
+        const response = await getTasks()
+        const tasks = response.data.map(task => ({
+            id: task.id,
+            title: task.title,
+            color: task.color || '#1111',
+            slug: task.slug
+        }))
+        gameStore.setTasks(tasks)
+    } catch (err) {
+        console.error('Failed to load tasks:', err)
+    }
+}
 
 const markTaskAsCompleted = (taskId) => {
     if (!gameStore.isTaskCompleted(taskId)) {
@@ -27,7 +34,7 @@ const markTaskAsCompleted = (taskId) => {
 }
 
 onMounted(() => {
-    gameStore.setTasks(mockTasks)
+    loadTasks()
 })
 
 </script>
@@ -56,7 +63,7 @@ onMounted(() => {
                 </div>
             </section>
             <section class="centered">
-                <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" tag="a" :href="task.href || 'clue'"
+                <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" tag="a" :href="`/tasks/${task.slug}`"
                     :color="task.color" :title="task.title" :isCompleted="gameStore.isTaskCompleted(task.id)"
                     @click.prevent="markTaskAsCompleted(task.id)" />
                 <BaseTask color="var(--color-orange)" title="Ramener l'abeille"

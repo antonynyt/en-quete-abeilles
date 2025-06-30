@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_non_repetable_indices",
+  "info": {
+    "displayName": "Indice",
+    "icon": "question"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "fact": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

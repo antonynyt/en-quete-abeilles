@@ -24,6 +24,16 @@ const router = createRouter({
             component: () => import('../views/TasksView.vue'),
         },
         {
+            path: '/tasks/:slug',
+            name: 'task-clue',
+            component: () => import('../views/ClueView.vue'),
+        },
+        {
+            path: '/t/:id',
+            name: 'task-detail',
+            component: () => import('../views/TaskDetailView.vue'),
+        },
+        {
             path: '/scanner',
             name: 'scanner',
             component: () => import('../views/ScannerView.vue'),
