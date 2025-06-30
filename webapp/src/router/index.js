@@ -50,6 +50,11 @@ const router = createRouter({
             meta: { transition: 'slide-in' },
         },
         {
+            path: '/settings',
+            name: 'settings',
+            component: () => import('../views/SettingsView.vue'),
+        },
+        {
             path: '/onboarding',
             name: 'onboarding',
             component: () => import('../views/Onboarding/Onboarding.vue'),

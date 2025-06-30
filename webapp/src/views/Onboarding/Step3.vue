@@ -10,7 +10,7 @@ import Step from './Step.vue'
         <template #description>
             <h1>Une abeille semble perdue.</h1>
             <p>Une abeille est désorientée à cause des pesticides. Elle a perdu la notion de l’espace et son
-                intelligence est ralentie. Aidez-la !</p>
+                intelligence est ralentie. Aide-la !</p>
         </template>
     </Step>
 </template>

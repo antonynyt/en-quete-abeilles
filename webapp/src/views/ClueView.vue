@@ -1,6 +1,7 @@
 <script setup>
 import BaseIcon from '@/components/BaseIcon.vue';
 import IconBack from '@/components/icons/IconBack.vue';
+import BaseIconLink from '@/components/BaseIconLink.vue';
 import IconFlag from '@/components/icons/IconFlag.vue';
 import StrapiImage from '@/components/StrapiImage.vue';
 import { useStrapiApi } from '@/composables/useStrapiApi'
@@ -49,7 +50,7 @@ onMounted(() => {
     <div v-if="task" class="page-container">
         <header class="page-header centered">
             <div class="page-header-title">
-                <IconBack class="back-icon" @click="goBack" />
+                <BaseIconLink link="/tasks" @click.prevent="goBack" :icon="IconBack" label="Retour" />
                 <p class="page-title">Indice</p>
             </div>
             <BaseIcon class="page-icon" :color="task.color">

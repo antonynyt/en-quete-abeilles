@@ -83,7 +83,7 @@ async function onDetect([firstDetectedCode]) {
                 <div></div>
             </div>
             <div class="qrcode-instructions">
-                <p>Scannez le code d'une tâche</p>
+                <p>Scanne le code d'une tâche</p>
             </div>
         </qrcode-stream>
     </div>

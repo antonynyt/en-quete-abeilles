@@ -109,6 +109,17 @@ p {
     background-color: var(--color-orange);
 }
 
+.button.danger:active {
+    background-color: var(--color-orange-electric);
+    box-shadow: none;
+    transform: translateY(calc(var(--border-size) * 2));
+}
+
+.danger {
+    background-color: var(--color-orange-electric);
+    color: var(--color-background);
+}
+
 /* Image wrapper avoiding scroll overflow */
 
 .img-wrapper {

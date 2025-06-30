@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import BaseTask from '@/components/BaseTask.vue';
 import BaseProgress from '@/components/BaseProgress.vue';
+import ThePageHeader from '@/components/ThePageHeader.vue';
 import BgGrass from '@/components/BgGrass.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import IconCrown from '@/components/icons/IconCrown.vue';
@@ -43,14 +44,15 @@ onMounted(() => {
     <div class="page-container with-navbar">
         <TheNavbar />
         <main class="full-width">
-            <header class="page-header centered">
-                <h1>Tâches</h1>
-                <div class="progress-wrapper">
-                    <span>{{ gameStore.tasksDone }}/{{ gameStore.totalTasks }}</span>
-                    <BaseProgress class="border" :currentStep="gameStore.tasksDone"
-                        :totalSteps="gameStore.totalTasks" />
-                </div>
-            </header>
+            <ThePageHeader title="Tâches">
+                <template #right-side>
+                    <div class="progress-wrapper">
+                        <span>{{ gameStore.tasksDone }}/{{ gameStore.totalTasks }}</span>
+                        <BaseProgress class="border" :currentStep="gameStore.tasksDone"
+                            :totalSteps="gameStore.totalTasks" />
+                    </div>
+                </template>
+            </ThePageHeader>
             <section class="goal-header centered">
                 <div class="goal-header-title">
                     <BaseIcon color="var(--color-brown)">
@@ -90,20 +92,6 @@ section {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-}
-
-.page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: var(--spacing-md) auto;
-    margin-bottom: var(--spacing-lg);
-}
-
-.page-header h1 {
-    margin: 0;
-    font-size: var(--font-size-xl);
 }
 
 .progress-wrapper {

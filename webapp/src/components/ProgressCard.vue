@@ -9,7 +9,7 @@ const gameStore = useGameStore()
 </script>
 
 <template>
-    <a href="/tasks" @click.prevent="router.push('/tasks')">
+    <RouterLink to="/tasks" class="progress-card">
         <BaseIcon color=" var(--color-brown)">
             <IconCrown color="var(--color-orange)" />
         </BaseIcon>
@@ -21,10 +21,10 @@ const gameStore = useGameStore()
                     style="height: 0.5em;" />
             </div>
         </div>
-    </a>
+    </RouterLink>
 </template>
 <style scoped>
-a {
+.progress-card {
     text-decoration: none;
     color: inherit;
     display: flex;
@@ -43,7 +43,7 @@ a {
     width: 100%;
 }
 
-a h2 {
+.progress-card h2 {
     font-size: var(--font-size-md);
     margin: 0;
 }

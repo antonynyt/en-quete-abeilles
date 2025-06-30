@@ -89,7 +89,7 @@ function completeOnboarding() {
                 <ObjectiveLi>Scanner le code QR</ObjectiveLi>
                 <ObjectiveLi>Effectuer les tâches</ObjectiveLi>
             </ul>
-            <p>Une fois toutes les tâches terminées, ramenez l'abeille à la borne située dans le bâtiment.</p>
+            <p>Une fois toutes les tâches terminées, ramène l'abeille à la borne située dans le bâtiment.</p>
             <BaseButton @click="completeOnboarding" class="primary">Accepter la quête</BaseButton>
         </BaseModal>
         <header class="progress-header">

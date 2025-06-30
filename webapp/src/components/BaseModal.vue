@@ -16,7 +16,8 @@ const close = () => {
 };
 
 defineExpose({
-    show: showModal
+    show: showModal,
+    close: close
 });
 
 // Handle clicks outside the dialog

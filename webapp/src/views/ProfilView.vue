@@ -1,5 +1,7 @@
 <script setup>
 import BaseButton from '@/components/BaseButton.vue';
+import ThePageHeader from '@/components/ThePageHeader.vue';
+import BaseIconLink from '@/components/BaseIconLink.vue';
 import IconSettings from '@/components/icons/IconSettings.vue';
 import ProgressCard from '@/components/ProgressCard.vue';
 import TheBee from '@/components/TheBee.vue';
@@ -11,12 +13,11 @@ const bee = useBeeStore()
 
 <template>
     <div class="page-container with-navbar">
-        <header class="full-width page-header-container">
-            <div class="page-header centered">
-                <h1>Profil</h1>
-                <IconSettings class="settings-icon" />
-            </div>
-        </header>
+        <ThePageHeader title="Profil" class="page-header-container">
+            <template #right-side>
+                <BaseIconLink link="/settings" :icon="IconSettings" label="Paramètres" />
+            </template>
+        </ThePageHeader>
         <main>
             <section class="avatar-section">
                 <div class="centered avatar-container">
@@ -28,7 +29,7 @@ const bee = useBeeStore()
                 <p>{{ bee.level }}</p>
             </section>
             <section class="centered goal-section">
-                <p>Lors de l'essaimage d'une ruche, vous avez adopté une abeille déboussolée. Aidez-la à retrouver son
+                <p>Lors de l'essaimage d'une ruche, tu as adopté une abeille déboussolée. Aide-la à retrouver son
                     groupe.</p>
                 <ProgressCard />
             </section>
@@ -46,19 +47,6 @@ const bee = useBeeStore()
 <style scoped>
 .page-header-container {
     background-color: var(--color-sky);
-}
-
-.page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: var(--spacing-md);
-}
-
-.page-header h1 {
-    margin: 0;
-    font-size: var(--font-size-xl);
 }
 
 .avatar-section {
