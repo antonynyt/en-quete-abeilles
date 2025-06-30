@@ -19,7 +19,7 @@ const openResetModal = () => {
 
 const resetApp = () => {
     localStorage.clear();
-    router.push('/');
+    window.location.replace('/');
 };
 
 </script>
