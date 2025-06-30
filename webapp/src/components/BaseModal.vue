@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import IconCross from '@/components/icons/IconCross.vue';
+import RoundCloseButton from './RoundCloseButton.vue';
 
 const dialog = ref();
 const visible = ref(false);
@@ -42,10 +42,7 @@ onBeforeUnmount(() => {
 
 <template>
     <dialog class="modal-container" ref="dialog" @close="visible = false" closedby="any">
-        <button class="close-button" @click="close">
-            <IconCross />
-            <span class="visually-hidden">Fermer</span>
-        </button>
+        <RoundCloseButton @close="close" class="close-btn" />
         <div class="modal-content">
             <slot></slot>
         </div>
@@ -72,34 +69,15 @@ onBeforeUnmount(() => {
     margin: auto;
 }
 
-.close-button {
-    position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    background: none;
-    border: none;
-    border-radius: 100%;
-    font-size: 24px;
-    cursor: pointer;
-    color: var(--color-brown);
-    padding: 0;
-    height: 48px;
-    width: 48px;
-    text-align: center;
-    background-color: var(--color-beige);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.close-button:hover {
-    color: #000;
-}
-
 .modal-content {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+}
+
+.close-btn {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
 }
 </style>

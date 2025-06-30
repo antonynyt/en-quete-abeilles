@@ -1,5 +1,4 @@
 <script setup>
-import router from '@/router';
 import BaseIcon from './BaseIcon.vue';
 import BaseProgress from './BaseProgress.vue';
 import IconCrown from './icons/IconCrown.vue';

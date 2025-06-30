@@ -1,7 +1,6 @@
 <script setup>
 import BaseButtonBack from '@/components/BaseButtonBack.vue';
 
-
 </script>
 
 <template>

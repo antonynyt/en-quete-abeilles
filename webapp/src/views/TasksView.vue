@@ -28,12 +28,6 @@ const loadTasks = async () => {
     }
 }
 
-const markTaskAsCompleted = (taskId) => {
-    if (!gameStore.isTaskCompleted(taskId)) {
-        gameStore.markTaskAsCompleted(taskId)
-    }
-}
-
 onMounted(() => {
     loadTasks()
 })
@@ -66,8 +60,7 @@ onMounted(() => {
             </section>
             <section class="centered">
                 <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" tag="a" :href="`/tasks/${task.slug}`"
-                    :color="task.color" :title="task.title" :isCompleted="gameStore.isTaskCompleted(task.id)"
-                    @click.prevent="markTaskAsCompleted(task.id)" />
+                    :color="task.color" :title="task.title" :isCompleted="gameStore.isTaskCompleted(task.id)" />
                 <BaseTask color="var(--color-orange)" title="Ramener l'abeille"
                     :isLocked="!gameStore.isAllTasksCompleted" />
             </section>

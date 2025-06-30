@@ -1,11 +1,21 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits } from 'vue'
 import { QrcodeStream } from 'vue-qrcode-reader'
 import BaseModal from './BaseModal.vue'
 import BaseButton from './BaseButton.vue'
 import BaseIcon from './BaseIcon.vue'
 import IconFlag from './icons/IconFlag.vue'
 import ObjectiveLi from './ObjectiveLi.vue'
+import RoundCloseButton from './RoundCloseButton.vue'
+
+const props = defineProps({
+    showCloseBtn: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const emit = defineEmits(['close'])
 
 const modal = ref()
 const showModal = () => modal.value?.show()
@@ -31,13 +41,17 @@ const validationFailure = computed(() => isValid.value === false)
 
 const onError = console.error
 
-function resetValidationState() {
+const resetValidationState = () => {
     isValid.value = false
     result.value = null
     paused.value = false
 }
 
-async function onDetect([firstDetectedCode]) {
+const handleCloseBtn = () => {
+    emit('close')
+}
+
+const onDetect = async ([firstDetectedCode]) => {
     result.value = firstDetectedCode.rawValue
     isValid.value = result.value.startsWith('http://') || result.value.startsWith('https://')
     if (isValid.value) {
@@ -76,6 +90,9 @@ async function onDetect([firstDetectedCode]) {
             </BaseButton>
         </BaseModal>
         <qrcode-stream :paused="paused" @detect="onDetect" @error="onError" @camera-on="resetValidationState">
+            <div v-if="showCloseBtn" class="close centered">
+                <RoundCloseButton class="close-btn" @click="handleCloseBtn" />
+            </div>
             <div class="hole" aria-hidden="true">
                 <div></div>
                 <div></div>
@@ -157,6 +174,17 @@ async function onDetect([firstDetectedCode]) {
     right: var(--shift);
     border-right: var(--border);
     border-bottom: var(--border);
+}
+
+.close {
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 99;
 }
 
 .qrcode-instructions {

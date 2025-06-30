@@ -11,9 +11,10 @@ const props = defineProps({
 <template>
     <header class="full-width">
         <div class="page-header centered">
-            <h1>{{ title }}</h1>
-            <slot name="right-side">
+            <slot name="left-side">
+                <h1>{{ title }}</h1>
             </slot>
+            <slot name="right-side" />
         </div>
     </header>
 </template>
@@ -24,8 +25,7 @@ const props = defineProps({
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    margin: var(--spacing-md) auto;
 }
 
 .page-header h1 {

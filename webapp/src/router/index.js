@@ -27,6 +27,7 @@ const router = createRouter({
             path: '/tasks/:slug',
             name: 'task-clue',
             component: () => import('../views/ClueView.vue'),
+            meta: { transition: 'slide-in' },
         },
         {
             path: '/t/:id',
@@ -42,12 +43,6 @@ const router = createRouter({
             path: '/profil',
             name: 'profil',
             component: () => import('../views/ProfilView.vue'),
-        },
-        {
-            path: '/clue',
-            name: 'clue',
-            component: () => import('../views/ClueView.vue'),
-            meta: { transition: 'slide-in' },
         },
         {
             path: '/settings',
