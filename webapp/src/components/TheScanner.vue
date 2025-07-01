@@ -48,7 +48,7 @@ const handleCloseBtn = () => {
 
 const taskAccepted = () => {
     if (task.value) {
-        gameStore.markTaskAsScanned(task.value.documentId)
+        gameStore.markTaskAsScanned(task.value.id)
     }
 }
 
@@ -90,7 +90,7 @@ const onDetect = async ([firstDetectedCode]) => {
                     <h4>Objectifs</h4>
                     <ul>
                         <ObjectiveLi v-for="(objective, index) in task.objectives" :key="index">{{ objective.listElement
-                        }}
+                            }}
                         </ObjectiveLi>
                     </ul>
                 </section>
