@@ -28,13 +28,14 @@
       "type": "customField",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "customField": "plugin::strapi-advanced-uuid.uuid",
       "options": {
         "disable-regenerate": true,
-        "uuid-format": "^[a-f0-9]{8,12}$"
+        "uuid-format": "^[a-f0-9]{8,12}$",
+        "disable-auto-fill": true
       },
       "required": true
     },
@@ -56,6 +57,17 @@
       },
       "required": true
     },
+    "color": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
     "clue": {
       "type": "component",
       "pluginOptions": {
@@ -67,16 +79,32 @@
       "repeatable": false,
       "required": true
     },
-    "color": {
-      "type": "customField",
+    "objectives": {
+      "type": "component",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "customField": "plugin::color-picker.color",
-      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-      "required": true
+      "component": "content.list",
+      "repeatable": true,
+      "required": true,
+      "min": 1,
+      "max": 5
+    },
+    "details": {
+      "type": "dynamiczone",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "components": [
+        "content.media",
+        "content.text"
+      ],
+      "required": true,
+      "min": 1
     }
   }
 }

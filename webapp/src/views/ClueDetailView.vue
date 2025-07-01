@@ -9,7 +9,9 @@ import BaseButton from '@/components/BaseButton.vue';
 import { lightenHexColor } from '@/utils/color';
 import ClueImage from '@/components/ClueImage.vue';
 import TheScanner from '@/components/TheScanner.vue';
+import { useGameStore } from '@/stores/gameStore';
 
+const gameStore = useGameStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -23,7 +25,7 @@ const loadTask = async () => {
         const response = await getTaskBySlug(route.params.slug)
         // remap the response to match the expected structure
         task.value = {
-            id: response.data.id,
+            id: response.data.documentId,
             title: response.data.title,
             description: response.data.clue.description,
             fact: response.data.clue.fact,
@@ -71,7 +73,7 @@ onMounted(() => {
             <template #left-side>
                 <div class="left-side">
                     <BaseIconLink link="/tasks" @click.prevent="goBack" :icon="IconBack" label="Retour" />
-                    <p>Indice</p>
+                    <p class="pally">Indice</p>
                 </div>
             </template>
         </ThePageHeader>
@@ -96,7 +98,10 @@ onMounted(() => {
             </section>
         </main>
         <div class="centered action-button">
-            <BaseButton @click="openScanner" class="primary">
+            <BaseButton v-if="gameStore.isTaskScanned(task.id)" :to="`/t/${task.id}`">
+                Ouvrir la tâche
+            </BaseButton>
+            <BaseButton v-else @click="openScanner" class="primary">
                 Ouvrir le scanner
             </BaseButton>
         </div>

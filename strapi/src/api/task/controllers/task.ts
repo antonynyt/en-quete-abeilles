@@ -2,22 +2,18 @@
  * task controller
  */
 
-import { factories } from '@strapi/strapi'
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreController('api::task.task', ({ strapi }) => ({
-    async findOne(ctx) {
+export default factories.createCoreController("api::task.task", ({ strapi }) => ({
+    async findBySlug(ctx) {
         const { slug } = ctx.params;
-
-        // Find the task by slug
-        const entity = await strapi.db.query('api::task.task').findOne({
-            where: { slug },
-            populate: {
-                clue: {
-                    populate: ['image'],
-                },
-            }
-        }); 
-        const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-        return this.transformResponse(sanitizedEntity);
-    },
+        const entity = await strapi.documents("api::task.task").findFirst({
+            filters: { slug: slug },
+            populate: { clue: { populate: { image: true } } },
+        });
+        if (!entity) return ctx.notFound("Task not found");
+        return this.transformResponse(
+            await this.sanitizeOutput(entity, ctx)
+        );
+    }
 }));

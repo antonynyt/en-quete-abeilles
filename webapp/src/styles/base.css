@@ -72,6 +72,15 @@ html {
     font-style: normal;
 }
 
+.pally {
+    font-family: 'Pally', sans-serif;
+    font-weight: 500;
+}
+
+.fredoka {
+    font-family: 'Fredoka', sans-serif;
+}
+
 body {
     color: var(--color-text);
     background: var(--color-background);

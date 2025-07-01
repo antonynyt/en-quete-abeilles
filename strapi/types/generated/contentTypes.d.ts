@@ -407,8 +407,35 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    details: Schema.Attribute.DynamicZone<['content.media', 'content.text']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::task.task'>;
+    objectives: Schema.Attribute.Component<'content.list', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
     shortDescr: Schema.Attribute.Text &
       Schema.Attribute.Required &
@@ -427,6 +454,7 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     taskSlug: Schema.Attribute.UID<
       undefined,
       {
+        'disable-auto-fill': true;
         'disable-regenerate': true;
         'uuid-format': '^[a-f0-9]{8,12}$';
       }
@@ -435,13 +463,14 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
       Schema.Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
+          'disable-auto-fill': true;
           'disable-regenerate': true;
           'uuid-format': '^[a-f0-9]{8,12}$';
         }
       > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     title: Schema.Attribute.String &

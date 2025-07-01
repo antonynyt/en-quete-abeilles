@@ -6,12 +6,8 @@ export default {
     routes: [
         {
             method: 'GET',
-            path: '/tasks/:slug',
-            handler: 'api::task.task.findOne',
-            config: {
-                auth: false,
-                policies: [],
-            },
+            path: '/tasks/slug/:slug',
+            handler: 'api::task.task.findBySlug',
         },
     ],
 };

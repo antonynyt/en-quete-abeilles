@@ -19,7 +19,6 @@ export function useStrapiApi() {
             }
 
             const data = await response.json()
-            console.log('API Response:', data)
             return data
         } catch (err) {
             error.value = err.message
@@ -33,12 +32,12 @@ export function useStrapiApi() {
         return await apiRequest('/tasks?populate=*')
     }
 
-    const getTask = async (id) => {
+    const getTaskById = async (id) => {
         return await apiRequest(`/tasks/${id}?populate=*`)
     }
 
     const getTaskBySlug = async (slug) => {
-        return await apiRequest(`/tasks/${slug}?populate=*`)
+        return await apiRequest(`/tasks/slug/${slug}?populate=*`)
         // return await apiRequest(`/tasks?filters[slug][$eq]=${slug}&populate[clue][populate]=image`)
     }
 
@@ -46,7 +45,7 @@ export function useStrapiApi() {
         loading: computed(() => loading.value),
         error: computed(() => error.value),
         getTasks,
-        getTask,
+        getTaskById,
         apiRequest,
         getTaskBySlug,
     }

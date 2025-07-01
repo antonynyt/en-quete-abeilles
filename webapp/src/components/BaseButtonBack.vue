@@ -5,11 +5,10 @@ import IconBack from './icons/IconBack.vue';
 </script>
 
 <template>
-    <BaseButton tag="button" type="button" class="button">
+    <BaseButton class="button">
         <span class="visually-hidden">Retour</span>
         <IconBack />
     </BaseButton>
-
 </template>
 
 <style scoped>

@@ -35,7 +35,7 @@ const bee = useBeeStore()
             </section>
             <section class="centered learn-section">
                 <h2>Apprendre</h2>
-                <BaseButton tag="a" href="/tasks">
+                <BaseButton to="/tasks">
                     En savoir plus sur l'essaimage
                 </BaseButton>
             </section>

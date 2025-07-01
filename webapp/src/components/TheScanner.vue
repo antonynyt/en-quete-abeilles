@@ -7,6 +7,12 @@ import BaseIcon from './BaseIcon.vue'
 import IconFlag from './icons/IconFlag.vue'
 import ObjectiveLi from './ObjectiveLi.vue'
 import RoundCloseButton from './RoundCloseButton.vue'
+import { extractTaskIdFromUrl, isValidTaskUrl } from '@/utils/urlValidation.js'
+import { useStrapiApi } from '@/composables/useStrapiApi.js'
+import { useGameStore } from '@/stores/gameStore';
+
+const gameStore = useGameStore()
+const { getTaskById } = useStrapiApi()
 
 const props = defineProps({
     showCloseBtn: {
@@ -23,18 +29,7 @@ const showModal = () => modal.value?.show()
 const isValid = ref(undefined)
 const paused = ref(false)
 const result = ref(null)
-
-const task = {
-    name: 'Apprendre à danser',
-    description: "Découvrez comment l'abeille communique les directions.",
-    color: '#33ddee',
-    href: 'tasks',
-    objectives: [
-        'Regarder la vidéo',
-        'Pratiquer la danse de l\'abeille',
-        'Partager vos progrès avec vos amis'
-    ]
-}
+const task = ref(null)
 
 const validationSuccess = computed(() => isValid.value === true)
 const validationFailure = computed(() => isValid.value === false)
@@ -51,12 +46,26 @@ const handleCloseBtn = () => {
     emit('close')
 }
 
+const taskAccepted = () => {
+    if (task.value) {
+        gameStore.markTaskAsScanned(task.value.documentId)
+    }
+}
+
 const onDetect = async ([firstDetectedCode]) => {
     result.value = firstDetectedCode.rawValue
-    isValid.value = result.value.startsWith('http://') || result.value.startsWith('https://')
+    isValid.value = isValidTaskUrl(result.value)
     if (isValid.value) {
         if ('vibrate' in navigator) {
             navigator.vibrate(250)
+        }
+        const id = extractTaskIdFromUrl(result.value)
+        const response = await getTaskById(id)
+        task.value = {
+            id: response.data.documentId,
+            title: response.data.title,
+            color: response.data.color || '#1111',
+            objectives: response.data.objectives || [],
         }
         showModal()
         paused.value = true
@@ -67,25 +76,26 @@ const onDetect = async ([firstDetectedCode]) => {
 <template>
     <div class="scanner-container">
         <BaseModal ref="modal" @close="resetValidationState" class="modal">
-            <header class="modal-header">
+            <header class="modal-header" v-if="task">
                 <BaseIcon :color="task.color">
                     <IconFlag />
                 </BaseIcon>
                 <div>
                     <h2>Tâche</h2>
-                    <h3>{{ task.name }}</h3>
+                    <h3>{{ task.title }}</h3>
                 </div>
             </header>
-            <main>
+            <main v-if="task">
                 <section>
                     <h4>Objectifs</h4>
                     <ul>
-                        <ObjectiveLi v-for="(objective, index) in task.objectives" :key="index">{{ objective }}
+                        <ObjectiveLi v-for="(objective, index) in task.objectives" :key="index">{{ objective.listElement
+                        }}
                         </ObjectiveLi>
                     </ul>
                 </section>
             </main>
-            <BaseButton tag="a" class="primary" :href="task.href">
+            <BaseButton class="primary" :to="`/t/${task.id}`" @click="taskAccepted" v-if="task">
                 Accepter la tâche
             </BaseButton>
         </BaseModal>

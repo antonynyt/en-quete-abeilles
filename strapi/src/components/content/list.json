@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_content_lists",
+  "info": {
+    "displayName": "List",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "listElement": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

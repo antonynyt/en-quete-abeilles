@@ -17,7 +17,7 @@ const loadTasks = async () => {
     try {
         const response = await getTasks()
         const tasks = response.data.map(task => ({
-            id: task.id,
+            id: task.documentId,
             title: task.title,
             color: task.color || '#1111',
             slug: task.slug
@@ -59,7 +59,7 @@ onMounted(() => {
                 </div>
             </section>
             <section class="centered">
-                <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" tag="a" :href="`/tasks/${task.slug}`"
+                <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" :href="`/tasks/${task.slug}`"
                     :color="task.color" :title="task.title" :isCompleted="gameStore.isTaskCompleted(task.id)" />
                 <BaseTask color="var(--color-orange)" title="Ramener l'abeille"
                     :isLocked="!gameStore.isAllTasksCompleted" />

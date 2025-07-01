@@ -32,7 +32,6 @@ const processClick = () => {
     if ('vibrate' in navigator) {
         navigator.vibrate(1);
     }
-    router.push(props.href);
 }
 
 </script>
@@ -50,7 +49,7 @@ const processClick = () => {
         </div>
     </a>
 
-    <a v-else :href="href" class="button" @click.prevent="processClick">
+    <RouterLink v-else :to="href" class="button" @click="processClick">
         <div class="wrapper">
             <BaseIcon :color="color">
                 <IconFlag />
@@ -63,7 +62,7 @@ const processClick = () => {
                 <span class="visually-hidden"> {{ (isCompleted == true ? 'Terminée' : 'Pas terminée') }}</span>
             </div>
         </div>
-    </a>
+    </RouterLink>
 
 </template>
 

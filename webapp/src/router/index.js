@@ -26,7 +26,7 @@ const router = createRouter({
         {
             path: '/tasks/:slug',
             name: 'task-clue',
-            component: () => import('../views/ClueView.vue'),
+            component: () => import('../views/ClueDetailView.vue'),
             meta: { transition: 'slide-in' },
         },
         {

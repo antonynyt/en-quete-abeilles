@@ -1,34 +1,29 @@
 <script setup>
-import router from '@/router';
+import { RouterLink } from 'vue-router';
+import { defineEmits } from 'vue';
 
 const props = defineProps({
-    tag: {
-        type: String,
-        default: 'button'
-    },
-    type: {
-        type: String,
-        default: 'button'
-    },
-    href: {
-        type: String,
+    to: {
+        type: [String, Object],
         default: null
     }
 })
+
+const emit = defineEmits(['click']);
 
 const processClick = () => {
     if ('vibrate' in navigator) {
         navigator.vibrate(1);
     }
-    if (props.href) {
-        router.push(props.href);
-    }
+    emit('click');
 }
+
+const componentTag = props.to ? RouterLink : (props.href ? 'a' : 'button');
 </script>
 
-<!-- For Accessibility it is either a Button or an Anchor -->
+<!-- For Accessibility it is either a Button, RouterLink, or an Anchor -->
 <template>
-    <component :is="tag" :href="href" :type="tag === 'button' ? type : null" class="button" @click="processClick">
+    <component :is="componentTag" :to="to" class="button" @click="processClick">
         <slot />
     </component>
 </template>

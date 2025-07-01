@@ -20,22 +20,17 @@ defineExpose({
     close: close
 });
 
-// Handle clicks outside the dialog
 const handleBackdropClick = (event) => {
-    // Check if the click was directly on the dialog element (the backdrop)
-    // and not on any of its children
     if (event.target === dialog.value) {
         close();
     }
 };
 
 onMounted(() => {
-    // Add mousedown listener when component is mounted
     dialog.value?.addEventListener('mousedown', handleBackdropClick);
 });
 
 onBeforeUnmount(() => {
-    // Clean up the event listener when component is unmounted
     dialog.value?.removeEventListener('mousedown', handleBackdropClick);
 });
 </script>

@@ -66,7 +66,6 @@ function goBack() {
 
 function completeOnboarding() {
     localStorage.setItem('onboardingComplete', 'true')
-    router.push('/')
 }
 </script>
 
@@ -90,7 +89,7 @@ function completeOnboarding() {
                 <ObjectiveLi>Effectuer les tâches</ObjectiveLi>
             </ul>
             <p>Une fois toutes les tâches terminées, ramène l'abeille à la borne située dans le bâtiment.</p>
-            <BaseButton @click="completeOnboarding" class="primary">Accepter la quête</BaseButton>
+            <BaseButton @click="completeOnboarding" to="/" class="primary">Accepter la quête</BaseButton>
         </BaseModal>
         <header class="progress-header">
             <BaseProgress :current-step="currentStep - 1" :total-steps="totalSteps - 1" />

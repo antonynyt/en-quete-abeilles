@@ -7,6 +7,7 @@ export const useGameStore = defineStore(
     () => {
         const timeStarted = ref(Date.now())
         const completedTasks = ref(new Set())
+        const scannedTasks = ref(new Set())
         const totalTasks = ref(0)
         const tasks = ref([])
 
@@ -31,6 +32,14 @@ export const useGameStore = defineStore(
             return completedTasks.value.has(taskId)
         }
 
+        function markTaskAsScanned(taskId) {
+            scannedTasks.value.add(taskId)
+        }
+
+        function isTaskScanned(taskId) {
+            return scannedTasks.value.has(taskId)
+        }
+
         function getTaskById(taskId) {
             return tasks.value.find((task) => task.id === taskId)
         }
@@ -42,12 +51,15 @@ export const useGameStore = defineStore(
         return {
             timeStarted,
             completedTasks,
+            scannedTasks,
             totalTasks,
             tasks,
             tasksDone,
             setTasks,
             markTaskAsCompleted,
             isTaskCompleted,
+            markTaskAsScanned,
+            isTaskScanned,
             getTaskById,
             isAllTasksCompleted,
         }
@@ -59,6 +71,7 @@ export const useGameStore = defineStore(
                     return JSON.stringify({
                         ...state,
                         completedTasks: Array.from(state.completedTasks),
+                        scannedTasks: Array.from(state.scannedTasks),
                     })
                 },
                 deserialize: (value) => {
@@ -66,6 +79,7 @@ export const useGameStore = defineStore(
                     return {
                         ...parsed,
                         completedTasks: new Set(parsed.completedTasks || []),
+                        scannedTasks: new Set(parsed.scannedTasks || []),
                     }
                 },
             },
