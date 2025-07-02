@@ -40,7 +40,9 @@ const processClick = () => {
     <a v-if="isLocked" href.prevent="#" class="locked">
         <div class="wrapper">
             <BaseIcon :color="color">
-                <IconFlag />
+                <slot name="icon">
+                    <IconFlag />
+                </slot>
             </BaseIcon>
             <h2>{{ title }}</h2>
             <div class="status">
@@ -52,7 +54,9 @@ const processClick = () => {
     <RouterLink v-else :to="href" class="button" @click="processClick">
         <div class="wrapper">
             <BaseIcon :color="color">
-                <IconFlag />
+                <slot name="icon">
+                    <IconFlag />
+                </slot>
             </BaseIcon>
             <h2>{{ title }}</h2>
             <div class="status">

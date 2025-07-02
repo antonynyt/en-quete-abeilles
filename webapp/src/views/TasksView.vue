@@ -61,8 +61,12 @@ onMounted(() => {
             <section class="centered">
                 <BaseTask v-for="(task, index) in gameStore.tasks" :key="task.id" :href="`/tasks/${task.slug}`"
                     :color="task.color" :title="task.title" :isCompleted="gameStore.isTaskCompleted(task.id)" />
-                <BaseTask color="var(--color-orange)" title="Ramener l'abeille"
-                    :isLocked="!gameStore.isAllTasksCompleted" />
+                <BaseTask color="var(--color-brown)" title="Ramener l'abeille"
+                    :isLocked="!gameStore.isAllTasksCompleted">
+                    <template #icon>
+                        <IconCrown color="var(--color-orange)" />
+                    </template>
+                </BaseTask>
             </section>
         </main>
         <BgGrass />
