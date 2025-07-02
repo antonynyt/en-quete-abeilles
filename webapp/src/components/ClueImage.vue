@@ -44,6 +44,11 @@ const props = defineProps({
 .clue-image {
     width: 100%;
     height: auto;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    pointer-events: none;
 }
 
 .overlay {

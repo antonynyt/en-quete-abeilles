@@ -114,6 +114,11 @@ onMounted(() => {
     background-color: v-bind('bgColor');
 }
 
+.page-header-container {
+    position: fixed;
+    z-index: 999;
+}
+
 .page-header-container .left-side {
     display: flex;
     align-items: center;
@@ -133,6 +138,8 @@ onMounted(() => {
     overflow: hidden;
     margin-bottom: var(--spacing-lg);
     padding-bottom: var(--spacing-xl);
+    padding-top: 5rem;
+
 }
 
 .page-content-header::before {
