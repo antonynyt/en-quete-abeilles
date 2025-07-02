@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_quiz_choices",
+  "info": {
+    "displayName": "Choice",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "response": {
+      "type": "string",
+      "required": true
+    },
+    "correct": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

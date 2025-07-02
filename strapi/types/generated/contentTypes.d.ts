@@ -437,6 +437,13 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
         number
       >;
     publishedAt: Schema.Attribute.DateTime;
+    quiz: Schema.Attribute.Component<'quiz.quiz', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     shortDescr: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -449,28 +456,6 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
-        };
-      }>;
-    taskSlug: Schema.Attribute.UID<
-      undefined,
-      {
-        'disable-auto-fill': true;
-        'disable-regenerate': true;
-        'uuid-format': '^[a-f0-9]{8,12}$';
-      }
-    > &
-      Schema.Attribute.Required &
-      Schema.Attribute.CustomField<
-        'plugin::strapi-advanced-uuid.uuid',
-        {
-          'disable-auto-fill': true;
-          'disable-regenerate': true;
-          'uuid-format': '^[a-f0-9]{8,12}$';
-        }
-      > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
         };
       }>;
     title: Schema.Attribute.String &

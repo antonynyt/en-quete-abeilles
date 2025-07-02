@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_quiz_quizzes",
+  "info": {
+    "displayName": "Quiz",
+    "icon": "gate"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "feedback": {
+      "type": "text",
+      "required": true
+    },
+    "choice": {
+      "type": "component",
+      "component": "quiz.choice",
+      "repeatable": true,
+      "required": true,
+      "min": 2,
+      "max": 3
+    }
+  },
+  "config": {}
+}

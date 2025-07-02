@@ -14,7 +14,7 @@ export interface ContentList extends Struct.ComponentSchema {
 export interface ContentMedia extends Struct.ComponentSchema {
   collectionName: 'components_content_media';
   info: {
-    displayName: 'media';
+    displayName: 'Media';
     icon: 'attachment';
   };
   attributes: {
@@ -46,6 +46,39 @@ export interface NonRepetableIndice extends Struct.ComponentSchema {
   };
 }
 
+export interface QuizChoice extends Struct.ComponentSchema {
+  collectionName: 'components_quiz_choices';
+  info: {
+    displayName: 'Choice';
+    icon: 'check';
+  };
+  attributes: {
+    correct: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    response: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface QuizQuiz extends Struct.ComponentSchema {
+  collectionName: 'components_quiz_quizzes';
+  info: {
+    displayName: 'Quiz';
+    icon: 'gate';
+  };
+  attributes: {
+    choice: Schema.Attribute.Component<'quiz.choice', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 2;
+        },
+        number
+      >;
+    feedback: Schema.Attribute.Text & Schema.Attribute.Required;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -53,6 +86,8 @@ declare module '@strapi/strapi' {
       'content.media': ContentMedia;
       'content.text': ContentText;
       'non-repetable.indice': NonRepetableIndice;
+      'quiz.choice': QuizChoice;
+      'quiz.quiz': QuizQuiz;
     }
   }
 }
