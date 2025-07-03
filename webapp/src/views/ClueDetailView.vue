@@ -65,44 +65,50 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="scanner" class="page-container">
+    <div v-if="scanner" class="clue-detail">
         <TheScanner @close="closeScanner" :showCloseBtn="true" />
     </div>
-    <div v-else-if="task" class="page-container">
-        <ThePageHeader title="Indice" class="page-header-container">
+    <div v-else-if="task" class="clue-detail">
+        <ThePageHeader title="Indice" class="clue-detail__header">
             <template #left-side>
-                <div class="left-side">
+                <div class="clue-detail__header-left">
                     <BaseIconLink link="/tasks" @click.prevent="goBack" :icon="IconBack" label="Retour" />
-                    <p class="pally">Indice</p>
+                    <p class="clue-detail__header-text">Indice</p>
                 </div>
             </template>
         </ThePageHeader>
-        <main>
-            <header class="page-content-header">
+
+        <main class="clue-detail__main">
+            <header class="clue-detail__content-header">
                 <div class="centered">
-                    <h1>{{ task.title }}</h1>
-                    <p>Pour commencer, déplace toi vers la tâche à l'aide de l'indice.</p>
+                    <h1 class="clue-detail__title">{{ task.title }}</h1>
+                    <p class="clue-detail__description">Pour commencer, déplace toi vers la tâche à l'aide de l'indice.
+                    </p>
                 </div>
             </header>
-            <section class="centered">
-                <h2>Indice</h2>
-                <p>{{ task.description }}</p>
+
+            <section class="clue-detail__section centered">
+                <h2 class="clue-detail__section-title">Indice</h2>
+                <p class="clue-detail__section-text">{{ task.description }}</p>
             </section>
-            <section class="centered">
-                <h2>Fait amusant</h2>
-                <p>{{ task.fact }}</p>
+
+            <section class="clue-detail__section centered">
+                <h2 class="clue-detail__section-title">Fait amusant</h2>
+                <p class="clue-detail__section-text">{{ task.fact }}</p>
             </section>
-            <section class="centered clue-image-section">
-                <h2>Photo du lieu</h2>
+
+            <section class="clue-detail__section clue-detail__section--image centered">
+                <h2 class="clue-detail__section-title">Photo du lieu</h2>
                 <ClueImage :task="task" />
             </section>
         </main>
-        <div class="centered action-button">
+
+        <div class="clue-detail__actions centered">
             <BaseButton v-if="gameStore.isTaskScanned(task.id) || gameStore.isTaskCompleted(task.id)"
-                :to="`/t/${task.id}`">
+                :to="`/t/${task.id}`" class="clue-detail__action-button">
                 Ouvrir la tâche
             </BaseButton>
-            <BaseButton v-else @click="openScanner" class="primary">
+            <BaseButton v-else @click="openScanner" class="clue-detail__action-button primary">
                 Scanner le code de la tâche
             </BaseButton>
         </div>
@@ -110,28 +116,28 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.page-header-container,
-.page-content-header {
+.clue-detail__header,
+.clue-detail__content-header {
     background-color: v-bind('bgColor');
 }
 
-.page-header-container {
+.clue-detail__header {
     position: fixed;
     z-index: 999;
 }
 
-.page-header-container .left-side {
+.clue-detail__header-left {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
 }
 
-.page-header-container .left-side p {
+.clue-detail__header-text {
     margin: 0;
     font-size: var(--font-size-md);
 }
 
-.page-content-header {
+.clue-detail__content-header {
     padding: var(--spacing-lg) 0;
     position: relative;
     display: flex;
@@ -143,7 +149,7 @@ onMounted(() => {
     padding-top: 5rem;
 }
 
-.page-content-header::before {
+.clue-detail__content-header::before {
     content: "";
     position: absolute;
     bottom: -90%;
@@ -154,20 +160,20 @@ onMounted(() => {
     z-index: 1;
 }
 
-main>section {
+.clue-detail__section {
     margin-bottom: var(--spacing-lg);
 }
 
-main>section h2 {
+.clue-detail__section--image {
+    margin-bottom: calc(7rem + env(safe-area-inset-bottom));
+}
+
+.clue-detail__section-title {
     margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-lg);
 }
 
-.clue-image-section {
-    margin-bottom: calc(5.5rem + env(safe-area-inset-bottom));
-}
-
-.action-button {
+.clue-detail__actions {
     position: fixed;
     bottom: 0;
     left: 0;

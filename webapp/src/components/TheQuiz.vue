@@ -42,15 +42,12 @@ const loadQuiz = async () => {
         } else {
             console.warn('No quiz found for this task');
         }
-
-
     } catch (error) {
         console.error('Failed to load quiz:', error);
     }
 };
 
 const handleContinue = () => {
-    gameStore.markTaskAsCompleted(props.taskId);
     router.push('/');
 };
 
@@ -73,6 +70,7 @@ const handleSubmit = () => {
 
     isCorrect.value = hasCorrectAnswers;
     showFeedback.value = true;
+    gameStore.markTaskAsCompleted(props.taskId);
 };
 
 defineExpose({
