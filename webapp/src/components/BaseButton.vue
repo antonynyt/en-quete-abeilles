@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { defineEmits } from 'vue';
 
 const props = defineProps({
     to: {

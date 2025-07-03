@@ -81,6 +81,12 @@ html {
     font-family: 'Fredoka', sans-serif;
 }
 
+strong,
+b,
+.bold {
+    font-weight: 500;
+}
+
 body {
     color: var(--color-text);
     background: var(--color-background);

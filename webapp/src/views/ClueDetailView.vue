@@ -98,11 +98,12 @@ onMounted(() => {
             </section>
         </main>
         <div class="centered action-button">
-            <BaseButton v-if="gameStore.isTaskScanned(task.id)" :to="`/t/${task.id}`">
+            <BaseButton v-if="gameStore.isTaskScanned(task.id) || gameStore.isTaskCompleted(task.id)"
+                :to="`/t/${task.id}`">
                 Ouvrir la tâche
             </BaseButton>
             <BaseButton v-else @click="openScanner" class="primary">
-                Ouvrir le scanner
+                Scanner le code de la tâche
             </BaseButton>
         </div>
     </div>
@@ -127,6 +128,7 @@ onMounted(() => {
 
 .page-header-container .left-side p {
     margin: 0;
+    font-size: var(--font-size-md);
 }
 
 .page-content-header {
@@ -136,17 +138,16 @@ onMounted(() => {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
     padding-bottom: var(--spacing-xl);
     padding-top: 5rem;
-
 }
 
 .page-content-header::before {
     content: "";
     position: absolute;
     bottom: -90%;
-    width: 200%;
+    width: 400%;
     height: 100%;
     background-color: var(--color-background);
     border-radius: 50%;

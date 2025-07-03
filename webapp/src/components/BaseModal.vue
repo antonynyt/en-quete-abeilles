@@ -36,7 +36,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <dialog class="modal-container" ref="dialog" @close="visible = false" closedby="any">
+    <dialog class="modal-container" ref="dialog" @close="visible = false">
         <RoundCloseButton @close="close" class="close-btn" />
         <div class="modal-content">
             <slot></slot>
@@ -44,13 +44,19 @@ onBeforeUnmount(() => {
     </dialog>
 </template>
 
+<style>
+body:has(dialog[open]) {
+    overflow: hidden;
+}
+</style>
+
 <style scoped>
 ::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-container {
-    position: relative;
+    position: fixed;
     background-color: var(--color-beige-light);
     border-radius: var(--radius-md);
     padding: var(--spacing-lg) var(--spacing-md);

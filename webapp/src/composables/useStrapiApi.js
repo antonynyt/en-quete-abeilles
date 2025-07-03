@@ -38,7 +38,10 @@ export function useStrapiApi() {
 
     const getTaskBySlug = async (slug) => {
         return await apiRequest(`/tasks/slug/${slug}?populate=*`)
-        // return await apiRequest(`/tasks?filters[slug][$eq]=${slug}&populate[clue][populate]=image`)
+    }
+
+    const getTaskQuiz = async (id) => {
+        return await apiRequest(`/tasks/${id}?populate[quiz][populate]=*`)
     }
 
     return {
@@ -48,5 +51,6 @@ export function useStrapiApi() {
         getTaskById,
         apiRequest,
         getTaskBySlug,
+        getTaskQuiz,
     }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 
 const props = defineProps({
     link: {
@@ -14,10 +15,17 @@ const props = defineProps({
         default: '',
     },
 });
+
+const emit = defineEmits(['click']);
+const handleClick = (e) => {
+    e.preventDefault();
+    emit('click', e);
+};
+
 </script>
 
 <template>
-    <RouterLink :to="link" class="icon-link">
+    <RouterLink :to="link" class="icon-link" @click="handleClick">
         <component :is="icon" class="icon" />
         <span class="visually-hidden">{{ label }}</span>
     </RouterLink>

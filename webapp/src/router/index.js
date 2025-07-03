@@ -2,8 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import NotFound from '../views/NotFound.vue'
 
 const onboardingGuard = (to, from, next) => {
+    const excludedRoutes = ['task-detail']
     const isOnboardingComplete = localStorage.getItem('onboardingComplete') === 'true'
-    if (to.name === 'onboarding' || isOnboardingComplete) {
+
+    if (to.name === 'onboarding' || isOnboardingComplete || excludedRoutes.includes(to.name)) {
         next()
     } else {
         next({ name: 'onboarding' })
@@ -33,6 +35,7 @@ const router = createRouter({
             path: '/t/:id',
             name: 'task-detail',
             component: () => import('../views/TaskDetailView.vue'),
+            meta: { transition: 'slide-in' },
         },
         {
             path: '/scanner',

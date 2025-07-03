@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, defineEmits } from 'vue'
+import { ref, computed } from 'vue'
 import { QrcodeStream } from 'vue-qrcode-reader'
 import BaseModal from './BaseModal.vue'
 import BaseButton from './BaseButton.vue'
@@ -90,7 +90,7 @@ const onDetect = async ([firstDetectedCode]) => {
                     <h4>Objectifs</h4>
                     <ul>
                         <ObjectiveLi v-for="(objective, index) in task.objectives" :key="index">{{ objective.listElement
-                            }}
+                        }}
                         </ObjectiveLi>
                     </ul>
                 </section>
