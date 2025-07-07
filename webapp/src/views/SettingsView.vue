@@ -4,14 +4,26 @@ import IconCross from '@/components/icons/IconCross.vue';
 import BaseIconLink from '@/components/BaseIconLink.vue';
 import ThePageHeader from '@/components/ThePageHeader.vue';
 import BaseModal from '@/components/BaseModal.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const modal = ref()
 const showModal = () => modal.value?.show()
 const closeModal = () => modal.value?.close()
+const isOnline = ref(navigator.onLine);
+
+const updateOnlineStatus = () => {
+    isOnline.value = navigator.onLine;
+};
+
+onMounted(() => {
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('online', updateOnlineStatus);
+    window.removeEventListener('offline', updateOnlineStatus);
+});
 
 const openResetModal = () => {
     showModal();
@@ -45,13 +57,23 @@ const resetApp = () => {
         </ThePageHeader>
         <main class="full-width">
 
-            <section class="centered">
-                <h2>Globaux</h2>
-                <BaseButton>Langues</BaseButton>
+            <section class="centered app-info">
+                <div class="app-info__item">
+                    <span>Mode de l'application</span>
+                    <span class="app-info__value"
+                        :class="{ 'connection--online': isOnline, 'connection--offline': !isOnline }">
+                        {{ isOnline ? 'En ligne' : 'Hors ligne' }}
+                    </span>
+                </div>
+                <div class="app-info__item">
+                    <span>Version</span>
+                    <span class="app-info__value">
+                        {{ '1.0.0' }}
+                    </span>
+                </div>
             </section>
 
             <section class="centered">
-                <h2>Danger</h2>
                 <!-- TODO: Langues -->
                 <!-- TODO: Vibrations Toggle-->
                 <!-- TODO: Animations Toggle -->
@@ -88,5 +110,33 @@ section h2 {
     width: auto;
     padding-left: var(--spacing-lg);
     padding-right: var(--spacing-lg);
+}
+
+.app-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-lg);
+}
+
+.app-info__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background-color: var(--color-beige-light);
+    border-radius: var(--radius-sm);
+}
+
+.app-info__value {
+    font-weight: 500;
+}
+
+.connection--online {
+    color: var(--color-success, #28a745);
+}
+
+.connection--offline {
+    color: var(--color-orange-electric, #dc3545);
 }
 </style>
