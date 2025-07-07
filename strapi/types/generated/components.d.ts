@@ -1,5 +1,17 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContentEmbed extends Struct.ComponentSchema {
+  collectionName: 'components_content_embeds';
+  info: {
+    displayName: 'Embed';
+    icon: 'earth';
+  };
+  attributes: {
+    embed: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<'plugin::oembed.oembed'>;
+  };
+}
+
 export interface ContentList extends Struct.ComponentSchema {
   collectionName: 'components_content_lists';
   info: {
@@ -18,7 +30,20 @@ export interface ContentMedia extends Struct.ComponentSchema {
     icon: 'attachment';
   };
   attributes: {
-    Media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Media: Schema.Attribute.Media<'images' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface ContentParagraph extends Struct.ComponentSchema {
+  collectionName: 'components_content_paragraphs';
+  info: {
+    displayName: 'paragraph';
+    icon: 'italic';
+  };
+  attributes: {
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
   };
 }
 
@@ -29,7 +54,8 @@ export interface ContentText extends Struct.ComponentSchema {
     icon: 'feather';
   };
   attributes: {
-    textContent: Schema.Attribute.Blocks;
+    paragraph: Schema.Attribute.Component<'content.paragraph', true>;
+    subtitle: Schema.Attribute.String;
   };
 }
 
@@ -82,8 +108,10 @@ export interface QuizQuiz extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'content.embed': ContentEmbed;
       'content.list': ContentList;
       'content.media': ContentMedia;
+      'content.paragraph': ContentParagraph;
       'content.text': ContentText;
       'non-repetable.indice': NonRepetableIndice;
       'quiz.choice': QuizChoice;

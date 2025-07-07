@@ -102,7 +102,7 @@ section {
     display: flex;
     align-items: space-between;
     gap: var(--spacing-sm);
-    margin: var(--spacing-md) auto var(--spacing-lg);
+    margin: var(--spacing-lg) auto;
 }
 
 .goal-header-title {

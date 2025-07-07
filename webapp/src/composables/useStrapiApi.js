@@ -33,7 +33,10 @@ export function useStrapiApi() {
     }
 
     const getTaskById = async (id) => {
-        return await apiRequest(`/tasks/${id}?populate=*`)
+        return await apiRequest(
+            `/tasks/${id}?populate[objectives]=*&populate[details][populate]=*&populate[details][on][content.text][populate][paragraph][populate][0]=image&populate[details][on][content.media][populate]=*&populate[details][populate]=*&populate[goal][on][content.text][populate][paragraph][populate][0]=image&populate[goal][on][content.media][populate]=*&populate[details][on][content.embed][populate]=*`,
+        )
+        return await apiRequest(`/tasks/${id}?populate[objectives]=*&populate[details][populate]=*`)
     }
 
     const getTaskBySlug = async (slug) => {

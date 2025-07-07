@@ -44,7 +44,14 @@ const resetApp = () => {
             </template>
         </ThePageHeader>
         <main class="full-width">
+
             <section class="centered">
+                <h2>Globaux</h2>
+                <BaseButton>Langues</BaseButton>
+            </section>
+
+            <section class="centered">
+                <h2>Danger</h2>
                 <!-- TODO: Langues -->
                 <!-- TODO: Vibrations Toggle-->
                 <!-- TODO: Animations Toggle -->
@@ -52,6 +59,7 @@ const resetApp = () => {
                     Supprimer la progression
                 </BaseButton>
             </section>
+
         </main>
     </div>
 </template>
@@ -61,6 +69,11 @@ section {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+section h2 {
+    font-size: var(--font-size-md);
 }
 
 .modal-action-buttons {

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_content_paragraphs",
+  "info": {
+    "displayName": "paragraph",
+    "icon": "italic"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

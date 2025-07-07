@@ -22,6 +22,7 @@
           "localized": true
         }
       },
+      "targetField": "title",
       "required": true
     },
     "title": {
@@ -86,7 +87,8 @@
       },
       "components": [
         "content.media",
-        "content.text"
+        "content.text",
+        "content.embed"
       ],
       "required": true,
       "min": 1
@@ -101,6 +103,18 @@
       "component": "quiz.quiz",
       "repeatable": false,
       "required": true
+    },
+    "goal": {
+      "type": "dynamiczone",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "components": [
+        "content.media",
+        "content.text"
+      ]
     }
   }
 }

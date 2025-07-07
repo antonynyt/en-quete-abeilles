@@ -10,6 +10,7 @@ import IconCross from '@/components/icons/IconCross.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import IconFlag from '@/components/icons/IconFlag.vue';
 import TheQuiz from '@/components/TheQuiz.vue';
+import TheDynamicContent from '@/components/TheDynamicContent.vue';
 import { useTask } from '@/composables/useTask';
 
 const gameStore = useGameStore()
@@ -43,6 +44,7 @@ const handleTaskLoad = async () => {
         })
     }
 }
+
 
 onMounted(() => {
     handleTaskLoad()
@@ -83,13 +85,14 @@ onMounted(() => {
                 </div>
             </header>
 
-            <section class="task-detail__main-section centered">
+            <section v-if="task?.details" class="task-detail__main-section centered">
                 <h2 class="task-detail__section-title">Explications</h2>
+                <TheDynamicContent v-if="task" :blocks="task?.details" />
             </section>
 
-            <section class="task-detail__main-section centered">
+            <section v-if="task?.goal" class="task-detail__main-section centered">
                 <h2 class="task-detail__section-title">Ta tâche</h2>
-                <p></p>
+                <TheDynamicContent v-if="task" :blocks="task?.goal" />
             </section>
         </main>
 

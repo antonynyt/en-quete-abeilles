@@ -48,6 +48,7 @@ const loadQuiz = async () => {
 };
 
 const handleContinue = () => {
+    gameStore.markTaskAsCompleted(props.taskId);
     router.push('/');
 };
 
@@ -70,7 +71,6 @@ const handleSubmit = () => {
 
     isCorrect.value = hasCorrectAnswers;
     showFeedback.value = true;
-    gameStore.markTaskAsCompleted(props.taskId);
 };
 
 defineExpose({

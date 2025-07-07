@@ -19,6 +19,8 @@ export function useTask() {
         description: response.data.shortDescr,
         color: response.data.color,
         objectives: response.data.objectives || [],
+        details: response.data.details || [],
+        goal: response.data.goal || [],
     })
 
     const loadTask = async (taskId) => {
@@ -28,6 +30,7 @@ export function useTask() {
         try {
             const response = await getTaskById(taskId)
             task.value = mapTaskResponse(response)
+            console.log('Task loaded:', task.value)
 
             if (!task.value) {
                 throw new Error('Task not found')

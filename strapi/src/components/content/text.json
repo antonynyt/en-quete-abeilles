@@ -6,8 +6,13 @@
   },
   "options": {},
   "attributes": {
-    "textContent": {
-      "type": "blocks"
+    "subtitle": {
+      "type": "string"
+    },
+    "paragraph": {
+      "type": "component",
+      "component": "content.paragraph",
+      "repeatable": true
     }
   },
   "config": {}

@@ -407,7 +407,9 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    details: Schema.Attribute.DynamicZone<['content.media', 'content.text']> &
+    details: Schema.Attribute.DynamicZone<
+      ['content.media', 'content.text', 'content.embed']
+    > &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -420,6 +422,12 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    goal: Schema.Attribute.DynamicZone<['content.media', 'content.text']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::task.task'>;
     objectives: Schema.Attribute.Component<'content.list', true> &
@@ -451,7 +459,7 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    slug: Schema.Attribute.UID &
+    slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
