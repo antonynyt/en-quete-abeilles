@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NotFound from '../views/NotFound.vue'
+import { useGameStore } from '@/stores/gameStore'
 
 const onboardingGuard = (to, from, next) => {
     const excludedRoutes = ['task-detail']
@@ -30,6 +31,18 @@ const router = createRouter({
             name: 'task-clue',
             component: () => import('../views/ClueDetailView.vue'),
             meta: { transition: 'slide-in' },
+        },
+        {
+            path: '/final-task',
+            name: 'final-task',
+            component: () => import('../views/FinalTaskView.vue'),
+            beforeEnter: (to, from, next) => {
+                if (useGameStore().isAllTasksCompleted) {
+                    next()
+                } else {
+                    next({ name: 'tasks' })
+                }
+            },
         },
         {
             path: '/t/:id',

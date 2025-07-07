@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "final_tasks",
+  "info": {
+    "singularName": "final-task",
+    "pluralName": "final-tasks",
+    "displayName": "Tâche finale"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "clue": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "non-repetable.indice",
+      "repeatable": false
+    }
+  }
+}

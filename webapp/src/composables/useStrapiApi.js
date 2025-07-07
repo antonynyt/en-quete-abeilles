@@ -36,7 +36,6 @@ export function useStrapiApi() {
         return await apiRequest(
             `/tasks/${id}?populate[objectives]=*&populate[details][populate]=*&populate[details][on][content.text][populate][paragraph][populate][0]=image&populate[details][on][content.media][populate]=*&populate[details][populate]=*&populate[goal][on][content.text][populate][paragraph][populate][0]=image&populate[goal][on][content.media][populate]=*&populate[details][on][content.embed][populate]=*`,
         )
-        return await apiRequest(`/tasks/${id}?populate[objectives]=*&populate[details][populate]=*`)
     }
 
     const getTaskBySlug = async (slug) => {
@@ -47,6 +46,10 @@ export function useStrapiApi() {
         return await apiRequest(`/tasks/${id}?populate[quiz][populate]=*`)
     }
 
+    const getFinalTask = async () => {
+        return await apiRequest(`/final-task?populate[clue][populate]=image`)
+    }
+
     return {
         loading: computed(() => loading.value),
         error: computed(() => error.value),
@@ -55,5 +58,6 @@ export function useStrapiApi() {
         apiRequest,
         getTaskBySlug,
         getTaskQuiz,
+        getFinalTask,
     }
 }
