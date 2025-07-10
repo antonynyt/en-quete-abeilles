@@ -24,10 +24,6 @@ const isTaskDone = computed(() => {
     return gameStore.isTaskCompleted(route.params.id)
 })
 
-const goBack = () => {
-    router.back()
-}
-
 const showQuiz = () => {
     quizComponent.value?.loadQuiz()
 }
@@ -65,7 +61,7 @@ onMounted(() => {
                 </div>
             </template>
             <template #right-side>
-                <BaseIconLink @click="goBack" link="/tasks" :icon="IconCross" label="Fermer" />
+                <BaseIconLink link="/tasks" :icon="IconCross" label="Fermer" />
             </template>
         </ThePageHeader>
 
