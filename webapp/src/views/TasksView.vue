@@ -9,6 +9,9 @@ import BaseIcon from '@/components/BaseIcon.vue';
 import IconCrown from '@/components/icons/IconCrown.vue';
 import { useGameStore } from '@/stores/gameStore';
 import { useStrapiApi } from '@/composables/useStrapiApi';
+import { useThemeColor } from '@/composables/useThemeColor';
+
+useThemeColor('#c5eff9')
 
 const gameStore = useGameStore()
 const { getTasks, loading, error } = useStrapiApi()

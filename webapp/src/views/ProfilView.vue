@@ -7,6 +7,8 @@ import ProgressCard from '@/components/ProgressCard.vue';
 import TheBee from '@/components/TheBee.vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import { useBeeStore } from '@/stores/beeStore';
+import { useThemeColor } from '@/composables/useThemeColor';
+useThemeColor('#c5eff9')
 const bee = useBeeStore()
 
 </script>
@@ -34,7 +36,7 @@ const bee = useBeeStore()
                 <ProgressCard />
             </section>
             <section class="centered learn-section">
-                <h2>Apprendre</h2>
+                <h2>En savoir plus</h2>
                 <BaseButton to="/tasks">
                     En savoir plus sur l'essaimage
                 </BaseButton>
