@@ -29,7 +29,7 @@ export function useStrapiApi() {
     }
 
     const getTasks = async () => {
-        return await apiRequest('/tasks?populate=*')
+        return await apiRequest('/tasks?populate=*&sort=order:asc')
     }
 
     const getTaskById = async (id) => {
