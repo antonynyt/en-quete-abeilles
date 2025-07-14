@@ -1,0 +1,120 @@
+@import '@csstools/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+/* Define CSS variables for colors */
+:root {
+    --color-background: #fffdf9;
+    --color-text: #12120d;
+    --color-beige: #f5e3c2;
+    --color-beige-light: #fdf6e7;
+    --color-brown: #633a1e;
+    --color-brown-dark: #361917;
+    --color-orange: #ffc107;
+    --color-orange-electric: #dc3545;
+    --color-green: #94de6d;
+    --color-sky: #c5eff9;
+}
+
+/* Define CSS variables for font size */
+:root {
+    --font-size-xs: 0.875rem;
+    --font-size-sm: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.375rem;
+    --font-size-xl: 1.625rem;
+    --font-size-xxl: 2rem;
+
+    --base-line-height: 1.4;
+    --header-line-height: 1.1;
+}
+
+/* Define CSS variables for spacing and radius */
+:root {
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 8rem;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+
+    --border-size: 2px;
+    --max-width: 732px;
+}
+
+:root {
+    --shadow-offset-y: 0 calc(var(--border-size) * 2) 0;
+    --shadow-inset: inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'Pally';
+    src:
+        url('/fonts/pally.woff2') format('woff2'),
+        url('/fonts/pally.woff') format('woff');
+    font-weight: 400 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+.pally {
+    font-family: 'Pally', sans-serif;
+    font-weight: 500;
+}
+
+.fredoka {
+    font-family: 'Fredoka', sans-serif;
+}
+
+strong,
+b,
+.bold {
+    font-weight: 500;
+}
+
+body {
+    color: var(--color-text);
+    background: var(--color-background);
+    line-height: var(--base-line-height);
+
+    font-family: 'Fredoka', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: 'wdth' 100;
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

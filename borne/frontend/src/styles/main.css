@@ -1,0 +1,138 @@
+@import './base.css';
+
+#app {
+    margin: 0 auto;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    z-index: 1;
+    position: relative;
+    padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
+}
+
+.centered {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.with-navbar {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom)); /* Adjusted for navbar spacing */
+}
+
+@media screen and (min-width: 768px) {
+    .page-container {
+        padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom));
+    }
+
+    .centered {
+        padding: 0 var(--spacing-lg);
+    }
+
+    .with-navbar {
+        margin-left: 100px;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Pally', sans-serif;
+    font-weight: 600;
+    line-height: var(--header-line-height);
+    font-size: 1rem;
+}
+
+h1 {
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--spacing-md);
+    text-wrap-style: balance;
+}
+
+h2 {
+    font-size: var(--font-size-xl);
+}
+
+h3 {
+    font-size: var(--font-size-lg);
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Button styles */
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-beige-light);
+    width: 100%;
+    padding: 0.75rem var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: inherit;
+    font-family: 'Pally', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    border: var(--border-size) solid var(--color-brown);
+    box-shadow:
+        var(--shadow-offset-y) var(--color-brown),
+        var(--shadow-inset);
+    color: var(--color-brown);
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: var(--color-beige);
+    box-shadow: none;
+    transform: translateY(calc(var(--border-size) * 2));
+}
+
+.primary {
+    background-color: var(--color-orange);
+}
+
+.button.danger:active {
+    background-color: var(--color-orange-electric);
+    box-shadow: none;
+    transform: translateY(calc(var(--border-size) * 2));
+}
+
+.danger {
+    background-color: var(--color-orange-electric);
+    color: var(--color-background);
+}
+
+/* Image wrapper avoiding scroll overflow */
+
+.img-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,5 +1,21 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface BorneSubject extends Struct.ComponentSchema {
+  collectionName: 'components_borne_subjects';
+  info: {
+    displayName: 'subject';
+    icon: 'discuss';
+  };
+  attributes: {
+    cover: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    subtitle: Schema.Attribute.Media<'files', true>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    video: Schema.Attribute.Media<'files' | 'videos'> &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface ContentEmbed extends Struct.ComponentSchema {
   collectionName: 'components_content_embeds';
   info: {
@@ -108,6 +124,7 @@ export interface QuizQuiz extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'borne.subject': BorneSubject;
       'content.embed': ContentEmbed;
       'content.list': ContentList;
       'content.media': ContentMedia;
