@@ -1,12 +1,17 @@
 import { Hono } from "hono";
 import sqlite3 from "sqlite3";
 
+function isValidBeeName(name: string): boolean {
+    // Only allow letters, numbers, spaces, and limit length
+    return typeof name === "string" && /^[\w\s-]{1,50}$/.test(name);
+}
+
 export default function createBeeRoutes(db: sqlite3.Database) {
     const app = new Hono();
 
     app.post("/bees", async (c) => {
         const { name } = await c.req.json();
-        if (!name) return c.text("Missing name", 400);
+        if (!name || !isValidBeeName(name)) return c.text("Invalid name", 400);
         db.run("INSERT INTO bees (name) VALUES (?)", [name]);
         return c.text("Bee added");
     });

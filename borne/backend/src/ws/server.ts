@@ -1,33 +1,45 @@
-import { createServer } from "http";
-import { WebSocketServer } from "ws";
-import BarcodeScanner from "../scanner/scanner.js";
+import { Hono } from "hono";
+import { createNodeWebSocket } from "@hono/node-ws";
+import BarcodeScanner from "scanner";
 
-export function startWebSocketServer(port = 3001) {
-    const server = createServer();
-    const wss = new WebSocketServer({ server });
+function isValidBase64(str: string): boolean {
+    return /^[A-Za-z0-9+/]+={0,2}$/.test(str);
+}
 
-    const scanner = new BarcodeScanner();
-    scanner.on("data", (data) => {
-        if (typeof data === "string" && data.startsWith("beecode:")) {
-            wss.clients.forEach((ws) =>
-                ws.send(
-                    JSON.stringify({ type: "beecode", code: data.slice(8) })
-                )
-            );
-        } else {
-            wss.clients.forEach((ws) =>
-                ws.send(JSON.stringify({ type: "invalid", raw: data }))
-            );
-        }
-    });
+export default function createWsRoutes() {
+    const wsApp = new Hono();
+    const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app: wsApp });
 
-    wss.on("connection", (ws) => {
-        ws.send(
-            JSON.stringify({ type: "info", message: "WebSocket connected" })
-        );
-    });
+    wsApp.get(
+        "/ws",
+        upgradeWebSocket((c) => {
+            return {
+                onOpen(event, ws) {
+                    const scanner = new BarcodeScanner();
+                    scanner.on("data", (data) => {
+                        if (
+                            typeof data === "string" &&
+                            data.startsWith("beecode:")
+                        ) {
+                            const code = data.slice(8);
+                            if (isValidBase64(code)) {
+                                ws.send(
+                                    JSON.stringify({ type: "beecode", code })
+                                );
+                            } else {
+                                ws.send(JSON.stringify({ type: "invalid" }));
+                            }
+                        } else {
+                            ws.send(JSON.stringify({ type: "invalid" }));
+                        }
+                    });
+                },
+                onClose: () => {
+                    console.log("Connection closed");
+                },
+            };
+        })
+    );
 
-    server.listen(port, () => {
-        console.log(`WebSocket server running on ws://localhost:${port}`);
-    });
+    return { wsApp, injectWebSocket };
 }

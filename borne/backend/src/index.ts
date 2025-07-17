@@ -1,15 +1,20 @@
-import { serve } from '@hono/node-server';
-import db from './db/bees.js';
-import createBeeRoutes from './routes/bees.js';
-import { startWebSocketServer } from './ws/server.js';
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+import db from "./db/bees.js";
+import createBeeRoutes from "./routes/bees.js";
+import createWsRoutes from "./ws/server.js";
 
-const app = createBeeRoutes(db);
+const app = new Hono();
 
-serve({
+const { wsApp, injectWebSocket } = createWsRoutes();
+app.route("/", wsApp);
+app.route("/api", createBeeRoutes(db));
+
+const server = serve({
   fetch: app.fetch,
-  port: 3000
+  port: 3000,
 }, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`);
+  console.log(`API and WS is running on http://localhost:${info.port}`);
 });
 
-startWebSocketServer(3001);
+injectWebSocket(server);
