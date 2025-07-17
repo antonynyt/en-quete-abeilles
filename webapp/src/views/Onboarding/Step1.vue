@@ -11,7 +11,7 @@ import Step from './Step.vue'
         <template #description>
             <header>
                 <h1>Bienvenue au Centre de Compétence en Apiculture</h1>
-                <p>Les abeilles sont heureuses. Elles volent à la recherche du pollen et nectar des plantes.</p>
+                <p>Les abeilles sont heureuses. Elles volent à la recherche du pollen et du nectar des fleurs.</p>
             </header>
         </template>
     </Step>

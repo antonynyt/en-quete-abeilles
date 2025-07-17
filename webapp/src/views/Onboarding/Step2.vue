@@ -12,12 +12,11 @@ import Step from './Step.vue';
             <img class="bee4" src="../../assets/onboarding/bee-profil.svg" alt="">
         </template>
         <template #description>
-            <h1>La ruche est agitée!</h1>
-            <p>La ruche est pleine, la moitié de la colonie s'apprête à partir avec l'ancienne Reine. C'est
-                l'essaimage.
-            </p>
-            <p>Elles vont suivre la Reine et s'envelopper autour d'une branche en attendant de trouver une nouvelle
-                maison.</p>
+            <h1>Cette ruche s'agite!</h1>
+            <p>La ruche est très populeuse, une partie de la colonie s'apprête à partir avec la Reine. C'est
+                l'essaimage.</p>
+            <p>Elles s'envolent et suivent la Reine. En attendant de trouver une nouvelle maison, elles se posent
+                sur une branche et forme une grande grappe d'abeilles.</p>
         </template>
     </Step>
 </template>

@@ -33,8 +33,8 @@ bee.resetBee = () => {
                     </BaseButton>
                 </div>
                 <p>
-                    {{ bee.name }} est une jeune abeille inexperimentée. Parfois maladroite, elle rêve de devenir une
-                    butineuse indispensable.
+                    {{ bee.name }} est une jeune abeille inexperimentée. Parfois maladroite, elle rêve de devenir
+                    butineuse.
                 </p>
             </div>
         </div>

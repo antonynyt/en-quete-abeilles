@@ -8,8 +8,9 @@ import Step from './Step.vue'
             <img class="path" src="../../assets/onboarding/guide-path.svg" alt="">
         </template>
         <template #description>
-            <h1>Vite, suis l’essaim</h1>
-            <p>Ton objectif est d’effectuer les tâches sur ton chemin pour ramener l'abeille à son essaim.</p>
+            <h1>Vite, suis l'essaim</h1>
+            <p>Pour aider ta nouvelle amie, tu dois effectuer des tâches qui te permettrons de retrouver le chemin qui
+                ramènera ton abeille à son essaim.</p>
         </template>
     </Step>
 </template>

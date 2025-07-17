@@ -81,14 +81,14 @@ function completeOnboarding() {
                     <h3>Retrouver l'essaim</h3>
                 </div>
             </header>
-            <h4>Objectifs</h4>
+            <h4>Comment jouer</h4>
             <ul>
-                <ObjectiveLi>Lire les indices</ObjectiveLi>
-                <ObjectiveLi>Se déplacer vers l'endroit indiqué</ObjectiveLi>
+                <ObjectiveLi>Lire les indices proposés</ObjectiveLi>
+                <ObjectiveLi>Trouver l'emplacement de la tâche</ObjectiveLi>
                 <ObjectiveLi>Scanner le code QR</ObjectiveLi>
-                <ObjectiveLi>Effectuer les tâches</ObjectiveLi>
+                <ObjectiveLi>Effectuer la tâches</ObjectiveLi>
             </ul>
-            <p>Une fois toutes les tâches terminées, ramène l'abeille à la borne située dans le bâtiment.</p>
+            <p>Une fois toutes les tâches effectuées, ramène l'abeille à la borne située dans le bâtiment.</p>
             <BaseButton @click="completeOnboarding" to="/" class="primary">Accepter la quête</BaseButton>
         </BaseModal>
         <header class="progress-header">
