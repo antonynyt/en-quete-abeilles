@@ -17,11 +17,20 @@ const router = createRouter({
             },
         },
         {
-            path: '/controller/module/:id',
+            path: '/controller/module/:moduleId',
             name: 'ControllerModule',
-            component: () => import('../views/ModuleView.vue'),
+            component: () => import('../views/ModuleDetailView.vue'),
             meta: {
-                broadcastTo: (route) => `/display/module/${route.params.id}`,
+                broadcastTo: (route) => `/display/module/${route.params.moduleId}`,
+            },
+        },
+        {
+            path: '/controller/module/:moduleId/:subjectId',
+            name: 'SubjectDetail',
+            component: () => import('../views/SubjectDetailView.vue'),
+            meta: {
+                broadcastTo: (route) =>
+                    `/display/module/${route.params.moduleId}/${route.params.subjectId}`,
             },
         },
         {

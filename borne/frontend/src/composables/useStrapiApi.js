@@ -32,9 +32,16 @@ export function useStrapiApi() {
         return await apiRequest('/modules?populate=*&sort=order:asc')
     }
 
+    const getModuleById = async (id) => {
+        return await apiRequest(
+            `/modules/${id}?populate[cover]=true&populate[subject][populate][cover]=true`,
+        )
+    }
+
     return {
         loading: computed(() => loading.value),
         error: computed(() => error.value),
         getModules,
+        getModuleById,
     }
 }

@@ -1,4 +1,4 @@
-import { ref, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import router from '../router'
 
 export function useBroadcastChannel(channelName = 'hive', allowNavigation = true) {
@@ -20,10 +20,6 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
             router.push(event.data.path)
         }
     }
-
-    onUnmounted(() => {
-        bc.close()
-    })
 
     return {
         message,

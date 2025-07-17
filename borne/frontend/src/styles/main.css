@@ -18,31 +18,6 @@
     padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
 }
 
-.centered {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-}
-
-.with-navbar {
-    padding-bottom: calc(110px + env(safe-area-inset-bottom)); /* Adjusted for navbar spacing */
-}
-
-@media screen and (min-width: 768px) {
-    .page-container {
-        padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom));
-    }
-
-    .centered {
-        padding: 0 var(--spacing-lg);
-    }
-
-    .with-navbar {
-        margin-left: 100px;
-    }
-}
-
 h1,
 h2,
 h3,
@@ -85,7 +60,7 @@ p {
     justify-content: center;
     background-color: var(--color-beige-light);
     width: 100%;
-    padding: 0.75rem var(--spacing-md);
+    padding: 0.65rem var(--spacing-md);
     border-radius: var(--radius-sm);
     font-size: inherit;
     font-family: 'Pally', sans-serif;
