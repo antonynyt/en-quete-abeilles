@@ -1,13 +1,15 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue';
-import BaseButtonBack from '@/components/BaseButtonBack.vue';
-import TheHeader from '@/components/TheHeader.vue';
 import { useRouter, useRoute } from 'vue-router'
 import { useStrapiApi } from '@/composables/useStrapiApi';
-import BaseBreadcrumbs from '@/components/BaseBreadcrumbs.vue';
-import BaseCard from '@/components/BaseCard.vue';
-import BaseCardList from '@/components/BaseCardList.vue';
-import IconPlay from '@/components/icons/IconPlay.vue';
+import ControllerLayout from './ControllerLayout.vue';
+
+defineProps({
+    blueToBottom: {
+        type: String,
+        default: "40%"
+    }
+})
 
 const router = useRouter()
 const route = useRoute()
@@ -29,10 +31,6 @@ const fetchModule = async () => {
     }
 };
 
-const handleBack = () => {
-    router.back()
-}
-
 onMounted(() => {
     fetchModule()
 });
@@ -40,18 +38,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="page-container">
-        <TheHeader>
-            <template #left-side>
-                <div class="left-side">
-                    <BaseButtonBack class="backButton" @click="handleBack" />
-                    <BaseBreadcrumbs v-if="module" :title="module.title" :subject-title="subject.title" />
-                </div>
-            </template>
-        </TheHeader>
-
+    <ControllerLayout class="page-container" :module="module" :subject="subject">
         <slot :module="module" :subject="subject"></slot>
-    </div>
+    </ControllerLayout>
 </template>
 
 <style scoped>
@@ -60,23 +49,16 @@ onMounted(() => {
     overflow: hidden;
 }
 
-
 .page-container::before {
     content: "";
     position: absolute;
     align-self: center;
-    bottom: 40%;
+    bottom: v-bind(blueToBottom);
     width: 400%;
     height: 100%;
     background-color: var(--color-sky);
     border-radius: 50%;
     z-index: -1;
-}
-
-.left-side {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
 }
 
 .subject-list {

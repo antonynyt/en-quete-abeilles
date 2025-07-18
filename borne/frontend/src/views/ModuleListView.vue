@@ -4,6 +4,7 @@ import { useStrapiApi } from '../composables/useStrapiApi';
 import { ref, onMounted } from 'vue';
 import BaseCardList from '@/components/BaseCardList.vue';
 import BaseCard from '@/components/BaseCard.vue';
+import ControllerLayout from '@/layouts/ControllerLayout.vue';
 
 const { getModules } = useStrapiApi();
 const modules = ref([]);
@@ -22,15 +23,14 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="page-container">
-        <TheHeader />
+    <ControllerLayout class="page-container">
         <div class="module-list">
             <BaseCardList>
                 <BaseCard v-for="module in modules" :key="module.id" :item="module"
                     :to="`controller/module/${module.documentId}`" />
             </BaseCardList>
         </div>
-    </div>
+    </ControllerLayout>
 </template>
 
 <style scoped>

@@ -2,11 +2,17 @@
 import router from '@/router';
 import BaseButton from './BaseButton.vue';
 import TheProfilePicture from './TheProfilePicture.vue';
+import BaseButtonBack from './BaseButtonBack.vue';
+import BaseBreadcrumbs from './BaseBreadcrumbs.vue';
 
 const props = defineProps({
-    title: {
-        type: String,
-        default: 'Page Title',
+    module: {
+        type: Object,
+        default: null,
+    },
+    subject: {
+        type: Object,
+        default: null,
     },
 });
 
@@ -15,18 +21,25 @@ const handleReset = () => {
     window.location.replace('/');
 };
 
+const handleBack = () => {
+    router.back()
+}
+
 </script>
 
 <template>
     <header class="full-width">
         <div class="page-header">
 
-            <slot name="left-side" class="left-side">
-                <div class="left-side">
-                    <TheProfilePicture class="offline" />
-                    <span class="pally">Non connecté</span>
-                </div>
-            </slot>
+            <div v-if="module" class="left-side">
+                <BaseButtonBack class="backButton" @click="handleBack" />
+                <BaseBreadcrumbs v-if="module" :title="module.title" :subject-title="subject.title" />
+            </div>
+
+            <div v-else class="left-side">
+                <TheProfilePicture class="offline" />
+                <span class="pally">Mode invité</span>
+            </div>
 
             <div class="right-side">
                 <BaseButton @click="router.push('/')">Home</BaseButton>

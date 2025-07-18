@@ -1,14 +1,13 @@
 <script setup>
-import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
+import DisplayLayout from '@/layouts/DisplayLayout.vue';
 import { useRoute } from 'vue-router'
 const route = useRoute()
 
-useBroadcastChannel() // this line is necessary to assure routing from the /controller
 </script>
 <template>
-    <div>
+    <DisplayLayout>
         <h1>hive {{ route.params.id }}</h1>
-    </div>
+    </DisplayLayout>
 </template>
 
 <style scoped></style>

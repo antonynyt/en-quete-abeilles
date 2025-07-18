@@ -61,7 +61,7 @@ body:has(dialog[open]) {
     border-radius: var(--radius-md);
     padding: var(--spacing-lg) var(--spacing-md);
     width: calc(100% - var(--spacing-sm) * 2);
-    max-width: 550px;
+    max-width: 90%;
     max-height: 90%;
     border: var(--border-size) solid var(--color-beige);
     box-shadow:
