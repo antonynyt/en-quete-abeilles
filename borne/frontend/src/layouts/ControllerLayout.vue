@@ -8,6 +8,7 @@ import ObjectiveLi from '@/components/ObjectiveLi.vue';
 import { useStrapiApi } from '@/composables/useStrapiApi';
 import BaseButton from '@/components/BaseButton.vue';
 import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
+import BaseToast from '@/components/BaseToast.vue';
 
 defineProps({
     module: {
@@ -21,6 +22,8 @@ defineProps({
 });
 
 const modal = ref(null);
+const toast = ref(null);
+const toastMessage = ref('Code invalide ou non reconnu.');
 const ws = getWebSocketInstance();
 const bee = ref(null);
 
@@ -38,7 +41,7 @@ const fetchTasks = async () => {
     }
 };
 
-ws.onmessage = (event) => {
+ws.onmessage = async (event) => {
     try {
         const data = JSON.parse(event.data);
         if (data && typeof data === 'object' && data.type === 'beecode' && typeof data.code === 'string') {
@@ -48,7 +51,7 @@ ws.onmessage = (event) => {
 
                 if (validateBeeObject(parsedBee)) {
                     bee.value = parsedBee;
-                    fetchTasks();
+                    await fetchTasks();
                     modal.value.show();
                 } else {
                     console.error('Invalid bee object structure');
@@ -58,6 +61,7 @@ ws.onmessage = (event) => {
             }
         } else {
             //TODO: show a toast or notification for invalid message format
+            toast.value?.show();
             console.error('Invalid message format:', data);
         }
     } catch (error) {
@@ -74,6 +78,7 @@ function validateBeeObject(obj) {
 }
 
 const handleBeeSend = () => {
+    //TODO: verify taht bee is not already sent
     if (bee.value) {
         console.log('Sending bee data:', bee.value);
         sendMessage(JSON.stringify(bee.value));
@@ -108,6 +113,9 @@ const handleBeeSend = () => {
                 </div>
             </div>
         </BaseModal>
+        <BaseToast ref="toast" :duration="5000" type="danger" :message="toastMessage" :autoShow="false">
+            {{ toastMessage }}
+        </BaseToast>
         <TheHeader :module="module" :subject="subject" />
         <slot />
     </div>
