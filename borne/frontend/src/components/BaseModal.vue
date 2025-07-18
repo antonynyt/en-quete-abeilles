@@ -2,6 +2,13 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import RoundCloseButton from './RoundCloseButton.vue';
 
+defineProps({
+    showCloseButton: {
+        type: Boolean,
+        default: true
+    }
+})
+
 const dialog = ref();
 const visible = ref(false);
 
@@ -37,7 +44,7 @@ onBeforeUnmount(() => {
 
 <template>
     <dialog class="modal-container" ref="dialog" @close="visible = false">
-        <RoundCloseButton @close="close" class="close-btn" />
+        <RoundCloseButton v-if="showCloseButton" @close="close" class="close-btn" />
         <div class="modal-content">
             <slot></slot>
         </div>
@@ -59,8 +66,7 @@ body:has(dialog[open]) {
     position: fixed;
     background-color: var(--color-beige-light);
     border-radius: var(--radius-md);
-    padding: var(--spacing-lg) var(--spacing-md);
-    width: calc(100% - var(--spacing-sm) * 2);
+    padding: var(--spacing-md);
     max-width: 90%;
     max-height: 90%;
     border: var(--border-size) solid var(--color-beige);

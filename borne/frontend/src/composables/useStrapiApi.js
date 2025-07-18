@@ -38,10 +38,15 @@ export function useStrapiApi() {
         )
     }
 
+    const getTaskById = async (id) => {
+        return await apiRequest(`/tasks/${id}?populate=*`)
+    }
+
     return {
         loading: computed(() => loading.value),
         error: computed(() => error.value),
         getModules,
         getModuleById,
+        getTaskById,
     }
 }
