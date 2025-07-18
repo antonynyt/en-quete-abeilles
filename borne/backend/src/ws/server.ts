@@ -9,13 +9,13 @@ function isValidBase64(str: string): boolean {
 export default function createWsRoutes() {
     const wsApp = new Hono();
     const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app: wsApp });
+    const scanner = new BarcodeScanner();
 
     wsApp.get(
         "/ws",
         upgradeWebSocket((c) => {
             return {
                 onOpen(event, ws) {
-                    const scanner = new BarcodeScanner();
                     scanner.on("data", (data) => {
                         if (
                             typeof data === "string" &&
