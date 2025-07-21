@@ -12,7 +12,7 @@ class BarcodeScanner extends EventEmitter {
    * @param {string} portPath - The path to the serial port device (default: '/dev/tty.usbmodem2027300413411').
    * @param {number} baudRate - The baud rate for the serial connection (default: 9600).
    */
-  constructor(portPath = '/dev/tty.usbmodem2027300413411', baudRate = 9600) {
+  constructor(portPath, baudRate = 9600) {
     super();
     this.port = new SerialPort({ path: portPath, baudRate });
     this.parser = this.port.pipe(new ReadlineParser({ delimiter: '\r' }));

@@ -3,6 +3,7 @@ import { serve } from "@hono/node-server";
 import db from "./db/bees.js";
 import createBeeRoutes from "./routes/bees.js";
 import createWsRoutes from "./ws/server.js";
+import "dotenv/config";
 
 const app = new Hono();
 

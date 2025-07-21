@@ -9,7 +9,7 @@ function isValidBase64(str: string): boolean {
 export default function createWsRoutes() {
     const wsApp = new Hono();
     const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app: wsApp });
-    const scanner = new BarcodeScanner();
+    const scanner = new BarcodeScanner(process.env.SERIAL_PORT || '/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00');
 
     wsApp.get(
         "/ws",
