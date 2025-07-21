@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 import router from '@/router';
 import BaseButton from './BaseButton.vue';
 import TheProfilePicture from './TheProfilePicture.vue';
@@ -14,6 +15,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    showNav: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const handleReset = () => {
@@ -24,14 +29,13 @@ const handleReset = () => {
 const handleBack = () => {
     router.back()
 }
-
 </script>
 
 <template>
     <header class="full-width">
         <div class="page-header">
 
-            <div v-if="module" class="left-side">
+            <div v-if="showNav" class="left-side">
                 <BaseButtonBack class="backButton" @click="handleBack" />
                 <BaseBreadcrumbs v-if="module" :title="module.title" :subject-title="subject.title" />
             </div>
