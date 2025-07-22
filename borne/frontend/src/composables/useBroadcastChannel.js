@@ -15,7 +15,7 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
 
     bc.onmessage = (event) => {
         if (event.data.type === 'message') {
-            message.value = event.data.data
+            message.value = { type: 'message', data: event.data.data, time: Date.now() } //timestamp force reactivity
         } else if (event.data.type === 'navigate' && allowNavigation) {
             router.push(event.data.path)
         }
