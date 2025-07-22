@@ -1,13 +1,21 @@
 <script setup>
-import DisplayLayout from '@/layouts/DisplayLayout.vue';
 import { useRoute } from 'vue-router'
 const route = useRoute()
 
 </script>
 <template>
-    <DisplayLayout>
-        <h1>hive {{ route.params.id }}</h1>
-    </DisplayLayout>
+    <div>
+        <h1>{{ route.params.id }}</h1>
+        <h2>Coutouuisdhsahinkj</h2>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+    background-color: var(--color-background);
+    position: absolute;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+</style>

@@ -5,6 +5,9 @@ import BaseButton from './BaseButton.vue';
 import TheProfilePicture from './TheProfilePicture.vue';
 import BaseButtonBack from './BaseButtonBack.vue';
 import BaseBreadcrumbs from './BaseBreadcrumbs.vue';
+import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
+
+const { sendMessage } = useBroadcastChannel('hive', false);
 
 const props = defineProps({
     module: {
@@ -46,6 +49,7 @@ const handleBack = () => {
             </div>
 
             <div class="right-side">
+                <BaseButton class="button" @click="sendMessage('toggle-nametags')">Nametags</BaseButton>
                 <BaseButton @click="router.push('/')">Home</BaseButton>
                 <BaseButton class="danger" @click="handleReset">Reset</BaseButton>
             </div>

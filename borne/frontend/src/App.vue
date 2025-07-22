@@ -4,9 +4,10 @@ import { RouterView } from 'vue-router'
 
 <template>
     <RouterView v-slot="{ Component, route }">
-        <Transition :name="route.meta.transition || ''" mode="out-in">
+        <Transition :name="route.meta.transition || ''" mode="out-in" v-if="!route.path.startsWith('/display')">
             <component :is="Component" :key="route.fullPath" />
         </Transition>
+        <component v-else :is="Component" :key="route.fullPath" />
     </RouterView>
 </template>
 
