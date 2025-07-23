@@ -2,18 +2,12 @@
 import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 import { watch, onMounted, onUnmounted, ref } from 'vue';
 import pixiService from '@/services/pixiService';
-import { generateBeeName } from '@/utils/nameGenerator';
+import { useBeesStore } from '@/stores/beesStore';
 
-const bees = ref([])
 const currentModule = ref(null);
 const currentSubject = ref(null);
 
-for (let i = 0; i < 10; i++) {
-    bees.value.push({
-        id: i,
-        name: generateBeeName()
-    });
-}
+const beesStore = useBeesStore();
 
 const { message } = useBroadcastChannel() // this line is necessary to assure routing from the /controller
 const pixiContainer = ref(null);
@@ -25,9 +19,12 @@ watch(message, (newMessage) => {
     else if (newMessage.data === 'hide-nametags') {
         pixiService.hideNametags();
     }
+    else if (newMessage.type === 'add-bee') {
+        const beeData = newMessage.data;
+        pixiService.addBee(beeData);
+    }
     else if (newMessage.type === 'message') {
         const data = newMessage.data;
-        console.log('Received message:', data);
         
         // Check if it's a module or subject based on structure
         if (data.subject && Array.isArray(data.subject)) {
@@ -41,14 +38,12 @@ watch(message, (newMessage) => {
     }
 });
 onMounted(async () => {
+    beesStore.initializeDefaultBees();
     if (pixiContainer.value) {
         await pixiService.initialize(pixiContainer.value);
-        pixiService.setBees(bees.value);
+        pixiService.setBees(beesStore.bees);
+        pixiService.syncWithStore(beesStore.bees);
     }
-});
-
-onUnmounted(() => {
-    pixiService.cleanup();
 });
 </script>
 

@@ -9,6 +9,8 @@ import { useStrapiApi } from '@/composables/useStrapiApi';
 import BaseButton from '@/components/BaseButton.vue';
 import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 import BaseToast from '@/components/BaseToast.vue';
+import { useBeesStore } from '@/stores/beesStore';
+import { useUserStore } from '@/stores/userStore';
 
 defineProps({
     module: {
@@ -28,7 +30,9 @@ const ws = getWebSocketInstance();
 const bee = ref(null);
 
 const { getTaskById } = useStrapiApi();
-const { sendMessage } = useBroadcastChannel('hive', false);
+const { sendBee } = useBroadcastChannel('hive', false);
+const beesStore = useBeesStore();
+const userStore = useUserStore();
 
 // fetch and replace by title in the bee ref
 const fetchTasks = async () => {
@@ -78,10 +82,14 @@ function validateBeeObject(obj) {
 }
 
 const handleBeeSend = () => {
-    //TODO: verify taht bee is not already sent
     if (bee.value) {
-        console.log('Sending bee data:', bee.value);
-        sendMessage(JSON.stringify(bee.value));
+        // Add UID and store in bees store
+        const scannedBee = beesStore.addScannedBee(bee.value);
+
+        userStore.setCurrentBee(bee.value);
+        sendBee(JSON.stringify(scannedBee));
+        console.log('Bee sent:', scannedBee);
+        //TODO: PUSH TO DATABASE
         modal.value.close();
     }
 };

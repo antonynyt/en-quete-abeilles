@@ -9,6 +9,10 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
         bc.postMessage({ type: 'message', data })
     }
 
+    const sendBee = (beeData) => {
+        bc.postMessage({ type: 'add-bee', beeData })
+    }
+
     const sendNavigation = (path) => {
         bc.postMessage({ type: 'navigate', path })
     }
@@ -16,6 +20,11 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
     bc.onmessage = (event) => {
         if (event.data.type === 'message') {
             message.value = { type: 'message', data: event.data.data, time: Date.now() } //timestamp force reactivity
+        } else if (event.data.type === 'add-bee') {
+            if (typeof event.data.beeData !== 'object') {
+                event.data.beeData = JSON.parse(event.data.beeData)
+            }
+            message.value = { type: 'add-bee', data: event.data.beeData, time: Date.now() } //timestamp force reactivity
         } else if (event.data.type === 'navigate' && allowNavigation) {
             router.push(event.data.path)
         }
@@ -24,6 +33,7 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
     return {
         message,
         sendMessage,
+        sendBee,
         sendNavigation,
     }
 }
