@@ -1,11 +1,13 @@
 <script setup>
 import { computed } from 'vue';
 import router from '@/router';
+import { useRoute } from 'vue-router';
 import BaseButton from './BaseButton.vue';
 import TheProfilePicture from './TheProfilePicture.vue';
 import BaseButtonBack from './BaseButtonBack.vue';
 import BaseBreadcrumbs from './BaseBreadcrumbs.vue';
 import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
+import IconHome from './icons/IconHome.vue';
 
 const { sendMessage } = useBroadcastChannel('hive', false);
 
@@ -17,12 +19,10 @@ const props = defineProps({
     subject: {
         type: Object,
         default: null,
-    },
-    showNav: {
-        type: Boolean,
-        default: false,
     }
 });
+
+const route = useRoute();
 
 const handleReset = () => {
     localStorage.clear();
@@ -38,8 +38,10 @@ const handleBack = () => {
     <header class="full-width">
         <div class="page-header">
 
-            <div v-if="showNav" class="left-side">
-                <BaseButtonBack class="backButton" @click="handleBack" />
+            <div v-if="route.name != 'Controller'" class="left-side">
+                <div class="buttons-container">
+                    <BaseButtonBack class="backButton" @click="handleBack" />
+                </div>
                 <BaseBreadcrumbs v-if="module" :title="module.title" :subject-title="subject.title" />
             </div>
 
@@ -50,7 +52,9 @@ const handleBack = () => {
 
             <div class="right-side">
                 <!-- <BaseButton class="button" @click="sendMessage('toggle-nametags')">Noms</BaseButton> -->
-                <BaseButton @click="router.push('/')">Home</BaseButton>
+                <BaseButton v-if="route.name != 'Controller'" class="home-btn" @click="router.push('/')">
+                    <IconHome />
+                </BaseButton>
                 <BaseButton class="danger" @click="handleReset">Reset</BaseButton>
             </div>
         </div>
@@ -77,6 +81,17 @@ const handleBack = () => {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.home-btn :deep(svg) {
+    width: auto;
+    height: var(--font-size-lg);
 }
 
 span {

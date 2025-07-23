@@ -45,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <ControllerLayout class="page-container" :module="module" :subject="subject" :show-nav="true">
+    <ControllerLayout class="page-container" :module="module" :subject="subject">
         <slot :module="module" :subject="subject"></slot>
     </ControllerLayout>
 </template>

@@ -18,10 +18,6 @@ defineProps({
     subject: {
         type: Object,
         required: false
-    },
-    showNav: {
-        type: Boolean,
-        default: false
     }
 });
 
@@ -120,7 +116,7 @@ const handleBeeSend = () => {
         <BaseToast ref="toast" :duration="5000" type="danger" :message="toastMessage" :autoShow="false">
             {{ toastMessage }}
         </BaseToast>
-        <TheHeader :module="module" :subject="subject" :showNav="showNav" />
+        <TheHeader :module="module" :subject="subject" />
         <slot />
     </div>
 </template>
