@@ -128,8 +128,9 @@ class PixiService {
         this.app = new Application()
         await this.app.init({
             resizeTo: window,
-            backgroundColor: '#ffc44d',
-            antialias: true,
+            backgroundColor: '#ffcd68',
+            autoDensity: true, 
+            resolution: window.devicePixelRatio,
         })
         containerElement.appendChild(this.app.canvas)
 
@@ -203,11 +204,30 @@ class PixiService {
         })
     }
 
-    toggleNametags() {
+    toggleNametags(isVisible) {
         this.nametagsVisible = !this.nametagsVisible
         this.bees.forEach((bee) => {
             bee.label.visible = this.nametagsVisible
         })
+    }
+
+    hideNametags() {
+        this.nametagsVisible = false
+        this.bees.forEach((bee) => {
+            bee.label.visible = false
+        })
+    }
+
+    stopAnimation() {
+        if (this.app && this.app.ticker) {
+            this.app.ticker.stop()
+        }
+    }
+
+    startAnimation() {
+        if (this.app && this.app.ticker) {
+            this.app.ticker.start()
+        }
     }
 
     cleanup() {
