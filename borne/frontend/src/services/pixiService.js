@@ -5,15 +5,31 @@ class PixiService {
     constructor() {
         this.pixiApp = new PixiApp()
         this.beeManager = null
+        this.tickerStarted = false
     }
 
     async initialize(containerElement) {
         await this.pixiApp.initialize(containerElement)
-        this.beeManager = new BeeManager(this.pixiApp.container, this.pixiApp.texture)
-
-        this.pixiApp.startTicker((delta) => {
-            this.beeManager.updateBees(delta, this.pixiApp.screen)
-        })
+        
+        // Only create BeeManager if it doesn't exist yet
+        if (!this.beeManager) {
+            this.beeManager = new BeeManager(this.pixiApp.container, this.pixiApp.texture)
+            
+            if (!this.tickerStarted) {
+                this.pixiApp.startTicker((delta) => {
+                    this.beeManager.updateBees(delta, this.pixiApp.screen)
+                })
+                this.tickerStarted = true
+            }
+        } else {
+            // If BeeManager exists, just update its container reference
+            this.beeManager.container = this.pixiApp.container
+            
+            this.beeManager.bees.forEach((bee) => {
+                this.pixiApp.container.addChild(bee.sprite)
+                this.pixiApp.container.addChild(bee.label)
+            })
+        }
     }
 
     setBees(beeArray) {

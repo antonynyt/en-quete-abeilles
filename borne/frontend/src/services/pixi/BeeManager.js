@@ -73,6 +73,14 @@ export class BeeManager {
     }
 
     clear() {
+        this.bees.forEach((bee) => {
+            if (bee.sprite.parent) {
+                this.container.removeChild(bee.sprite)
+            }
+            if (bee.label.parent) {
+                this.container.removeChild(bee.label)
+            }
+        })
         this.bees = []
     }
 }

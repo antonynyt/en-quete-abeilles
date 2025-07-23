@@ -21,6 +21,12 @@ export class PixiApp {
             return
         }
 
+        // Check if there's already a canvas in the container (from hot reload)
+        const existingCanvas = containerElement.querySelector('canvas')
+        if (existingCanvas) {
+            existingCanvas.remove()
+        }
+
         this.app = new Application()
         await this.app.init({
             resizeTo: window,
@@ -69,8 +75,12 @@ export class PixiApp {
     }
 
     setupContainer() {
-        this.container = new Container()
-        this.app.stage.addChild(this.container)
+        if (this.container) {
+            this.container.removeChildren()
+        } else {
+            this.container = new Container()
+            this.app.stage.addChild(this.container)
+        }
     }
 
     startTicker(updateCallback) {
