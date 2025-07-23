@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
     videoData: {
@@ -59,6 +59,12 @@ const props = defineProps({
 
 const STRAPI_BASE_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'
 
+const video = ref()
+
+defineExpose({
+    videoElement: video
+})
+
 const videoUrl = computed(() => {
     if (!props.videoData) return ''
     return `${STRAPI_BASE_URL}${props.videoData.url}`
@@ -77,10 +83,12 @@ const videoTitle = computed(() => {
     return props.videoData?.alternativeText || props.videoData?.caption || props.videoData?.name || ''
 })
 
+
+
 </script>
 
 <template>
-    <video v-if="videoData" :src="videoUrl" :poster="posterUrl" :controls="controls" :autoplay="autoplay" :muted="muted"
+    <video v-if="videoData" ref="video" :src="videoUrl" :poster="posterUrl" :controls="controls" :autoplay="autoplay" :muted="muted"
         :loop="loop" :preload="preload" :class="videoClass" :width="width" :height="height" :title="videoTitle">
         Your browser does not support the video tag.
     </video>

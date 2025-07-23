@@ -1,19 +1,81 @@
 <script setup>
+import { ref, watch, computed } from 'vue';
+import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 import IconPlay from './icons/IconPlay.vue'
+import IconPause from './icons/IconPause.vue'
+
+const { message, sendMessage } = useBroadcastChannel('media-control');
+
+const videoState = ref({
+    currentTime: 0,
+    duration: 0,
+    paused: true,
+    ended: false
+});
+
+const progress = computed(() => {
+    if (videoState.value.duration === 0) return 0;
+    return (videoState.value.currentTime / videoState.value.duration) * 100;
+});
+
+const currentTimeFormatted = computed(() => {
+    return formatTime(videoState.value.currentTime);
+});
+
+const durationFormatted = computed(() => {
+    return formatTime(videoState.value.duration);
+});
+
+const formatTime = (seconds) => {
+    if (!seconds || isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+};
+
+const togglePlayPause = () => {
+    sendMessage({ action: 'toggle' });
+};
+
+const seekTo = (event) => {
+    const progressBar = event.currentTarget;
+    const rect = progressBar.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const percentage = clickX / rect.width;
+    const newTime = percentage * videoState.value.duration;
+    
+    sendMessage({
+        action: 'seek',
+        time: newTime 
+    });
+};
+
+// Listen for video state updates
+watch(message, (newMessage) => {
+    if (newMessage) {
+        videoState.value = { ...newMessage.data };
+    }
+});
 
 </script>
 
 <template>
     <div class="player__controls">
-        <button class="player__button button" title="Play (space)">
-            <IconPlay />
+        <button class="player__button button" @click="togglePlayPause">
+            <IconPause v-if="!videoState.paused" />
+            <IconPlay v-else />
         </button>
-        <div class="progress">
-            <div class="progress__filled"></div>
+        
+        <div class="progress" @click="seekTo">
+            <div 
+                class="progress__filled" 
+                :style="{ width: progress + '%' }"
+            ></div>
         </div>
+        
         <div class="player__timing">
-            <span class="player__current-time">0:00</span>
-            <span class="player__duration">0:00</span>
+            <span class="player__current-time">{{ currentTimeFormatted }}</span>
+            <span class="player__duration">{{ durationFormatted }}</span>
         </div>
     </div>
 </template>
@@ -33,6 +95,8 @@ import IconPlay from './icons/IconPlay.vue'
     color: var(--color-brown);
     display: flex;
     width: auto;
+    min-width: 2em;
+    justify-content: center;
 }
 
 .progress {
@@ -42,32 +106,30 @@ import IconPlay from './icons/IconPlay.vue'
     cursor: pointer;
     border-radius: 1em;
     flex-grow: 1;
+    position: relative;
 }
 
 .progress__filled {
-    width: 50%;
     background: var(--color-brown);
-    flex: 0;
-    flex-basis: 0%;
+    border-radius: 100px;
     position: relative;
-    border-radius: 1em;
-    display: flex;
-    align-items: center;
 }
 
 .progress__filled::after {
     content: '';
     position: absolute;
-    height: 2em;
-    width: 1em;
+    height: 1.5em;
+    width: 0.5em;
     border-radius: 1em;
-    right: -0.5em;
+    right: -0.1em;
+    top: -0.25em;
     background: var(--color-brown);
 }
 
 .player__timing {
     display: flex;
     gap: var(--spacing-xs);
+    min-width: 5rem;
 }
 
 .player__current-time,

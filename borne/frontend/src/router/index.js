@@ -39,8 +39,13 @@ const router = createRouter({
             component: () => import('../layouts/DisplayLayout.vue'),
             children: [
                 {
-                    path: 'module/:id',
+                    path: 'module/:moduleId',
                     name: 'DisplayModule',
+                    component: () => import('../views/HiveView.vue'),
+                },
+                {
+                    path: 'module/:moduleId/:subjectId',
+                    name: 'DisplaySubject',
                     component: () => import('../views/HiveView.vue'),
                 },
             ],

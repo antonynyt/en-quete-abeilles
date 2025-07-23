@@ -34,7 +34,7 @@ export function useStrapiApi() {
 
     const getModuleById = async (id) => {
         return await apiRequest(
-            `/modules/${id}?populate[cover]=true&populate[subject][populate][cover]=true`,
+            `/modules/${id}?populate[cover]=true&populate[subject][populate]=*`,
         )
     }
 

@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { useStrapiApi } from '@/composables/useStrapiApi';
 import ControllerLayout from './ControllerLayout.vue';
+import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 
 defineProps({
     blueToBottom: {
@@ -11,7 +12,8 @@ defineProps({
     }
 })
 
-const router = useRouter()
+const { sendMessage } = useBroadcastChannel('hive', false);
+
 const route = useRoute()
 const { getModuleById } = useStrapiApi()
 
@@ -24,7 +26,12 @@ const fetchModule = async () => {
         module.value = response.data
 
         if (route.params.subjectId) {
-            subject.value = module.value.subject.find(s => s.id === parseInt(route.params.subjectId));
+            const subjectData = response.data.subject.find(s => s.id === parseInt(route.params.subjectId));
+            subject.value = subjectData || {};
+            sendMessage(subjectData);
+        }else {
+            sendMessage(response.data);
+            sendMessage('hide-nametags');
         }
     } catch (error) {
         console.error('Error fetching module:', error)

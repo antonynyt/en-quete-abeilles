@@ -5,8 +5,10 @@ import pixiService from '@/services/pixiService';
 import { generateBeeName } from '@/utils/nameGenerator';
 
 const bees = ref([])
+const currentModule = ref(null);
+const currentSubject = ref(null);
 
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < 10; i++) {
     bees.value.push({
         id: i,
         name: generateBeeName()
@@ -20,8 +22,24 @@ watch(message, (newMessage) => {
     if (newMessage.data === 'toggle-nametags') {
         pixiService.toggleNametags();
     }
+    else if (newMessage.data === 'hide-nametags') {
+        pixiService.hideNametags();
+    }
+    else if (newMessage.type === 'message') {
+        const data = newMessage.data;
+        console.log('Received message:', data);
+        
+        // Check if it's a module or subject based on structure
+        if (data.subject && Array.isArray(data.subject)) {
+            // It's a module
+            currentModule.value = data;
+            currentSubject.value = null; // Reset subject when new module
+        } else if (data.video) {
+            // It's a subject
+            currentSubject.value = data;
+        }
+    }
 });
-
 onMounted(async () => {
     if (pixiContainer.value) {
         await pixiService.initialize(pixiContainer.value);
@@ -35,15 +53,22 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div>
+    <div class="page">
         <div id="pixi-container" ref="pixiContainer" />
         <div class="overlay">
-            <router-view />
+            <router-view 
+                :module="currentModule" 
+                :subject="currentSubject" 
+            />
         </div>
     </div>
 </template>
 
 <style scoped>
+.pixi-container {
+    background-color: #ffcd68;
+}
+
 .overlay {
     position: absolute;
     top: 0;
