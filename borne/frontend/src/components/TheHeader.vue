@@ -44,12 +44,12 @@ const handleBack = () => {
             </div>
 
             <div v-else class="left-side">
-                <TheProfilePicture class="offline" />
+                <TheProfilePicture class="profilePicture offline" />
                 <span class="pally">Mode invité</span>
             </div>
 
             <div class="right-side">
-                <BaseButton class="button" @click="sendMessage('toggle-nametags')">Nametags</BaseButton>
+                <!-- <BaseButton class="button" @click="sendMessage('toggle-nametags')">Noms</BaseButton> -->
                 <BaseButton @click="router.push('/')">Home</BaseButton>
                 <BaseButton class="danger" @click="handleReset">Reset</BaseButton>
             </div>
@@ -62,7 +62,7 @@ const handleBack = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     margin: var(--spacing-md) auto;
     padding: 0 var(--spacing-md);
 }
@@ -81,5 +81,6 @@ const handleBack = () => {
 
 span {
     font-size: var(--font-size-md);
+    flex-shrink: 0;
 }
 </style>
