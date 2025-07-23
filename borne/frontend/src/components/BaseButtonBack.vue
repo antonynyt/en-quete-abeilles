@@ -19,4 +19,9 @@ import IconBack from './icons/IconBack.vue';
     width: fit-content;
     max-width: fit-content;
 }
+
+.button :deep(svg) {
+    height: var(--font-size-lg);
+    width: auto;
+}
 </style>

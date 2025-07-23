@@ -99,6 +99,11 @@ watch(message, (newMessage) => {
     justify-content: center;
 }
 
+.player__button :deep(svg) {
+    height: var(--font-size-lg);
+    width: auto;
+}
+
 .progress {
     display: flex;
     height: 1em;
