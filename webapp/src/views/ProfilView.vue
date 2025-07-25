@@ -35,12 +35,12 @@ const bee = useBeeStore()
                     groupe.</p>
                 <ProgressCard />
             </section>
-            <section class="centered learn-section">
+            <!-- <section class="centered learn-section">
                 <h2>En savoir plus</h2>
                 <BaseButton to="/tasks">
                     En savoir plus sur l'essaimage
                 </BaseButton>
-            </section>
+            </section> -->
         </main>
         <TheNavbar />
     </div>
