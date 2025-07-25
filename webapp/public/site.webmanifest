@@ -19,5 +19,25 @@
   "scope": "/",
   "theme_color": "#FFFDF9",
   "background_color": "#FFFDF9",
-  "display": "standalone"
+  "display": "standalone",
+  "screenshots": [
+    {
+      "src": "screenshots/app-screenshot-1.webp",
+      "sizes": "750x1334",
+      "form_factor": "narrow",
+      "label": "Vue mobile du profil"
+    },
+    {
+      "src": "screenshots/app-screenshot-2.webp",
+      "sizes": "750x1334",
+      "form_factor": "narrow",
+      "label": "Vue mobile du scanner"
+    },
+    {
+      "src": "screenshots/app-screenshot-3.webp",
+      "sizes": "750x1334",
+      "form_factor": "narrow",
+      "label": "Vue mobile des taches"
+    }
+  ]
 }
