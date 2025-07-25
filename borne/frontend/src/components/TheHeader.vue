@@ -8,8 +8,10 @@ import BaseButtonBack from './BaseButtonBack.vue';
 import BaseBreadcrumbs from './BaseBreadcrumbs.vue';
 import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 import IconHome from './icons/IconHome.vue';
+import { useUserStore } from '@/stores/userStore';
 
 const { sendMessage } = useBroadcastChannel('hive', false);
+const userStore = useUserStore();
 
 const props = defineProps({
     module: {
@@ -23,9 +25,15 @@ const props = defineProps({
 });
 
 const route = useRoute();
+const beeName = computed(() => {
+    return userStore.currentBee ? userStore.currentBee.name : 'Mode Invité';
+});
+const isConnected = computed(() => {
+    return userStore.isConnected;
+});
 
 const handleReset = () => {
-    localStorage.clear();
+    localStorage.removeItem('user');
     window.location.replace('/');
 };
 
@@ -45,17 +53,17 @@ const handleBack = () => {
                 <BaseBreadcrumbs v-if="module" :title="module.title" :subject-title="subject.title" />
             </div>
 
-            <div v-else class="left-side">
-                <TheProfilePicture class="profilePicture offline" />
-                <span class="pally">Mode invité</span>
-            </div>
+            <button v-else class="left-side">
+                <TheProfilePicture :class="`${!isConnected && 'offline'} profilePicture`" />
+                <span class="pally">{{ beeName }}</span>
+            </button>
 
             <div class="right-side">
-                <!-- <BaseButton class="button" @click="sendMessage('toggle-nametags')">Noms</BaseButton> -->
+                <BaseButton class="button" @click="sendMessage('toggle-nametags')">Noms</BaseButton>
                 <BaseButton v-if="route.name != 'Controller'" class="home-btn" @click="router.push('/')">
                     <IconHome />
                 </BaseButton>
-                <BaseButton class="danger" @click="handleReset">Reset</BaseButton>
+                <BaseButton class="danger" @click="handleReset" v-if="isConnected">Déconnexion</BaseButton>
             </div>
         </div>
     </header>
@@ -75,7 +83,13 @@ const handleBack = () => {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+
+    background: none;
+    color: inherit;
+    border: none;
+    cursor: pointer;
 }
+
 
 .right-side {
     display: flex;

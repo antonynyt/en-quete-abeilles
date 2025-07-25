@@ -29,9 +29,8 @@ const fetchModule = async () => {
             const subjectData = response.data.subject.find(s => s.id === parseInt(route.params.subjectId));
             subject.value = subjectData || {};
             sendMessage(subjectData);
-        }else {
+        } else {
             sendMessage(response.data);
-            sendMessage('hide-nametags');
         }
     } catch (error) {
         console.error('Error fetching module:', error)

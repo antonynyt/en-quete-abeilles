@@ -13,20 +13,33 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
         bc.postMessage({ type: 'add-bee', beeData })
     }
 
+    const highlightBee = (beeId) => {
+        bc.postMessage({ type: 'highlight-bee', beeId })
+    }
+
     const sendNavigation = (path) => {
         bc.postMessage({ type: 'navigate', path })
     }
 
     bc.onmessage = (event) => {
-        if (event.data.type === 'message') {
-            message.value = { type: 'message', data: event.data.data, time: Date.now() } //timestamp force reactivity
-        } else if (event.data.type === 'add-bee') {
-            if (typeof event.data.beeData !== 'object') {
-                event.data.beeData = JSON.parse(event.data.beeData)
-            }
-            message.value = { type: 'add-bee', data: event.data.beeData, time: Date.now() } //timestamp force reactivity
-        } else if (event.data.type === 'navigate' && allowNavigation) {
-            router.push(event.data.path)
+        switch (event.data.type) {
+            case 'message':
+                message.value = { type: 'message', data: event.data.data, time: Date.now() } //timestamp force reactivity
+                break
+            case 'add-bee':
+                if (typeof event.data.beeData !== 'object') {
+                    event.data.beeData = JSON.parse(event.data.beeData)
+                }
+                message.value = { type: 'add-bee', data: event.data.beeData, time: Date.now() } //timestamp force reactivity
+                break
+            case 'highlight-bee':
+                message.value = { type: 'highlight-bee', data: event.data.beeId, time: Date.now() }
+                break
+            case 'navigate':
+                if (allowNavigation) {
+                    router.push(event.data.path)
+                }
+                break
         }
     }
 
@@ -34,6 +47,7 @@ export function useBroadcastChannel(channelName = 'hive', allowNavigation = true
         message,
         sendMessage,
         sendBee,
+        highlightBee,
         sendNavigation,
     }
 }

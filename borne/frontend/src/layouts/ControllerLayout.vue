@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import BaseModal from '../components/BaseModal.vue';
 import TheHeader from '@/components/TheHeader.vue';
 import { getWebSocketInstance } from '@/services/wsService';
@@ -11,6 +11,7 @@ import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 import BaseToast from '@/components/BaseToast.vue';
 import { useBeesStore } from '@/stores/beesStore';
 import { useUserStore } from '@/stores/userStore';
+import { formatTimeFromTimestamp } from '@/utils/formatTime';
 
 defineProps({
     module: {
@@ -30,9 +31,11 @@ const ws = getWebSocketInstance();
 const bee = ref(null);
 
 const { getTaskById } = useStrapiApi();
-const { sendBee } = useBroadcastChannel('hive', false);
+const { sendBee, highlightBee } = useBroadcastChannel('hive', false);
 const beesStore = useBeesStore();
 const userStore = useUserStore();
+const alreadyScanned = ref(false);
+const timeSpent = ref();
 
 // fetch and replace by title in the bee ref
 const fetchTasks = async () => {
@@ -45,6 +48,10 @@ const fetchTasks = async () => {
     }
 };
 
+const timeSpentFormatted = computed(() => {
+    return formatTimeFromTimestamp(timeSpent.value);
+});
+
 ws.onmessage = async (event) => {
     try {
         const data = JSON.parse(event.data);
@@ -56,6 +63,10 @@ ws.onmessage = async (event) => {
                 if (validateBeeObject(parsedBee)) {
                     bee.value = parsedBee;
                     await fetchTasks();
+                    if (beesStore.beeExists(bee.value.id)) {
+                        alreadyScanned.value = true;
+                    }
+                    timeSpent.value = bee.value.time
                     modal.value.show();
                 } else {
                     console.error('Invalid bee object structure');
@@ -64,7 +75,6 @@ ws.onmessage = async (event) => {
                 console.error('Error processing bee data:', innerError);
             }
         } else {
-            //TODO: show a toast or notification for invalid message format
             toast.value?.show();
             console.error('Invalid message format:', data);
         }
@@ -83,13 +93,26 @@ function validateBeeObject(obj) {
 
 const handleBeeSend = () => {
     if (bee.value) {
-        // Add UID and store in bees store
         const scannedBee = beesStore.addScannedBee(bee.value);
 
+        if (!scannedBee) {
+            toastMessage.value = 'Cette abeille a déjà été scannée.';
+            toast.value?.show();
+            return;
+        }
+
         userStore.setCurrentBee(bee.value);
+        highlightBee(scannedBee.id);
         sendBee(JSON.stringify(scannedBee));
-        console.log('Bee sent:', scannedBee);
         //TODO: PUSH TO DATABASE
+        modal.value.close();
+    }
+};
+
+const handleBeeShow = () => {
+    if (bee.value) {
+        userStore.setCurrentBee(bee.value);
+        highlightBee(bee.value.id);
         modal.value.close();
     }
 };
@@ -109,6 +132,7 @@ const handleBeeSend = () => {
                 </div>
                 <div class="bee-modal__content">
                     <h2 class="pally">Quête terminée !</h2>
+                    <p>Tu as ramené l'abeille en<br><span class="bold">{{ timeSpentFormatted }}</span></p>
                     <div>
                         <p class="pally">Tu sais maintenant</p>
                         <ul>
@@ -116,7 +140,11 @@ const handleBeeSend = () => {
                             </ObjectiveLi>
                         </ul>
                     </div>
-                    <BaseButton class="primary bee-modal__send-button" @click="handleBeeSend()">Relâcher {{ bee.name }}
+                    <BaseButton class="primary bee-modal__send-button" v-if="!alreadyScanned" @click="handleBeeSend()">
+                        Relâcher {{ bee.name }}
+                    </BaseButton>
+                    <BaseButton class="primary bee-modal__send-button" v-else @click="handleBeeShow()">
+                        Afficher {{ bee.name }}
                     </BaseButton>
                 </div>
             </div>
@@ -170,6 +198,11 @@ const handleBeeSend = () => {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+}
+
+.bee-modal__content span.bold {
+    font-size: var(--font-size-md);
+    margin: 0;
 }
 
 .bee-modal__send-button {

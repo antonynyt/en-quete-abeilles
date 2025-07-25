@@ -41,7 +41,7 @@ const props = defineProps({
     gap: var(--spacing-md);
     width: 40vw;
     min-width: 300px;
-    /* flex-shrink: 0; */
+    flex-shrink: 0;
 }
 
 h2 {

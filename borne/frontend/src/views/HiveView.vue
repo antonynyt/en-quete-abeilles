@@ -1,9 +1,8 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import StrapiImage from '@/components/StrapiImage.vue'
 import VideoPlayer from '@/components/VideoPlayer.vue'
-import pixiService from '@/services/pixiService'
 
 const props = defineProps({
     module: Object,
@@ -19,23 +18,13 @@ const currentMedia = computed(() => {
     return null
 })
 
-// Stop animation based on route
-if (route.params.subjectId) {
-    pixiService.stopAnimation()
-} else {
-    pixiService.startAnimation()
-}
 </script>
 
 <template>
     <!-- Show subject media if available -->
     <div v-if="subject && route.params.subjectId" class="media-container">
         <div class="video-wrapper">
-            <VideoPlayer 
-                :video-data="currentMedia" 
-                autoplay 
-                :controls="false" 
-            />
+            <VideoPlayer :video-data="currentMedia" autoplay :controls="false" />
         </div>
     </div>
 
@@ -100,7 +89,7 @@ if (route.params.subjectId) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; 
+    width: 100%;
     height: 100%;
 }
 

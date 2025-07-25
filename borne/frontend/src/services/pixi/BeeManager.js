@@ -63,13 +63,16 @@ export class BeeManager {
         })
     }
 
-    syncWithStore(storeBeesArray, screenWidth, screenHeight) {
-        storeBeesArray.forEach((storeBee) => {
-            const existingBee = this.bees.find((pixiBee) => pixiBee.id === storeBee.id)
-            if (!existingBee && storeBee.isScanned) {
-                this.addBee(storeBee, screenWidth, screenHeight)
+    showBeeNametag(beeId) {
+        this.bees.forEach((bee) => {
+            bee.label.visible = false
+        })
+        this.bees.forEach((bee) => {
+            if (bee.id === beeId) {
+                bee.label.visible = true
             }
         })
+        this.nametagsVisible = false // Keep this false since not all are visible
     }
 
     clear() {

@@ -6,6 +6,7 @@ export class Bee {
         this.sprite.anchor.set(0.5)
         this.sprite.scale.set(0.18)
 
+        this.id = beeData.id
         this.label = this.createLabel(beeData.name)
         this.vx = (Math.random() - 0.5) * 0.2
         this.vy = (Math.random() - 0.5) * 0.2
@@ -42,6 +43,7 @@ export class Bee {
     }
 
     update(delta, bees, screen) {
+        // movement logic
         this.vx += (Math.random() - 0.5) * 0.03
         this.vy += (Math.random() - 0.5) * 0.03
 
