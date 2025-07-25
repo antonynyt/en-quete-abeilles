@@ -10,6 +10,7 @@ export const useGameStore = defineStore(
         const scannedTasks = ref(new Set())
         const totalTasks = ref(0)
         const tasks = ref([])
+        const timeEnded = ref(null)
 
         // Computed properties
         const tasksDone = computed(() => completedTasks.value.size)
@@ -26,6 +27,10 @@ export const useGameStore = defineStore(
             // Update bee level when task is completed
             const beeStore = useBeeStore()
             beeStore.updateLevel(completedTasks.value.size)
+
+            if (completedTasks.value.size === totalTasks.value) {
+                timeEnded.value = Date.now()
+            }
         }
 
         function isTaskCompleted(taskId) {
@@ -48,8 +53,17 @@ export const useGameStore = defineStore(
             return completedTasks.value.size === totalTasks.value
         })
 
+        const timeDuration = computed(() => {
+            if (timeEnded.value) {
+                return timeEnded.value - timeStarted.value
+            }
+            return Date.now() - timeStarted.value
+        })
+
         return {
             timeStarted,
+            timeEnded,
+            timeDuration,
             completedTasks,
             scannedTasks,
             totalTasks,

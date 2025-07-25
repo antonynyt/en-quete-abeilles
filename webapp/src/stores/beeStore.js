@@ -4,7 +4,8 @@ import { defineStore } from 'pinia'
 export const useBeeStore = defineStore(
     'beeinfo',
     () => {
-        const name = ref('ButineuseLavande') // generateBeeName is in Step4.vue
+        const id = ref(crypto.randomUUID())
+        const name = ref('ButineuseLavande') // use of generateBeeName is in Step4.vue
         const level = ref('Novice')
 
         // Level progression based on tasks completed
@@ -27,7 +28,7 @@ export const useBeeStore = defineStore(
             return false
         }
 
-        return { name, level, updateLevel }
+        return { id, name, level, updateLevel }
     },
     {
         persist: true,

@@ -9,10 +9,11 @@ const game = useGameStore()
 
 const qrData = ref(null)
 qrData.value = {
-    "id": Date.now(),
+    "id": bee.id,
     "name": bee.name,
     "level": bee.level,
     "tasksCompleted": Array.from(game.completedTasks),
+    "time": game.timeDuration
 }
 
 const qrDataString = btoa(JSON.stringify(qrData.value))
