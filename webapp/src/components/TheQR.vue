@@ -16,13 +16,20 @@ qrData.value = {
     "time": game.timeDuration
 }
 
+const imageSettings = ref({
+    src: '/favicon.svg',
+    width: 20,
+    height: 20,
+    excavate: true,
+})
+
 const qrDataString = btoa(JSON.stringify(qrData.value))
 const value = ref('beecode:' + qrDataString)
 
 </script>
 <template>
     <qrcode-vue class="qr-code" :value="value" render-as="svg" foreground='var(--color-text)'
-        background="var(--color-beige-light)" />
+        background="var(--color-beige-light)" :image-settings="imageSettings" />
 </template>
 
 <style scoped>

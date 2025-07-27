@@ -1,16 +1,37 @@
 <script setup>
+import { ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import IconRefresh from '@/components/icons/IconRefresh.vue'
+import TheBee from '@/components/TheBee.vue'
 import { useBeeStore } from '@/stores/beeStore'
-import { generateBeeName } from '@/utils/nameGenerator'
+import { generateBeeName, generateCaracterTrait, generateEnnemyTrait, generateFlowerTrait } from '@/utils/beeGenerator'
 
 const bee = useBeeStore()
-if (!localStorage.getItem('beeinfo')) {
+const changeActive = ref(false)
+
+const beeInfo = () => {
     bee.name = generateBeeName()
+    bee.trait1 = generateCaracterTrait().toLowerCase()
+    bee.trait2 = generateCaracterTrait().toLowerCase()
+
+    while (bee.trait1 === bee.trait2) {
+        bee.trait2 = generateCaracterTrait().toLowerCase()
+    }
+
+    bee.flower = generateFlowerTrait().toLowerCase()
+    bee.enemy = generateEnnemyTrait().toLowerCase()
+}
+
+if (!localStorage.getItem('beeinfo')) {
+    beeInfo()
 }
 
 bee.resetBee = () => {
-    bee.name = generateBeeName()
+    beeInfo()
+    changeActive.value = true
+    setTimeout(() => {
+        changeActive.value = false
+    }, 1000)
 }
 
 </script>
@@ -20,21 +41,22 @@ bee.resetBee = () => {
         <div class="card">
 
             <div class="card-img">
-                <img src="../../assets/bee-face.svg" alt="Abeille de face">
+                <TheBee :trigger-animation="changeActive" />
             </div>
             <div class="card-text">
                 <div class="text-header">
                     <div>
                         <h2>{{ bee.name }}</h2>
-                        <p>Niveau: {{ bee.level }}</p>
+                        <p>{{ bee.level }}</p>
                     </div>
                     <BaseButton @click="bee.resetBee" class="reset-button" aria-label="Réinitialiser l'abeille">
                         <IconRefresh />
                     </BaseButton>
                 </div>
                 <p>
-                    {{ bee.name }} est une jeune abeille inexperimentée. Parfois maladroite, elle rêve de devenir
-                    butineuse.
+                    {{ bee.name }} est une jeune abeille {{ bee.trait1 }} et un peu {{ bee.trait2 }}. Elle adore {{
+                        bee.flower }} mais est
+                    terrifiée des {{ bee.enemy }}.
                 </p>
             </div>
         </div>
@@ -93,9 +115,10 @@ bee.resetBee = () => {
     border-radius: 50%;
 }
 
-.card-img img {
+.card-img :deep(svg) {
     width: 90%;
     max-width: 25vh;
+    height: auto;
     z-index: 1;
 }
 

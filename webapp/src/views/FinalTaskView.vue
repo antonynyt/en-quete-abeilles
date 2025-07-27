@@ -27,7 +27,6 @@ const loadTask = async () => {
             fact: response.data.clue.fact,
             image: response.data.clue.image,
         }
-        console.log('Final task loaded:', task.value)
         if (!task.value) {
             throw new Error('Task not found')
         }

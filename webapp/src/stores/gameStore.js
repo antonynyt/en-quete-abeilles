@@ -26,7 +26,7 @@ export const useGameStore = defineStore(
 
             // Update bee level when task is completed
             const beeStore = useBeeStore()
-            beeStore.updateLevel(completedTasks.value.size)
+            beeStore.updateLevel(completedTasks.value.size, totalTasks.value)
 
             if (completedTasks.value.size === totalTasks.value) {
                 timeEnded.value = Date.now()

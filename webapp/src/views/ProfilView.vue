@@ -31,7 +31,9 @@ const bee = useBeeStore()
                 <p>{{ bee.level }}</p>
             </section>
             <section class="centered goal-section">
-                <p>Lors de l'essaimage d'une ruche, tu as adopté une abeille déboussolée. Aide-la à retrouver son
+                <p>{{ bee.name }} est {{ bee.trait1 }} et un peu {{ bee.trait2 }}. Elle adore {{
+                    bee.flower }} mais est
+                    terrifiée des {{ bee.enemy }}. Aide-la à retrouver son
                     groupe.</p>
                 <ProgressCard />
             </section>
@@ -90,7 +92,7 @@ const bee = useBeeStore()
 }
 
 .goal-section {
-    margin-bottom: var(--spacing-xl);
+    /* margin-bottom: var(--spacing-xl); */
 }
 
 .goal-section,

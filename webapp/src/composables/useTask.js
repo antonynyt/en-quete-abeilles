@@ -30,7 +30,6 @@ export function useTask() {
         try {
             const response = await getTaskById(taskId)
             task.value = mapTaskResponse(response)
-            console.log('Task loaded:', task.value)
 
             if (!task.value) {
                 throw new Error('Task not found')
