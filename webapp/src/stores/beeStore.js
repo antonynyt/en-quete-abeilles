@@ -41,7 +41,7 @@ export const useBeeStore = defineStore(
             return { leveledUp: false }
         }
 
-        return { id, name, level, updateLevel }
+        return { id, name, level, updateLevel, trait1, trait2, flower, enemy }
     },
     {
         persist: true,
