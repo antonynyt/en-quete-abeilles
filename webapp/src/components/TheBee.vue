@@ -1,11 +1,4 @@
 <script setup>
-const props = defineProps({
-    triggerAnimation: {
-        type: Boolean,
-        default: false
-    }
-})
-
 const showVeil = false; // Set to false to hide the API hat
 const showShorts = false; // Set to false to hide the shorts
 </script>
@@ -13,7 +6,7 @@ const showShorts = false; // Set to false to hide the shorts
 <template>
     <svg width="166" height="152" viewBox="0 0 166 162" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g>
-            <g id="bee" :class="{ 'change': triggerAnimation }">
+            <g id="bee">
                 <g>
                     <path
                         d="M143.118 103.204L130.242 107.815C127.115 108.921 123.945 109.431 120.861 109.431C118.553 109.431 116.31 109.154 114.153 108.623C106.928 106.817 100.911 101.992 98.3447 95.0638C98.2585 94.8512 98.1938 94.6387 98.1075 94.4049C95.8861 87.6678 97.3958 80.4631 101.601 74.6611C102.895 72.8971 104.448 71.2394 106.217 69.7942C108.589 67.8602 111.35 66.245 114.455 65.0973L127.331 60.4855C132.054 58.7852 136.906 58.4027 141.371 59.1465C146.439 59.9754 151.054 62.2069 154.505 65.6074C156.64 67.6902 158.322 70.2405 159.4 73.1521C160.479 76.0638 160.845 79.0604 160.565 82.0358C160.155 86.8177 158.085 91.472 154.72 95.3188C151.766 98.7192 147.797 101.503 143.074 103.182L143.118 103.204Z"
@@ -146,43 +139,6 @@ const showShorts = false; // Set to false to hide the shorts
 
     99% {
         transform: scaleY(0);
-    }
-}
-
-/* Dressing change animation */
-.change {
-    animation: change 1s ease-in-out;
-    transform-origin: center center;
-    transform-box: fill-box;
-}
-
-@keyframes change {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    50% {
-        transform: translateY(-150%);
-        opacity: 0;
-    }
-
-    51% {
-        transform: translate(-150%, 100%);
-    }
-
-    52% {
-        transform: translateY(150%);
-    }
-
-    53% {
-        transform: translate(0, 150%);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
     }
 }
 </style>

@@ -7,7 +7,6 @@ import { useBeeStore } from '@/stores/beeStore'
 import { generateBeeName, generateCaracterTrait, generateEnnemyTrait, generateFlowerTrait } from '@/utils/beeGenerator'
 
 const bee = useBeeStore()
-const changeActive = ref(false)
 
 const beeInfo = () => {
     bee.name = generateBeeName()
@@ -28,10 +27,6 @@ if (!localStorage.getItem('beeinfo')) {
 
 bee.resetBee = () => {
     beeInfo()
-    changeActive.value = true
-    setTimeout(() => {
-        changeActive.value = false
-    }, 1000)
 }
 
 </script>
@@ -41,7 +36,7 @@ bee.resetBee = () => {
         <div class="card">
 
             <div class="card-img">
-                <TheBee :trigger-animation="changeActive" />
+                <TheBee />
             </div>
             <div class="card-text">
                 <div class="text-header">

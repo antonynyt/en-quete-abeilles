@@ -22,7 +22,6 @@ export const generateBeeName = () => {
         'Pollen',
         'Mielou',
         'Frimousse',
-        'Pikpik',
         'Paillette',
         'Cocotte',
         'Zinzine',
@@ -31,9 +30,7 @@ export const generateBeeName = () => {
         'Pivoine',
         'Marguerite',
         'Tulipe',
-        'Orchidée',
-        'Bleuet',
-        'Coquelicot',
+        'Rose',
         'Violette',
     ]
 
