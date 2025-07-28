@@ -12,7 +12,7 @@ services:
       - PORT=3000
       - SERIAL_PORT=/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00
     devices:
-      - "${SERIAL_PORT}:${SERIAL_PORT}"
+      - "/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00:/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00"
     restart: always
     networks:
       - beequest-network
