@@ -24,6 +24,8 @@ const props = defineProps({
     }
 });
 
+const emit = defineEmits(['profile-click']);
+
 const route = useRoute();
 const beeName = computed(() => {
     return userStore.currentBee ? userStore.currentBee.name : 'Mode Invité';
@@ -41,6 +43,12 @@ const handleReset = () => {
 const handleBack = () => {
     router.back()
 }
+
+const handleProfileClick = () => {
+    if (route.name === 'Controller') {
+        emit('profile-click');
+    }
+}
 </script>
 
 <template>
@@ -54,7 +62,7 @@ const handleBack = () => {
                 <BaseBreadcrumbs v-if="module" :title="module.title" :subject-title="subject.title" />
             </div>
 
-            <button v-else class="left-side">
+            <button v-else class="left-side" @click="handleProfileClick">
                 <TheProfilePicture :class="`${!isConnected && 'offline'} profilePicture`" />
                 <span class="pally">{{ beeName }}</span>
             </button>

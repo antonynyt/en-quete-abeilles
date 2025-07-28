@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import BaseModal from '../components/BaseModal.vue';
 import TheHeader from '@/components/TheHeader.vue';
 import { getWebSocketInstance } from '@/services/wsService';
@@ -24,110 +24,151 @@ defineProps({
     }
 });
 
+// Refs
 const modal = ref(null);
 const toast = ref(null);
+const currentBee = ref(null);
 const toastMessage = ref('Code invalide ou non reconnu.');
-const ws = getWebSocketInstance();
-const bee = ref(null);
 
-const { getTaskById } = useStrapiApi();
-const { sendBee, highlightBee } = useBroadcastChannel('hive', false);
+// Stores and services
 const beesStore = useBeesStore();
 const userStore = useUserStore();
-const alreadyScanned = ref(false);
-const timeSpent = ref();
+const { getTaskById } = useStrapiApi();
+const { sendBee, highlightBee } = useBroadcastChannel('hive', false);
+const ws = getWebSocketInstance();
 
-// fetch and replace by title in the bee ref
-const fetchTasks = async () => {
-    if (bee.value && bee.value.tasksCompleted) {
-        const tasksPromises = bee.value.tasksCompleted.map(async (taskId) => {
+// Computed
+const isUserConnected = computed(() => !!userStore.currentBee);
+const alreadyScanned = computed(() => currentBee.value && beesStore.beeExists(currentBee.value.id));
+const timeSpentFormatted = computed(() => {
+    return currentBee.value ? formatTimeFromTimestamp(currentBee.value.time) : '';
+});
+
+// Methods
+const showToast = (message = 'Code invalide ou non reconnu.') => {
+    toastMessage.value = message;
+    toast.value?.show();
+};
+
+const showModal = () => {
+    modal.value?.show();
+};
+
+const closeModal = () => {
+    modal.value?.close();
+};
+
+const loadUserBee = () => {
+    currentBee.value = userStore.currentBee;
+};
+
+const processBeeCode = async (code) => {
+    try {
+        const decodedData = atob(code);
+        const parsedBee = JSON.parse(decodedData);
+
+        if (!validateBeeObject(parsedBee)) {
+            throw new Error('Invalid bee object structure');
+        }
+
+        currentBee.value = parsedBee;
+        await fetchTasksForBee();
+        showModal();
+    } catch (error) {
+        console.error('Error processing bee data:', error);
+        showToast();
+    }
+};
+
+const fetchTasksForBee = async () => {
+    if (!currentBee.value?.tasksCompleted) return;
+
+    try {
+        const tasksPromises = currentBee.value.tasksCompleted.map(async (taskId) => {
             const task = await getTaskById(taskId);
             return task.data.title;
         });
-        bee.value.tasksCompleted = await Promise.all(tasksPromises);
-    }
-};
-
-const timeSpentFormatted = computed(() => {
-    return formatTimeFromTimestamp(timeSpent.value);
-});
-
-ws.onmessage = async (event) => {
-    try {
-        const data = JSON.parse(event.data);
-        if (data && typeof data === 'object' && data.type === 'beecode' && typeof data.code === 'string') {
-            try {
-                const decodedData = atob(data.code);
-                const parsedBee = JSON.parse(decodedData);
-
-                if (validateBeeObject(parsedBee)) {
-                    bee.value = parsedBee;
-                    await fetchTasks();
-                    if (beesStore.beeExists(bee.value.id)) {
-                        alreadyScanned.value = true;
-                    }
-                    timeSpent.value = bee.value.time
-                    modal.value.show();
-                } else {
-                    console.error('Invalid bee object structure');
-                }
-            } catch (innerError) {
-                console.error('Error processing bee data:', innerError);
-            }
-        } else {
-            toast.value?.show();
-            console.error('Invalid message format:', data);
-        }
+        currentBee.value.tasksCompleted = await Promise.all(tasksPromises);
     } catch (error) {
-        console.error('Error parsing WebSocket message:', error);
+        console.error('Error fetching tasks:', error);
     }
 };
 
-function validateBeeObject(obj) {
+const validateBeeObject = (obj) => {
     return obj
         && typeof obj === 'object'
         && typeof obj.name === 'string'
         && typeof obj.level === 'string'
-        && Array.isArray(obj.tasksCompleted)
-}
+        && Array.isArray(obj.tasksCompleted);
+};
 
 const handleBeeSend = () => {
-    if (bee.value) {
-        const scannedBee = beesStore.addScannedBee(bee.value);
+    if (!currentBee.value) return;
 
-        if (!scannedBee) {
-            toastMessage.value = 'Cette abeille a déjà été scannée.';
-            toast.value?.show();
-            return;
-        }
+    const scannedBee = beesStore.addScannedBee(currentBee.value);
 
-        userStore.setCurrentBee(bee.value);
-        highlightBee(scannedBee.id);
-        sendBee(JSON.stringify(scannedBee));
-        //TODO: PUSH TO DATABASE
-        modal.value.close();
+    if (!scannedBee) {
+        showToast('Cette abeille a déjà été scannée.');
+        return;
     }
+
+    userStore.setCurrentBee(currentBee.value);
+    highlightBee(scannedBee.id);
+    sendBee(JSON.stringify(scannedBee));
+    closeModal();
 };
 
 const handleBeeShow = () => {
-    if (bee.value) {
-        userStore.setCurrentBee(bee.value);
-        highlightBee(bee.value.id);
-        modal.value.close();
+    if (!currentBee.value) return;
+
+    userStore.setCurrentBee(currentBee.value);
+    highlightBee(currentBee.value.id);
+    closeModal();
+};
+
+const handleProfileClick = () => {
+    if (isUserConnected.value) {
+        loadUserBee();
+    } else {
+        currentBee.value = null;
+    }
+    showModal();
+};
+
+// WebSocket handling
+ws.onmessage = async (event) => {
+    try {
+        const data = JSON.parse(event.data);
+
+        if (data?.type === 'beecode' && typeof data.code === 'string') {
+            await processBeeCode(data.code);
+        } else {
+            showToast();
+        }
+    } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+        showToast();
     }
 };
 
+// Watch for user connection changes
+watch(isUserConnected, (connected) => {
+    if (!connected) {
+        currentBee.value = null;
+    }
+});
 </script>
 
 <template>
     <div>
-        <BaseModal ref="modal" :showCloseButton="false">
-            <div class="bee-modal" v-if="bee">
+        <BaseModal ref="modal">
+            <!-- Bee Modal when user is connected and has a bee -->
+            <div class="bee-modal" v-if="currentBee">
                 <div class="bee-modal__info-section">
                     <TheBee class="bee-modal__image" />
                     <div class="bee-modal__details">
-                        <h2>{{ bee.name }}</h2>
-                        <p class="pally">Niveau: {{ bee.level }}</p>
+                        <h2>{{ currentBee.name }}</h2>
+                        <p class="pally">{{ currentBee.level }}</p>
                     </div>
                 </div>
                 <div class="bee-modal__content">
@@ -136,23 +177,37 @@ const handleBeeShow = () => {
                     <div>
                         <p class="pally">Tu sais maintenant</p>
                         <ul>
-                            <ObjectiveLi v-for="(task, index) in bee.tasksCompleted" :key="index">{{ task }}
+                            <ObjectiveLi v-for="(task, index) in currentBee.tasksCompleted" :key="index">
+                                {{ task }}
                             </ObjectiveLi>
                         </ul>
                     </div>
-                    <BaseButton class="primary bee-modal__send-button" v-if="!alreadyScanned" @click="handleBeeSend()">
-                        Relâcher {{ bee.name }}
+                    <BaseButton class="primary bee-modal__send-button" v-if="!alreadyScanned" @click="handleBeeSend">
+                        Relâcher {{ currentBee.name }}
                     </BaseButton>
-                    <BaseButton class="primary bee-modal__send-button" v-else @click="handleBeeShow()">
-                        Afficher {{ bee.name }}
+                    <BaseButton class="primary bee-modal__send-button" v-else @click="handleBeeShow">
+                        Afficher {{ currentBee.name }}
                     </BaseButton>
                 </div>
             </div>
+
+            <!-- Default Modal when user is not connected -->
+            <div class="default-modal" v-else>
+                <div class="default-modal__content">
+                    <h2 class="pally">Tu n'es pas connecté...</h2>
+                    <p>Participe au jeu de piste ou fais scanner sur cette borne ton code abeille à la fin de toutes les
+                        activités.</p>
+                </div>
+                <div class="default-modal__image">
+                    <img src="@/assets/app-qrcode.svg" alt="https://app.cca-abeille.ch">
+                    <p class="default-modal__image-label">Scanne pour accéder au jeu.</p>
+                </div>
+            </div>
         </BaseModal>
-        <BaseToast ref="toast" :duration="5000" type="danger" :message="toastMessage" :autoShow="false">
-            {{ toastMessage }}
-        </BaseToast>
-        <TheHeader :module="module" :subject="subject" />
+
+        <BaseToast ref="toast" :duration="5000" type="danger" :message="toastMessage" :autoShow="false" />
+        <TheHeader :module="module" :subject="subject" @profile-click="handleProfileClick" />
+
         <slot />
     </div>
 </template>
@@ -207,5 +262,34 @@ const handleBeeShow = () => {
 
 .bee-modal__send-button {
     margin-top: auto;
+}
+
+.default-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-lg) var(--spacing-xxl);
+    text-align: center;
+}
+
+.default-modal h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.default-modal p {
+    max-width: 650px;
+}
+
+.default-modal img {
+    width: 100%;
+    max-width: 200px;
+    margin-top: var(--spacing-md);
+}
+
+.default-modal__image-label {
+    font-size: var(--font-size-xs);
+    margin-top: var(--spacing-xs);
+    color: var(--color-brown);
 }
 </style>
