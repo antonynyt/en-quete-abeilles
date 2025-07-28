@@ -1,13 +1,14 @@
 <script setup>
-import TheHeader from '@/components/TheHeader.vue';
 import { useStrapiApi } from '../composables/useStrapiApi';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import BaseCardList from '@/components/BaseCardList.vue';
 import BaseCard from '@/components/BaseCard.vue';
 import ControllerLayout from '@/layouts/ControllerLayout.vue';
 
 const { getModules } = useStrapiApi();
 const modules = ref([]);
+const cardListRef = ref(null);
+
 const fetchModules = async () => {
     try {
         const response = await getModules();
@@ -17,15 +18,36 @@ const fetchModules = async () => {
     }
 };
 
-onMounted(() => {
-    fetchModules();
+const saveScrollPosition = () => {
+    if (cardListRef.value) {
+        const scrollContainer = cardListRef.value.$el || cardListRef.value;
+        sessionStorage.setItem('moduleListScroll', scrollContainer.scrollLeft);
+    }
+};
+
+const restoreScrollPosition = () => {
+    const savedPosition = sessionStorage.getItem('moduleListScroll');
+    if (savedPosition && cardListRef.value) {
+        const scrollContainer = cardListRef.value.$el || cardListRef.value;
+        scrollContainer.scrollLeft = parseInt(savedPosition);
+    }
+};
+
+onMounted(async () => {
+    await fetchModules();
+    // Restore scroll position after data is loaded
+    restoreScrollPosition();
+});
+
+onBeforeUnmount(() => {
+    saveScrollPosition();
 });
 </script>
 
 <template>
     <ControllerLayout class="page-container">
         <div class="module-list">
-            <BaseCardList>
+            <BaseCardList ref="cardListRef">
                 <BaseCard v-for="module in modules" :key="module.id" :item="module"
                     :to="`controller/module/${module.documentId}`" />
             </BaseCardList>

@@ -33,6 +33,7 @@ const isConnected = computed(() => {
 });
 
 const handleReset = () => {
+    sessionStorage.clear();
     localStorage.removeItem('user');
     window.location.replace('/');
 };
