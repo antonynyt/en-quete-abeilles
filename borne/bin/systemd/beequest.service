@@ -1,0 +1,14 @@
+[Unit]
+Description=Démarrage de la borne
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=turbopollen
+WorkingDirectory=/home/turbopollen/Documents/en-quete-abeilles/borne
+ExecStart=//home/turbopollen/Documents/en-quete-abeilles/borne/bin/start.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
