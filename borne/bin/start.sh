@@ -10,7 +10,7 @@ while ! docker compose ps | grep -q "Up"; do
 done
 
 if which chromium-browser &>/dev/null; then
-    ./launch-screens.sh
+    bin/launch-screens.sh
 else
     exit 1
 fi
