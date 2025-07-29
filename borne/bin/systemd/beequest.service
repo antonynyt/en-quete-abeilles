@@ -6,8 +6,8 @@ Requires=docker.service
 [Service]
 Type=simple
 User=turbopollen
-WorkingDirectory=/home/turbopollen/Documents/en-quete-abeilles/borne
-ExecStart=//home/turbopollen/Documents/en-quete-abeilles/borne/bin/start.sh
+WorkingDirectory=/home/turbopollen/en-quete-abeilles/borne
+ExecStart=/home/turbopollen/en-quete-abeilles/borne/bin/start.sh
 Restart=on-failure
 
 [Install]
