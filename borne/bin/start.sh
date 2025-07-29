@@ -4,7 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 docker compose up --force-recreate -d
 
-while ! docker compose ps | grep -q "Up"; do
+while ! docker compose ps | grep -q "running"; do
     sleep 2
     docker compose ps
 done
