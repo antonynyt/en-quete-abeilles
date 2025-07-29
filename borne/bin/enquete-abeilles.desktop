@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=En Quête Abeilles
+Exec=/home/turbopollen/en-quete-abeilles/borne/bin/start.sh
+Icon=/home/turbopollen/en-quete-abeilles/borne/bin/app-icon.png
+Terminal=false
