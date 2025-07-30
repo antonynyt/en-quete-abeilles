@@ -1,0 +1,36 @@
+{
+  "name": "app-wrapper",
+  "ProductName": "En Quête d'Abeilles - Borne",
+  "description": "Electron wrapper pour la borne",
+  "author": {
+    "name": "Antony",
+    "email": "hello@antonyneyret.ch"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "homepage": "http://localhost:8080",
+  "build": {
+    "appId": "com.antonyneyret.beequestwrapper",
+    "productName": "En Quête d'Abeilles - Borne",
+    "files": [
+      "**/*"
+    ],
+    "linux": {
+      "maintainer": "hello@antonyneyret.ch",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icons"
+    }
+  },
+  "devDependencies": {
+    "electron": "^37.2.4",
+    "electron-builder": "^26.0.12"
+  }
+}
