@@ -1,6 +1,6 @@
 {
-  "name": "app-wrapper",
-  "ProductName": "En Quête d'Abeilles - Borne",
+  "name": "borne-wrapper",
+  "ProductName": "borne-wrapper",
   "description": "Electron wrapper pour la borne",
   "author": {
     "name": "Antony",
@@ -16,7 +16,7 @@
   "homepage": "http://localhost:8080",
   "build": {
     "appId": "com.antonyneyret.beequestwrapper",
-    "productName": "En Quête d'Abeilles - Borne",
+    "productName": "borne-wrapper",
     "files": [
       "**/*"
     ],
@@ -24,9 +24,9 @@
       "maintainer": "hello@antonyneyret.ch",
       "target": [
         "AppImage",
-        "deb"
+        "dir"
       ],
-      "icon": "build/icons"
+      "icon": "build/icon.png"
     }
   },
   "devDependencies": {
