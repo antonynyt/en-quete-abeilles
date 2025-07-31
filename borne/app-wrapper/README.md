@@ -21,6 +21,6 @@
     ```
 
 The compiled and packaged application should be stored in:
-`app-wrapper/dist/borne-wrapper/borne-wrapper`
+`app-wrapper/dist/linux-arm64-unpacked/borne-wrapper`
 
 -   **Note:** to kill the process on the pi use SSH (so maybe lookup for ifconfig before) and then `pkill borne`.

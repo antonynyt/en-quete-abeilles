@@ -10,9 +10,9 @@ while ! docker compose ps | grep -q "Up"; do
 done
 
 # start the app-wrapper
-if [ -f "/home/turbopollen/en-quete-abeilles/borne/app-wrapper/dist/borne-wrapper/borne-wrapper" ]; then
+if [ -f "/home/turbopollen/en-quete-abeilles/borne/app-wrapper/dist/linux-arm64-unpacked/borne-wrapper" ]; then
     echo "Starting app-wrapper..."
-    /home/turbopollen/en-quete-abeilles/borne/app-wrapper/dist/borne-wrapper/borne-wrapper &
+    /home/turbopollen/en-quete-abeilles/borne/app-wrapper/dist/linux-arm64-unpacked/borne-wrapper &
 else
     echo "App-wrapper not found, skipping..."
 fi

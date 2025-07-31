@@ -20,6 +20,7 @@ install-service:
 	sudo systemctl start beequest.service
 
 install-map-touchscreen:
+	cp bin/map-touchscreen.sh /home/turbopollen/map-touchscreen.sh
 	echo '@/home/turbopollen/map-touchscreen.sh' >> /etc/xdg/lxsession/LXDE-pi/autostart
 
 stop-service:
