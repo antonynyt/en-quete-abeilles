@@ -4,8 +4,8 @@ start:
 update:
 	bin/update.sh
 
-launch-screens:
-	bin/launch-screens.sh
+map-touchscreen:
+	bin/map-touchscreen.sh
 
 install-app:
 	cp bin/enquete-abeilles.desktop ~/.local/share/applications/
@@ -19,6 +19,9 @@ install-service:
 	sudo systemctl enable beequest.service
 	sudo systemctl start beequest.service
 
+install-map-touchscreen:
+	echo '@/home/turbopollen/map-touchscreen.sh' >> /etc/xdg/lxsession/LXDE-pi/autostart
+
 stop-service:
 	sudo systemctl stop beequest.service
 
@@ -27,3 +30,6 @@ remove-service:
 	sudo systemctl stop beequest.service
 	sudo rm -f /etc/systemd/system/beequest.service
 	sudo systemctl daemon-
+
+wipe:
+	rm -r /home/turbopollen/.config/borne-wrapper/

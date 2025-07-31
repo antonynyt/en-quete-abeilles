@@ -17,18 +17,24 @@ To run the backend and frontend in development mode (without Docker):
 -   **Important:** For scanner setup and configuration, see the documentation in  
     [backend/scanner/README.md](backend/scanner/README.md)
 
-2. **Install and run in both directories:**
+2. **Install npm dependancies in directories:**
     ```sh
     cd backend
     npm install
-    npm run dev
     ```
     In a separate terminal:
     ```sh
     cd frontend
     npm install
-    npm run dev
     ```
+    In a separate terminal:
+    ```sh
+    cd app-wrapper
+    npm install
+    ```
+
+-   **Important:** For app-wrapper setup and configuration, see the documentation in  
+    [app-wrapper/README.md](app-wrapper/README.md)
 
 ---
 
@@ -50,13 +56,17 @@ To run the backend and frontend in development mode (without Docker):
     - This is required for the frontend to communicate with the Strapi API.
 
 3. **Manual control with Make:**
-    - To start compose plus the kiosk displays:
+    - To start docker compose plus the kiosk displays:
         ```sh
         make start
         ```
-    - To update (pull latest images and restart):
+    - To update (pull latest images and restart) :
         ```sh
         make update
+        ```
+    - To wipe borne storage :
+        ```sh
+        make wipe
         ```
 
 ## Manual Installation Shortcuts
@@ -81,9 +91,11 @@ You can use the provided Makefile to install the desktop shortcut and systemd se
     make stop-service
     ```
 
--   **Remove the systemd service:**
+-   **Map the touchscreen display:**
     ```sh
-    make remove-service
+    make map-touchscreen
+    # you can also make it permanent:
+    make install-map-touchscreen
     ```
 
 ---
