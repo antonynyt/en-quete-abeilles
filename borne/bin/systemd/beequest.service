@@ -1,7 +1,7 @@
 [Unit]
 Description=Démarrage de la borne
-After=docker.service
-Requires=docker.service
+After=docker.service chromium.service display-manager.service
+Requires=display-manager.service
 
 [Service]
 Type=simple

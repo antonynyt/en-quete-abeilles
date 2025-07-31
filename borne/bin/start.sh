@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+DISPLAY=:0
 
 cd "$(dirname "$0")/.."
 docker compose up --force-recreate -d
