@@ -12,7 +12,7 @@ done
 # start the app-wrapper
 if [ -f "app-wrapper/dist/borne-wrapper/borne-wrapper" ]; then
     echo "Starting app-wrapper..."
-    ./app-wrapper/dist/borne-wrapper/borne-wrapper &
+    /home/turbopollen/en-quete-abeilles/borne/app-wrapper/dist/borne-wrapper/borne-wrapper &
 else
     echo "App-wrapper not found, skipping..."
 fi
