@@ -13,10 +13,4 @@ if ! xrandr | grep -q "HDMI-1 connected"; then
   exit 1
 fi
 
-# Already mapped
-if xinput list-props "ILITEK ILITEK-TP" | grep -q "Coordinate Transformation Matrix"; then
-  echo "Touchscreen already mapped to HDMI-1."
-  exit 0
-fi
-
 xinput map-to-output "ILITEK ILITEK-TP" HDMI-1
