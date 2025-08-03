@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import BaseModal from '../components/BaseModal.vue';
 import TheHeader from '@/components/TheHeader.vue';
 import { getWebSocketInstance } from '@/services/wsService';
@@ -135,6 +135,17 @@ const handleProfileClick = () => {
     showModal();
 };
 
+// Manual bee websocket handling
+window.sendBeeCodeDebug = async (code) => {
+    try {
+        // Directly use the code argument
+        await processBeeCode(code);
+    } catch (error) {
+        console.error('Error processing bee code:', error);
+        showToast();
+    }
+};
+
 // WebSocket handling
 ws.onmessage = async (event) => {
     try {
@@ -156,6 +167,15 @@ watch(isUserConnected, (connected) => {
     if (!connected) {
         currentBee.value = null;
     }
+});
+
+onMounted(() => {
+    // rehydrate bees store from localStorage
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'bees') {
+            beesStore.$hydrate({ runHooks: false });
+        }
+    });
 });
 </script>
 

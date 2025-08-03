@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import StrapiImage from '@/components/StrapiImage.vue'
 import VideoPlayer from '@/components/VideoPlayer.vue'
