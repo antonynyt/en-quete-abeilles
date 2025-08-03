@@ -30,9 +30,15 @@ export class BeeManager {
 
         const bee = new Bee(this.texture, beeData)
 
-        const margin = 100
-        const spawnX = margin + Math.random() * (screenWidth - 2 * margin)
-        const spawnY = margin + Math.random() * (screenHeight - 2 * margin)
+        const centerX = screenWidth / 2
+        const centerY = screenHeight / 2
+        const spawnRadius = Math.min(screenWidth, screenHeight) / 3
+
+        const angle = Math.random() * 2 * Math.PI
+        const distance = Math.random() * spawnRadius
+
+        const spawnX = centerX + Math.cos(angle) * distance
+        const spawnY = centerY + Math.sin(angle) * distance
 
         this.hideNametags()
 
