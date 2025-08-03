@@ -2,6 +2,8 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { generateBeeName } from '@/utils/nameGenerator'
 
+const MAX_BEES = 50
+
 export const useBeesStore = defineStore(
     'bees',
     () => {
@@ -34,9 +36,12 @@ export const useBeesStore = defineStore(
             const existingBee = beeExists(newBee.id)
             if (existingBee) return
 
-            if (!existingBee) {
-                bees.value.push(newBee)
+            // FIFO: Remove oldest if at max capacity
+            if (bees.value.length >= MAX_BEES) {
+                bees.value.shift()
             }
+
+            bees.value.push(newBee)
 
             return newBee
         }
