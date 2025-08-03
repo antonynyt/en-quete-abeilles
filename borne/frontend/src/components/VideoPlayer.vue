@@ -41,7 +41,8 @@ const { videoRef } = useVideoControl()
 
 .video-element {
     margin: 0 auto;
-    width: auto;
+    width: 100%;
+    max-width: 1920px;
     max-height: 100%;
     border: var(--border-size) solid var(--color-brown);
     border-radius: var(--radius-sm);
