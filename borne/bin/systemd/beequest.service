@@ -6,6 +6,8 @@ Requires=display-manager.service
 [Service]
 Type=simple
 User=turbopollen
+Environment="DISPLAY=:0"
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
 WorkingDirectory=/home/turbopollen/en-quete-abeilles/borne
 ExecStart=/home/turbopollen/en-quete-abeilles/borne/bin/start.sh
 Restart=on-failure
