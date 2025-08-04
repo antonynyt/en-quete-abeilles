@@ -9,6 +9,7 @@ import BaseBreadcrumbs from './BaseBreadcrumbs.vue';
 import { useBroadcastChannel } from '@/composables/useBroadcastChannel';
 import IconHome from './icons/IconHome.vue';
 import { useUserStore } from '@/stores/userStore';
+import IconRefresh from './icons/IconRefresh.vue';
 
 const { sendMessage } = useBroadcastChannel('hive', false);
 const userStore = useUserStore();
@@ -73,6 +74,9 @@ const handleProfileClick = () => {
                     <IconHome />
                 </BaseButton>
                 <BaseButton class="danger" @click="handleReset" v-if="isConnected">Déconnexion</BaseButton>
+                <BaseButton @click="handleReset" class="reset-button" aria-label="Réinitialiser">
+                    <IconRefresh />
+                </BaseButton>
             </div>
         </div>
     </header>
@@ -112,7 +116,8 @@ const handleProfileClick = () => {
     gap: var(--spacing-xs);
 }
 
-.home-btn :deep(svg) {
+.home-btn :deep(svg),
+.reset-button :deep(svg) {
     width: auto;
     height: var(--font-size-lg);
 }
@@ -120,5 +125,11 @@ const handleProfileClick = () => {
 span {
     font-size: var(--font-size-md);
     flex-shrink: 0;
+}
+
+.reset-button {
+    z-index: 2;
+    height: 100%;
+    width: auto;
 }
 </style>
