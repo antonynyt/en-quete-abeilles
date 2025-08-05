@@ -16,6 +16,7 @@ To run the backend and frontend in development mode (without Docker):
 
 -   **Important:** For scanner setup and configuration, see the documentation in  
     [backend/scanner/README.md](backend/scanner/README.md)
+-   To Test the popup scanner in the borne frontend, you can use `sendBeeCodeDebug(Base64 code without beecode prefix)` in the `/controller` browser console tab.
 
 2. **Install npm dependancies in directories:**
     ```sh
@@ -119,3 +120,4 @@ A systemd service is provided to automatically start the application after Docke
 -   The backend expects a serial device to be available and mapped (see `compose.yaml`).
 -   The frontend requires a `.env` file with the Strapi API URL.
 -   On non-Linux systems, serial device passthrough will **not** work in docker
+-   For adjusting the brightness, `sudo ddcutil setvcp 10 PERCENTAGE_VALUE`
