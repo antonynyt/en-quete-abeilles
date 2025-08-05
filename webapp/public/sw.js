@@ -24,7 +24,7 @@ const CORE_FILES = [
 
 const API_DOMAIN = self.location.hostname.startsWith('localhost')
     ? 'http://localhost:1337'
-    : `https://api.${self.location.hostname.replace('www.', '')}`
+    : `https://cms.${self.location.hostname.replace('app.', '')}`
 
 const API_ENDPOINTS = [
     `${API_DOMAIN}/api/tasks?populate=*`,
@@ -244,7 +244,7 @@ async function handleImageRequest(event) {
 
                 event.waitUntil(
                     cache.put(
-                        urlString,
+                        request,
                         new Response(cloned.body, {
                             status: cloned.status,
                             statusText: cloned.statusText,

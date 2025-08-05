@@ -1,6 +1,6 @@
 {
   "name": "En Quête d'abeilles",
-  "short_name": "BeeQuest",
+  "short_name": "En Quête d'abeilles",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -18,23 +18,23 @@
   "start_url": "/",
   "scope": "/",
   "theme_color": "#FFFDF9",
-  "background_color": "#FFFDF9",
+  "background_color": "#FFB91D",
   "display": "standalone",
   "screenshots": [
     {
-      "src": "screenshots/app-screenshot-1.webp",
+      "src": "/screenshots/app-screenshot-1.webp",
       "sizes": "750x1334",
       "form_factor": "narrow",
       "label": "Vue mobile du profil"
     },
     {
-      "src": "screenshots/app-screenshot-2.webp",
+      "src": "/screenshots/app-screenshot-2.webp",
       "sizes": "750x1334",
       "form_factor": "narrow",
       "label": "Vue mobile du scanner"
     },
     {
-      "src": "screenshots/app-screenshot-3.webp",
+      "src": "/screenshots/app-screenshot-3.webp",
       "sizes": "750x1334",
       "form_factor": "narrow",
       "label": "Vue mobile des taches"
