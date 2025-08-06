@@ -9,7 +9,7 @@ export default () => ({
                 {
                     uid: "api::task.task",
                     computeValue: (uid, status, document) => {
-                        return `/t/${document.documentId}`;
+                        return `https://app.cca-abeille.ch/t/${document.documentId}`;
                     },
                 },
             ],
