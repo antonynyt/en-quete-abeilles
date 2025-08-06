@@ -11,6 +11,7 @@ The frontend web application that provides the user interface for the main exper
 
 ### `/strapi`
 The backend Content Management System (CMS) built with Strapi.
+You can use `https://cms.cca-abeille.ch` if you don't want to install Strapi and setup some mock data.
 
 ### `/borne`
 An interactive kiosk system with barcode scanning capabilities, designed for Raspberry Pi deployment. Includes:
