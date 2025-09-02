@@ -77,8 +77,8 @@ onMounted(async () => {
 
             <div class="banner-info" v-if="!currentModule && !currentSubject">
                 <div class="banner-info-content">
-                    <h1>Ajoute ton abeille !</h1>
-                    <p>Participe au jeu de piste et découvre l'abeille</p>
+                    <h1>Adopte une abeille !</h1>
+                    <p>Participe au jeu de piste.</p>
                 </div>
                 <div class="banner-info-cover">
                     <img src="@/assets/app-qrcode.svg" alt="https://app.cca-abeille.ch" />
